@@ -1,0 +1,15 @@
+body {
+  font-family: 'Inter';font-size: 22px;
+  padding: 0 0 30px 0;
+  background-color: #12151d;
+  letter-spacing: -0.3px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.border-image { 
+  border-image: linear-gradient(161.06deg, rgba(154, 232, 255, 0) 3.06%, #9AE8FF 32%, #0A9AFC 56.47%, rgba(10, 154, 252, 0) 86.85%);
+  border-width: 2px;
+}

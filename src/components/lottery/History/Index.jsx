@@ -29,13 +29,17 @@ export const History = () => {
                     {dayjs(history.time).format('DD/MM/YYYY')}
                   </td>
                   <td className="flex gap-3">
-                    {history.prize.map((numberElement, index) => (
-                      <TicketNumber
-                        number={numberElement}
-                        key={index}
-                        className="!text-white"
-                      />
-                    ))}
+                    {history.prize.map((numberElement, index) => {
+                      return (
+                        <TicketNumber
+                          number={
+                            history?.status === 'done' ? numberElement : '??'
+                          }
+                          key={index}
+                          className="!text-white"
+                        />
+                      )
+                    })}
                   </td>
                   <td className="text-xl font-semibold">
                     ${numberWithCommas(history.current_pot)}
@@ -49,7 +53,8 @@ export const History = () => {
                           }
                           key={index}
                           className={
-                            history?.prize.includes(numberElement) && history?.status === 'done'
+                            history?.prize.includes(numberElement) &&
+                            history?.status === 'done'
                               ? '!text-cyan-500'
                               : '!text-white'
                           }

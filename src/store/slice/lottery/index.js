@@ -25,14 +25,14 @@ export const lotterySlice = createSlice({
         errors: null,
       }
     },
-    getSettingSuccess: (state) => {
+    getSettingSuccess: (state, action) => {
       return {
         ...state,
         isLoading: false,
         errors: null,
       }
     },
-    getSettingFailed: (state) => {
+    getSettingFailed: (state, action) => {
       return {
         ...state,
         setting: dummySetting,
@@ -40,14 +40,14 @@ export const lotterySlice = createSlice({
         errors: 'Có lỗi xảy ra vui lòng thử lại',
       }
     },
-    getHistory: (state) => {
+    getHistory: (state, action) => {
       return {
         ...state,
         isLoading: true,
         errors: null,
       }
     },
-    getHistorySuccess: (state) => {
+    getHistorySuccess: (state, action) => {
       return {
         ...state,
         isLoading: false,
@@ -56,7 +56,7 @@ export const lotterySlice = createSlice({
         errors: null,
       }
     },
-    getHistoryFailed: (state) => {
+    getHistoryFailed: (state, action) => {
       return {
         ...state,
         isLoading: false,
@@ -65,21 +65,21 @@ export const lotterySlice = createSlice({
         errors: null,
       }
     },
-    submitBet: (state) => {
+    submitBet: (state, action) => {
       return {
         ...state,
         isLoading: true,
         errors: null,
       }
     },
-    submitBetSuccess: (state) => {
+    submitBetSuccess: (state, action) => {
       return {
         ...state,
         isLoading: true,
         errors: null,
       }
     },
-    submitBetFailed: (state) => {
+    submitBetFailed: (state, action) => {
       return {
         ...state,
         isLoading: true,

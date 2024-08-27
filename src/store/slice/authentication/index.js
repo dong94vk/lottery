@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { SLICE_AUTH } from './type'
+import { first } from 'lodash'
 
 const authInitialState = {
-  data: [],
+  account: null,
   isLoading: false,
   errors: null,
 }
@@ -39,8 +40,30 @@ export const authSlice = createSlice({
         errors: null,
       }
     },
+    getAccountInfo: (state) => {
+      return { ...state, isLoading: true, errors: null }
+    },
+    getAccountInfoSuccess: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        errors: null,
+        account: first(action.payload),
+      }
+    },
+    getAccountInfoFailed: (state) => {
+      return { ...state, isLoading: false, errors: null }
+    },
   },
 })
 
-export const { logout, login, loginSuccess, loginFailed } = authSlice.actions
+export const {
+  logout,
+  login,
+  loginSuccess,
+  loginFailed,
+  getAccountInfo,
+  getAccountInfoSuccess,
+  getAccountInfoFailed,
+} = authSlice.actions
 export default authSlice.reducer

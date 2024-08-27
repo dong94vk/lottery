@@ -4,12 +4,14 @@ import {
   watchDoGetSetting,
   watchDoSubmitBet,
 } from './lottery'
+import { watchDoGetAccountInfo } from './authentication'
 
 const rootSaga = function* () {
   yield all([
     fork(watchDoGetSetting),
     fork(watchDoGetHistory),
     fork(watchDoSubmitBet),
+    fork(watchDoGetAccountInfo),
   ])
 }
 

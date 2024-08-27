@@ -2,7 +2,7 @@ import createSagaMiddleware from 'redux-saga'
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 import lottery from './slice/lottery'
-import authReducer from './slice/authentication'
+import auth from './slice/authentication'
 import rootSaga from './sagas'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -15,7 +15,7 @@ const middleware = (getDefaultMiddleware) => {
 }
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: auth,
   lottery: lottery,
 })
 

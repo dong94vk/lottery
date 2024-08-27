@@ -6,9 +6,14 @@ import { Row } from 'antd'
 import { useEffect, useState } from 'react'
 import { createArrayHasQuantityElement } from 'src/components/lottery/ChooseNumber/helper'
 import useLottery from 'src/store/hooks/lottery'
+import useAuth from 'src/store/hooks/authentication'
+import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 
 export const LotteryPage = () => {
   const { actions, data } = useLottery()
+  const {
+    data: { account },
+  } = useAuth()
 
   useEffect(() => {
     actions.getSetting('TX1')
@@ -21,19 +26,21 @@ export const LotteryPage = () => {
   )
 
   useEffect(() => {
-    setSelectedNumber(
-      createArrayHasQuantityElement(setting?.numberQuantity),
-    )
+    setSelectedNumber(createArrayHasQuantityElement(setting?.numberQuantity))
   }, [setting])
 
   const onSubmitBuyTicket = (numberSelected) => {
     setSelectedNumber(numberSelected)
-    actions.submitBet({
-      account_id: 2,
-      game_id: currentBet?.id,
-      amount: setting?.price,
-      bet_value: numberSelected.join(','),
-    })
+    if (+account?.attributes?.balance > +setting?.price) {
+      return actions.submitBet({
+        account_id: +account.id,
+        game_id: +currentBet?.id,
+        amount: setting?.price,
+        bet_value: numberSelected.join(','),
+      })
+    }
+
+    return addNotification('Not enough amount!', NOTIFICATION_TYPE.ERROR)
   }
 
   return (

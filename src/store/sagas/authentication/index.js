@@ -1,9 +1,17 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
-import { loginFailed } from 'src/store/slice/authentication'
-import { LOGIN_START } from 'src/store/slice/authentication/type'
+import {
+  getAccountInfoFailed,
+  getAccountInfoSuccess,
+  loginFailed,
+} from 'src/store/slice/authentication'
+import {
+  GET_ACCOUNT_INFO,
+  LOGIN_START,
+} from 'src/store/slice/authentication/type'
 
+/* start login */
 const apiLogin = (params) => {
   return api.post(API_URL.AUTH.LOGIN, params)
 }
@@ -28,7 +36,27 @@ function* doLogin({ payload }) {
     yield put(loginFailed(error))
   }
 }
+/* end login */
+const apiGetAccountInfo = () => {
+  return api.get(API_URL.AUTH.ACCOUNT_INFO)
+}
 
-export default function* watchDoLogin() {
+function* doGetAccountInfo(payload) {
+  try {
+    const response = yield call(apiGetAccountInfo, payload)
+    if (response.status !== 200) {
+      yield put(getAccountInfoFailed())
+    }
+    yield put(getAccountInfoSuccess(response.data))
+  } catch (error) {
+    yield put(getAccountInfoFailed(error))
+  }
+}
+
+export function* watchDoLogin() {
   yield takeLatest(LOGIN_START, doLogin)
+}
+
+export function* watchDoGetAccountInfo() {
+  yield takeLatest(GET_ACCOUNT_INFO, doGetAccountInfo)
 }

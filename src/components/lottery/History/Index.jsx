@@ -4,8 +4,9 @@ import dayjs from 'dayjs'
 import { numberWithCommas } from '../Prize/helper'
 import useLottery from 'src/store/hooks/lottery'
 import { useEffect, useState } from 'react'
-import { flatMap, map } from 'lodash'
+import { flatMap, isEmpty, map } from 'lodash'
 import { apiBetHistory } from 'src/store/sagas/lottery'
+import { createArrayHasQuantityElement } from '../ChooseNumber/helper'
 
 export const History = () => {
   const { data } = useLottery()
@@ -39,17 +40,18 @@ export const History = () => {
           </thead>
           <tbody>
             {histories?.map((history, index) => {
-              const betHistory = (betHistories.find(
+              const betHistory = betHistories.find(
                 (betHistory) => +history.id === +betHistory.attributes.source,
-              )?.attributes)
-              console.log('bet :>> ', betHistory)
+              )?.attributes
+              const betValue = betHistory?.bet_value ? betHistory?.bet_value?.split(',') : createArrayHasQuantityElement(6)
+              const historyPrize = !isEmpty(history?.prize) ? history?.prize : createArrayHasQuantityElement(6)
               return (
                 <tr key={index}>
                   <td className="text-xl font-semibold">
                     {dayjs(history.time).format('DD/MM/YYYY')}
                   </td>
                   <td className="flex gap-3">
-                    {history?.prize?.map((numberElement, index) => {
+                    {historyPrize.map((numberElement, index) => {
                       return (
                         <TicketNumber
                           number={
@@ -65,11 +67,11 @@ export const History = () => {
                     ${numberWithCommas(history.current_pot)}
                   </td>
                   <td className="flex gap-3">
-                    {betHistory?.bet_value?.split(',').map((numberElement, index) => {
+                    {betValue.map((numberElement, index) => {
                       return (
                         <TicketNumber
                           number={
-                            history?.status === 'done' ? numberElement : '??'
+                            history?.status === 'done' && numberElement ? numberElement : '??'
                           }
                           key={index}
                           className={
@@ -82,7 +84,7 @@ export const History = () => {
                       )
                     })}
                   </td>
-                  <td className="text-xl font-semibold">{betHistory?.win_amount}</td>
+                  <td className="text-xl font-semibold">{betHistory?.win_amount ?? '??'}</td>
                 </tr>
               )
             })}

@@ -1,30 +1,12 @@
 import { useState } from 'react'
 import { PrizeNumber } from './elements/Prize'
+import useLottery from 'src/store/hooks/lottery'
 
 export const Prize = (props) => {
   const [selectedPrize, setSelectedPrize] = useState(null)
-  const prizes = [
-    {
-      prize: 1200000,
-      name: 'First prize',
-      icon: 'firstPrize',
-    },
-    {
-      prize: 5000,
-      name: '2nd prize',
-      icon: 'secondPrize',
-    },
-    {
-      prize: 50,
-      name: '3rd prize',
-      icon: 'thirdPrize',
-    },
-    {
-      prize: 5,
-      name: '4th prize',
-      icon: 'thirdPrize',
-    },
-  ]
+  const { data } = useLottery()
+  const { prizes } = data
+
   const handleClickPrize = (prize) => {
     setSelectedPrize(prize.prize)
     props.setSelectedPrize(prize.prize)

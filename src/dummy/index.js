@@ -1,8 +1,32 @@
-export const dummySetting = {
+export const defaultSetting = {
   range: { min: 0, max: 45 },
-  numberQuantity: 6,
+  price: 1,
+  numberQuantity: 3,
   isDuplicate: true,
 }
+
+export const defaultPrizes = [
+  {
+    prize: 1200000,
+    name: 'First prize',
+    icon: 'firstPrize',
+  },
+  {
+    prize: 5000,
+    name: '2nd prize',
+    icon: 'secondPrize',
+  },
+  {
+    prize: 50,
+    name: '3rd prize',
+    icon: 'thirdPrize',
+  },
+  {
+    prize: 5,
+    name: '4th prize',
+    icon: 'thirdPrize',
+  },
+]
 
 export const dummyHistory = [
   {

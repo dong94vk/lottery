@@ -7,7 +7,7 @@ import useLottery from 'src/store/hooks/lottery'
 import { useState } from 'react'
 
 export const ChooseNumber = (props) => {
-  const { selectedNumber, onSubmitBuyTicket } = props
+  const { selectedNumber } = props
   const { data } = useLottery()
   const { currentBet, setting } = data
   const [numberSelected, setNumberSelected] = useState([])
@@ -17,7 +17,7 @@ export const ChooseNumber = (props) => {
   }
 
   const onSubmit = () => {
-    onSubmitBuyTicket(numberSelected)
+    props.onSubmitBuyTicket(numberSelected)
   }
   return (
     <div className="choose-number flex justify-around w-full h-32 mt-12 gap-10">
@@ -52,7 +52,7 @@ export const ChooseNumber = (props) => {
         </div>
         <div className="choose-number__buy-ticket__rate flex justify-center items-center w-full gap-1 mt-2">
           <span className="text-sm font-semibold !text-white">
-            1 Ticket = 1
+            1 Ticket = {setting.price || 1}
           </span>
           <Icon name="dollar" />
         </div>

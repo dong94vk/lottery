@@ -22,11 +22,18 @@ export const createInstance = (baseURL) => {
   // Add a request interceptor
   instance.interceptors.request.use(
     function (config) {
-      if (config.url !== REFRESH_TOKEN_URL && localStorage.getItem('token')) {
-        const token = localStorage.getItem('token')
+      if (config.url !== REFRESH_TOKEN_URL) {
+        // const token = localStorage.getItem('token')
+        const token = "zrqz5suG8SPWzaXLS8vsArxZaoHnjx8WFtagkyQEFJzJ2JYGzsEQKFy-GkQy";
         config.headers['Authorization'] = `Bearer ${token}`
         config.headers['lang'] = 'vi'
       }
+      // if (config.url !== REFRESH_TOKEN_URL && localStorage.getItem('token')) {
+      //   // const token = localStorage.getItem('token')
+      //   const token = "zrqz5suG8SPWzaXLS8vsArxZaoHnjx8WFtagkyQEFJzJ2JYGzsEQKFy-GkQy";
+      //   config.headers['Authorization'] = `Bearer ${token}`
+      //   config.headers['lang'] = 'vi'
+      // }
       return config
     },
     function (error) {
@@ -273,7 +280,7 @@ const instance = createInstance(BASE_URL)
 export const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('refreshToken')
-  window.location.href = '/login'
+  // window.location.href = '/login'
 }
 /**
  *

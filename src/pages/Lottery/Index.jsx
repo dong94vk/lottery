@@ -12,9 +12,9 @@ export const LotteryPage = () => {
 
   useEffect(() => {
     actions.getSetting('TX1')
-    actions.getHistory({ code: 'TX1', page: 1, limit: 10 })
+    actions.getHistory({ code: 'LT6452', page: 1, limit: 10 })
   }, [])
-  const { setting } = data
+  const { setting, currentBet } = data
   const [selectedPrize, setSelectedPrize] = useState(null)
   const [selectedNumber, setSelectedNumber] = useState(
     createArrayHasQuantityElement(6),
@@ -22,16 +22,16 @@ export const LotteryPage = () => {
 
   useEffect(() => {
     setSelectedNumber(
-      createArrayHasQuantityElement(setting?.numberQuantity || 6),
+      createArrayHasQuantityElement(setting?.numberQuantity),
     )
   }, [setting])
 
   const onSubmitBuyTicket = (numberSelected) => {
     setSelectedNumber(numberSelected)
     actions.submitBet({
-      account_id: 1,
-      game_id: 22,
-      amount: 10,
+      account_id: 2,
+      game_id: currentBet?.id,
+      amount: setting?.price,
       bet_value: numberSelected.join(','),
     })
   }

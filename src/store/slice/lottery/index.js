@@ -1,15 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { SLICE_LOTTERY } from './type'
-import { dummyHistory, dummySetting } from 'src/dummy'
+import { formatCurrentBetData, formatDataHistory, formatPrizeData, formatSettingData, SLICE_LOTTERY } from './type'
+import { dummyHistory, defaultSetting } from 'src/dummy'
 import { first } from 'lodash'
 
 const initialState = {
-  setting: {
-    range: { min: 0, max: 45 },
-    numberQuantity: 6,
-    isDuplicate: true,
-  },
+  setting: defaultSetting,
   histories: [],
+  prizes: [],
   currentBet: null,
   isLoading: false,
 }
@@ -28,19 +25,19 @@ export const lotterySlice = createSlice({
     getSettingSuccess: (state, action) => {
       return {
         ...state,
+        setting: formatSettingData(action.payload),
         isLoading: false,
         errors: null,
       }
     },
-    getSettingFailed: (state, action) => {
+    getSettingFailed: (state) => {
       return {
         ...state,
-        setting: dummySetting,
         isLoading: false,
         errors: 'Có lỗi xảy ra vui lòng thử lại',
       }
     },
-    getHistory: (state, action) => {
+    getHistory: (state) => {
       return {
         ...state,
         isLoading: true,
@@ -51,35 +48,36 @@ export const lotterySlice = createSlice({
       return {
         ...state,
         isLoading: false,
-        histories: dummyHistory,
-        currentBet: first(dummyHistory),
+        histories: formatDataHistory(action.payload),
+        prizes: formatPrizeData(action.payload),
+        currentBet: first(action.payload),
         errors: null,
       }
     },
-    getHistoryFailed: (state, action) => {
+    getHistoryFailed: (state) => {
       return {
         ...state,
         isLoading: false,
-        histories: dummyHistory,
-        currentBet: first(dummyHistory),
-        errors: null,
+        histories: [],
+        currentBet: formatCurrentBetData([]),
+        errors: 'Có lỗi xảy ra vui lòng thử lại',
       }
     },
-    submitBet: (state, action) => {
+    submitBet: (state) => {
       return {
         ...state,
         isLoading: true,
         errors: null,
       }
     },
-    submitBetSuccess: (state, action) => {
+    submitBetSuccess: (state) => {
       return {
         ...state,
         isLoading: true,
         errors: null,
       }
     },
-    submitBetFailed: (state, action) => {
+    submitBetFailed: (state) => {
       return {
         ...state,
         isLoading: true,
@@ -98,6 +96,6 @@ export const {
   getHistoryFailed,
   submitBet,
   submitBetSuccess,
-  submitBetFailed
+  submitBetFailed,
 } = lotterySlice.actions
 export default lotterySlice.reducer

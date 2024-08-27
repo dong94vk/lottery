@@ -7,7 +7,11 @@ import {
   submitBetFailed,
   submitBetSuccess,
 } from 'src/store/slice/lottery'
-import { GET_HISTORY, GET_SETTING, SUBMIT_BET } from 'src/store/slice/lottery/type'
+import {
+  GET_HISTORY,
+  GET_SETTING,
+  SUBMIT_BET,
+} from 'src/store/slice/lottery/type'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
 
@@ -19,7 +23,7 @@ export const apiGetSetting = () => {
 function* doGetSetting({ payload }) {
   try {
     const response = yield call(apiGetSetting, payload)
-    if (!response?.data) {
+    if (response?.status !== 200) {
       yield put(getSettingFailed())
     }
     yield put(getSettingSuccess(response.data))
@@ -37,10 +41,14 @@ export const apiGetHistory = (payload) => {
   return api.get(API_URL.LOTTERY.GET_HISTORY, payload)
 }
 
+export const apiBetHistory = (payload) => {
+  return api.get(API_URL.LOTTERY.GET_BET_HISTORY, payload)
+}
+
 function* doGetHistory({ payload }) {
   try {
     const response = yield call(apiGetHistory, payload)
-    if (!response?.data) {
+    if (response?.status !== 200) {
       yield put(getHistoryFailed())
     }
     yield put(getHistorySuccess(response.data))
@@ -73,7 +81,6 @@ function* doSubmitBet({ payload }) {
   }
 }
 /* end submit bet */
-
 
 export function* watchDoGetSetting() {
   yield takeLatest(GET_SETTING, doGetSetting)

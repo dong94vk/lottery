@@ -3,10 +3,26 @@ import { TicketNumber } from './elements/TicketNumber'
 import dayjs from 'dayjs'
 import { numberWithCommas } from '../Prize/helper'
 import useLottery from 'src/store/hooks/lottery'
+import { useEffect, useState } from 'react'
+import { flatMap, map } from 'lodash'
+import { apiBetHistory } from 'src/store/sagas/lottery'
 
 export const History = () => {
   const { data } = useLottery()
   const { histories } = data
+  const [betHistories, setHistoryData] = useState([])
+
+  useEffect(() => {
+    const gameIds = map(histories, 'id')
+    fetchHistoryBetData(gameIds)
+  }, [histories])
+
+  const fetchHistoryBetData = async (ids) => {
+    const res = await Promise.all(
+      ids.map((id) => apiBetHistory({ game_id: id })),
+    )
+    setHistoryData(flatMap(map(res, 'data')))
+  }
 
   return (
     <Row className="history flex justify-center bg-[#182a3e] mt-32 rounded-3xl w-[1130px] p-3">
@@ -22,14 +38,18 @@ export const History = () => {
             </tr>
           </thead>
           <tbody>
-            {histories.map((history, index) => {
+            {histories?.map((history, index) => {
+              const betHistory = (betHistories.find(
+                (betHistory) => +history.id === +betHistory.attributes.source,
+              )?.attributes)
+              console.log('bet :>> ', betHistory)
               return (
                 <tr key={index}>
                   <td className="text-xl font-semibold">
                     {dayjs(history.time).format('DD/MM/YYYY')}
                   </td>
                   <td className="flex gap-3">
-                    {history.prize.map((numberElement, index) => {
+                    {history?.prize?.map((numberElement, index) => {
                       return (
                         <TicketNumber
                           number={
@@ -45,7 +65,7 @@ export const History = () => {
                     ${numberWithCommas(history.current_pot)}
                   </td>
                   <td className="flex gap-3">
-                    {history.bet_value.map((numberElement, index) => {
+                    {betHistory?.bet_value?.split(',').map((numberElement, index) => {
                       return (
                         <TicketNumber
                           number={
@@ -53,7 +73,7 @@ export const History = () => {
                           }
                           key={index}
                           className={
-                            history?.prize.includes(numberElement) &&
+                            history?.prize?.includes(numberElement) &&
                             history?.status === 'done'
                               ? '!text-cyan-500'
                               : '!text-white'
@@ -62,7 +82,7 @@ export const History = () => {
                       )
                     })}
                   </td>
-                  <td className="text-xl font-semibold">{history.amount}</td>
+                  <td className="text-xl font-semibold">{betHistory?.win_amount}</td>
                 </tr>
               )
             })}

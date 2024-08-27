@@ -2,36 +2,36 @@ import { Typography } from 'antd'
 import { Icon } from 'src/components/common/icons/Index'
 import { useState } from 'react'
 import useLottery from 'src/store/hooks/lottery'
-import { isNil } from 'lodash'
 
 export const ChooseNumberElement = (props) => {
-  const { onChangeNumber, index } = props
+  const { onChangeNumber, index, numberSelected } = props
   const { data } = useLottery()
   const { setting } = data
   const [displayNumber, setDisplayNumber] = useState()
 
   const handleClickChevron = (chevron) => {
-    let nextNumber = displayNumber
-    if (isNil(displayNumber) && setting.isDuplicate) {
-      nextNumber = +setting.range.min
-    }
-    if (
-      chevron === 'up' &&
-      displayNumber < setting.range.max &&
-      setting.isDuplicate
-    ) {
+    let nextNumber = displayNumber ?? +setting.range.min
+    if (chevron === 'up' && displayNumber < setting.range.max) {
       nextNumber = displayNumber + 1
     }
-
-    if (
-      chevron === 'down' &&
-      displayNumber > setting.range.min &&
-      setting.isDuplicate
-    ) {
+    if (chevron === 'down' && displayNumber > setting.range.min) {
       nextNumber = displayNumber - 1
+    }
+    if (!setting.isDuplicate) {
+      nextNumber = getNextNumberNotDuplicate(nextNumber, chevron, displayNumber)
     }
     setDisplayNumber(nextNumber)
     onChangeNumber(index, nextNumber)
+  }
+
+  const getNextNumberNotDuplicate = (number, chevron) => {
+    if (chevron === 'up' && numberSelected.includes(number) && number < setting.range.max) {
+      return getNextNumberNotDuplicate(number + 1, chevron)
+    }
+    if (chevron === 'down' && numberSelected.includes(number) && number > setting.range.min) {
+      return getNextNumberNotDuplicate(number - 1, chevron)
+    }
+    return number
   }
 
   return (

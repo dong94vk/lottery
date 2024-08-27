@@ -17,7 +17,7 @@ export const LotteryPage = () => {
 
   useEffect(() => {
     actions.getSetting('LT6452')
-    actions.getHistory({ code: 'LT6452', page: 1, limit: 10 })
+    actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
   }, [])
   const { setting, currentBet } = data
   const [selectedPrize, setSelectedPrize] = useState(null)

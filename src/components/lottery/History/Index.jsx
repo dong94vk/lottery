@@ -40,11 +40,15 @@ export const History = () => {
           </thead>
           <tbody>
             {histories?.map((history, index) => {
-              const betHistory = betHistories.find(
-                (betHistory) => +history.id === +betHistory.attributes.source,
-              )?.attributes
-              const betValue = betHistory?.bet_value ? betHistory?.bet_value?.split(',') : createArrayHasQuantityElement(6)
-              const historyPrize = !isEmpty(history?.prize) ? history?.prize : createArrayHasQuantityElement(6)
+              const betHistory = betHistories.find((bet) => {
+                return +history.id === +bet.attributes.source
+              })?.attributes
+              const betValue = betHistory?.bet_value
+                ? betHistory?.bet_value?.split(',')
+                : createArrayHasQuantityElement(6)
+              const historyPrize = !isEmpty(history?.prize)
+                ? history?.prize
+                : createArrayHasQuantityElement(6)
               return (
                 <tr key={index}>
                   <td className="text-xl font-semibold">
@@ -71,7 +75,9 @@ export const History = () => {
                       return (
                         <TicketNumber
                           number={
-                            history?.status === 'done' && numberElement ? numberElement : '??'
+                            history?.status === 'done' && numberElement
+                              ? numberElement
+                              : '??'
                           }
                           key={index}
                           className={
@@ -84,7 +90,9 @@ export const History = () => {
                       )
                     })}
                   </td>
-                  <td className="text-xl font-semibold">{betHistory?.win_amount ?? '??'}</td>
+                  <td className="text-xl font-semibold">
+                    {betHistory?.win_amount ?? '??'}
+                  </td>
                 </tr>
               )
             })}

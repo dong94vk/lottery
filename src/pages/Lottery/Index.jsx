@@ -16,7 +16,7 @@ export const LotteryPage = () => {
   } = useAuth()
 
   useEffect(() => {
-    actions.getSetting('TX1')
+    actions.getSetting('LT6452')
     actions.getHistory({ code: 'LT6452', page: 1, limit: 10 })
   }, [])
   const { setting, currentBet } = data

@@ -5,7 +5,7 @@ export const API_URL = {
   },
   LOTTERY: {
     GET_HISTORY: 'game',
-    GET_SETTING: 'schema/TX1',
+    GET_SETTING: 'schema/LT6452',
     SUBMIT_BET: 'player/bet',
     GET_BET_HISTORY: 'player/bet',
   },

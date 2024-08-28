@@ -73,8 +73,8 @@ export const ChooseNumber = (props) => {
             </Typography.Text>
           </div>
           <div className="choose-number__ticket-added__ticket-number__number flex justify-center items-center mt-4 gap-3">
-            {selectedNumber.map((number) => (
-              <AddedNumber number={number ?? '??'} />
+            {selectedNumber.map((number, index) => (
+              <AddedNumber number={number ?? '??'} key={index} />
             ))}
           </div>
         </div>

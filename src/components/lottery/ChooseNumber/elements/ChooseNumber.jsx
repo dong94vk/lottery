@@ -1,8 +1,7 @@
-import { InputNumber, Typography } from 'antd'
+import { Typography } from 'antd'
 import { Icon } from 'src/components/common/icons/Index'
 import { useState } from 'react'
 import useLottery from 'src/store/hooks/lottery'
-import { isNil } from 'lodash'
 
 export const ChooseNumberElement = (props) => {
   const { onChangeNumber, index, numberSelected } = props
@@ -43,28 +42,28 @@ export const ChooseNumberElement = (props) => {
     return number
   }
 
-  const handleChangeNumber = (value) => {
-    let nextNumber = displayNumber ?? +setting.range.min
-    if (
-      displayNumber < setting.range.max ||
-      displayNumber > setting.range.min
-    ) {
-      nextNumber = value
-    }
-    if (!setting.isDuplicate) {
-      nextNumber = getNextNumberNotDuplicate(nextNumber, 'up', displayNumber)
-    }
-    setDisplayNumber(nextNumber)
-    onChangeNumber(index, nextNumber)
-  }
+  // const handleChangeNumber = (value) => {
+  //   let nextNumber = displayNumber ?? +setting.range.min
+  //   if (
+  //     displayNumber < setting.range.max ||
+  //     displayNumber > setting.range.min
+  //   ) {
+  //     nextNumber = value
+  //   }
+  //   if (!setting.isDuplicate) {
+  //     nextNumber = getNextNumberNotDuplicate(nextNumber, 'up', displayNumber)
+  //   }
+  //   setDisplayNumber(nextNumber)
+  //   onChangeNumber(index, nextNumber)
+  // }
 
   return (
     <div className="flex flex-col items-center justify-center border-solid	border-2 rounded-3xl border-[#2e2e37] p-3 bg-[#292a36]">
       <Icon name="chevronUp" onClick={() => handleClickChevron('up')} />
-      {/* <Typography.Text className="!text-white text-[32px] font-normal">
+      <Typography.Text className="!text-white text-[32px] font-normal">
         {displayNumber?.toString().padStart(2, '0') || '??'}
-      </Typography.Text> */}
-      {!isNil(displayNumber) ? (
+      </Typography.Text>
+      {/* {!isNil(displayNumber) ? (
         <InputNumber
           controls={false}
           pattern="[0-9]*"
@@ -95,7 +94,7 @@ export const ChooseNumberElement = (props) => {
         <Typography.Text className="!text-white text-[32px] font-normal">
           {displayNumber?.toString().padStart(2, '0') || '??'}
         </Typography.Text>
-      )}
+      )} */}
       <Icon name="chevronDown" onClick={() => handleClickChevron('down')} />
     </div>
   )

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { formatCurrentBetData, formatDataHistory, formatPrizeData, formatSettingData, SLICE_LOTTERY } from './type'
 import { defaultSetting } from 'src/dummy'
-import { first } from 'lodash'
 
 const initialState = {
   setting: defaultSetting,
@@ -50,7 +49,7 @@ export const lotterySlice = createSlice({
         isLoading: false,
         histories: formatDataHistory(action.payload),
         prizes: formatPrizeData(action.payload),
-        currentBet: first(action.payload),
+        currentBet: formatCurrentBetData(action.payload),
         errors: null,
       }
     },

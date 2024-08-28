@@ -35,7 +35,7 @@ export const LotteryPage = () => {
       return actions.submitBet({
         account_id: +account.id,
         game_id: +currentBet?.id,
-        amount: setting?.price,
+        amount: +setting?.price,
         bet_value: numberSelected.join(','),
       })
     }

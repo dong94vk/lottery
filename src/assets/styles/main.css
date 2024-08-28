@@ -13,3 +13,23 @@ body {
   border-image: linear-gradient(161.06deg, rgba(154, 232, 255, 0) 3.06%, #9AE8FF 32%, #0A9AFC 56.47%, rgba(10, 154, 252, 0) 86.85%);
   border-width: 2px;
 }
+
+.ant-input-number {
+  background: transparent;
+  border: none;
+  width: 60px !important;
+}
+
+.ant-input-number-focused:hover {
+  border: none;
+  box-shadow: none !important;
+
+}
+
+.ant-input-number-input {
+  color: #ffffff !important;
+  font-size: 32px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  padding: 0 !important;
+}

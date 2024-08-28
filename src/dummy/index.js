@@ -31,8 +31,8 @@ export const defaultPrizes = [
 export const dummyHistory = [
   {
     id: 11,
-    created_at: '2024-08-25T16:00:00',
-    end_at: '2024-08-25T17:00:00',
+    created_at: '2024-08-27T16:00:00',
+    end_at: '2024-08-28T06:52:00',
     prize: [12, 23, 5, 30, 8, 17],
     current_pot: 500,
     bet_value: [15, 20, 35, 7, 12, 2],

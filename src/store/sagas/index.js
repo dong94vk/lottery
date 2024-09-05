@@ -4,7 +4,7 @@ import {
   watchDoGetSetting,
   watchDoSubmitBet,
 } from './lottery'
-import { watchDoGetAccountInfo } from './authentication'
+import { watchDoGetAccountInfo, watchDoLogin } from './authentication'
 
 const rootSaga = function* () {
   yield all([
@@ -12,6 +12,7 @@ const rootSaga = function* () {
     fork(watchDoGetHistory),
     fork(watchDoSubmitBet),
     fork(watchDoGetAccountInfo),
+    fork(watchDoLogin)
   ])
 }
 

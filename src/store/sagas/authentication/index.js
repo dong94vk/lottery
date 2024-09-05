@@ -8,7 +8,7 @@ import {
 } from 'src/store/slice/authentication'
 import {
   GET_ACCOUNT_INFO,
-  LOGIN_START,
+  LOGIN,
 } from 'src/store/slice/authentication/type'
 
 /* start login */
@@ -18,16 +18,11 @@ const apiLogin = (params) => {
 
 function* doLogin({ payload }) {
   try {
-    const response = yield call(apiLogin, payload)
-
-    if (!response?.data && payload.onFailed) {
-      yield payload.onFailed()
-    }
-    if (response?.statusCode === 200 && response?.data) {
-      // Save token to local storage
-      localStorage.setItem('token', response?.data?.accessToken)
-      localStorage.setItem('refreshToken', response?.data?.refreshToken)
-
+    const response = yield call(apiLogin, payload.body)
+    // Save token to local storage
+    if (response.token) {
+      localStorage.setItem('token', response.token)
+      localStorage.setItem('refreshToken', response.refresh_token)
       if (payload.onSuccess) {
         yield payload.onSuccess()
       }
@@ -36,25 +31,32 @@ function* doLogin({ payload }) {
     yield put(loginFailed(error))
   }
 }
+
 /* end login */
+
+/* start get account info */
 const apiGetAccountInfo = () => {
   return api.get(API_URL.AUTH.ACCOUNT_INFO)
 }
 
-function* doGetAccountInfo(payload) {
+function* doGetAccountInfo({ payload }) {
   try {
-    const response = yield call(apiGetAccountInfo, payload)
+    const response = yield call(apiGetAccountInfo)
     if (response.status !== 200) {
       yield put(getAccountInfoFailed())
     }
     yield put(getAccountInfoSuccess(response.data))
+    if (payload.onSuccess) {
+      yield payload.onSuccess()
+    }
   } catch (error) {
     yield put(getAccountInfoFailed(error))
   }
 }
+/* end get account info */
 
 export function* watchDoLogin() {
-  yield takeLatest(LOGIN_START, doLogin)
+  yield takeLatest(LOGIN, doLogin)
 }
 
 export function* watchDoGetAccountInfo() {

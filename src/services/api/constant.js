@@ -1,6 +1,7 @@
 export const API_URL = {
   AUTH: {
-    LOGIN: 'auth/login',
+    LOGIN: 'users/tokens/sign_in',
+    REFRESH_TOKEN: 'users/tokens/refresh_token',
     ACCOUNT_INFO: 'player/account'
   },
   LOTTERY: {
@@ -10,3 +11,5 @@ export const API_URL = {
     GET_BET_HISTORY: 'player/bet',
   },
 }
+
+export const BASE_URL = process.env.REACT_APP_HOST

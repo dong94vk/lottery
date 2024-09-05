@@ -12,9 +12,9 @@ export const authSlice = createSlice({
   name: SLICE_AUTH,
   initialState: authInitialState,
   reducers: {
-    login: ({ payload }) => {
+    login: (state) => {
       return {
-        payload,
+        ...state,
         isLoading: true,
         errors: null,
       }

@@ -5,6 +5,7 @@ import { ReactComponent as SecondPrize } from 'src/assets/icons/2nd-prize.svg'
 import { ReactComponent as ThirdPrize } from 'src/assets/icons/3rd-prize.svg'
 import { ReactComponent as ChevronUp } from 'src/assets/icons/chevron-up.svg'
 import { ReactComponent as ChevronDown } from 'src/assets/icons/chevron-down.svg'
+import { ReactComponent as Login } from 'src/assets/icons/login.svg'
 
 const icons = {
   topUpWallet: <TopUpWallet />,
@@ -14,6 +15,7 @@ const icons = {
   thirdPrize: <ThirdPrize />,
   chevronUp: <ChevronUp />,
   chevronDown: <ChevronDown />,
+  login: <Login />
 }
 
 export const Icon = (props) => {

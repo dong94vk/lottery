@@ -1,6 +1,7 @@
 
 import { NotFound } from 'src/pages/NotFound/Index'
 import { LotteryPage } from 'src/pages/Lottery/Index'
+import { BigAndSmall } from 'src/pages/BigAndSmall/Index'
 
 export const routes = [
   {
@@ -14,6 +15,13 @@ export const routes = [
     path: 'lottery',
     name: 'Game Lottery',
     component: LotteryPage,
+    showInSidebar: true,
+    isPublic: false,
+  },
+  {
+    path: 'big-and-small',
+    name: 'Big and mall',
+    component: BigAndSmall,
     showInSidebar: true,
     isPublic: false,
   }

@@ -1,7 +1,7 @@
 import { Menu } from 'antd'
 import { NavLink, useLocation } from 'react-router-dom'
 import logo from 'src/assets/images/logo.png'
-import { Icon } from '../common/icons/Index'
+import { Icon } from '../common/icons'
 import { routes } from 'src/routes'
 
 function Sidebar({ color }) {

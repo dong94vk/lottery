@@ -1,7 +1,7 @@
 import { Button, Typography } from 'antd'
 import { ChooseNumberElement } from './elements/ChooseNumber'
 import { AddedNumber } from './elements/AddedNumber'
-import { Icon } from 'src/components/common/icons/Index'
+import { Icon } from 'src/components/common/icons'
 import dayjs from 'dayjs'
 import useLottery from 'src/store/hooks/lottery'
 import { useState } from 'react'

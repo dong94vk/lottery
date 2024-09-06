@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import useLottery from 'src/store/hooks/lottery'
 
 export const CountDown = () => {
-  const { actions, data } = useLottery()
+  const { data } = useLottery()
   const { currentBet } = data
 
   const [remainTime, setRemainTime] = useState({})
@@ -27,7 +27,7 @@ export const CountDown = () => {
       setRemainTime({ hours, minutes, seconds })
     }
     if (timeDifference <= 0) {
-      actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
+      // actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
       clearInterval(intervalId)
       setRemainTime({ hours: '??', minutes: '??', seconds: '??' })
     }

@@ -1,5 +1,5 @@
 import { Typography } from 'antd'
-import { Icon } from 'src/components/common/icons/Index'
+import { Icon } from 'src/components/common/icons'
 import { numberWithCommas } from '../helper'
 
 export const PrizeNumber = (props) => {

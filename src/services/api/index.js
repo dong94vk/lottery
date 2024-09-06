@@ -3,11 +3,11 @@ import axios from 'axios'
 
 import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 import { validateStatus } from 'src/utils/api'
-const BASE_URL = process.env.REACT_APP_HOST
+import { API_URL, BASE_URL } from 'src/services/api/constant'
+
 const HEADERS_MULTIPLE_PART = {
   'Content-Type': 'multipart/form-data; boundary=something',
 }
-const REFRESH_TOKEN_URL = '/v1/auth/token/refresh'
 
 export const createInstance = (baseURL) => {
   const instance = axios.create({
@@ -21,22 +21,16 @@ export const createInstance = (baseURL) => {
 
   // Add a request interceptor
   instance.interceptors.request.use(
-    function (config) {
-      if (config.url !== REFRESH_TOKEN_URL) {
+    function(config) {
+      if (config.url !== API_URL.AUTH.REFRESH_TOKEN && localStorage.getItem('token')) {
         // const token = localStorage.getItem('token')
-        const token = "zrqz5suG8SPWzaXLS8vsArxZaoHnjx8WFtagkyQEFJzJ2JYGzsEQKFy-GkQy";
+        const token = localStorage.getItem('token')
         config.headers['Authorization'] = `Bearer ${token}`
         config.headers['lang'] = 'vi'
       }
-      // if (config.url !== REFRESH_TOKEN_URL && localStorage.getItem('token')) {
-      //   // const token = localStorage.getItem('token')
-      //   const token = "zrqz5suG8SPWzaXLS8vsArxZaoHnjx8WFtagkyQEFJzJ2JYGzsEQKFy-GkQy";
-      //   config.headers['Authorization'] = `Bearer ${token}`
-      //   config.headers['lang'] = 'vi'
-      // }
       return config
     },
-    function (error) {
+    function(error) {
       // Các trường hợp lỗi 5xx, 4xx, network xử lý ở đây
       // Do something with request error
       return Promise.reject(error)
@@ -45,7 +39,7 @@ export const createInstance = (baseURL) => {
 
   // Add a response interceptor
   instance.interceptors.response.use(
-    async function (response) {
+    async function(response) {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response
       if (validateStatus(response?.status)) {
@@ -60,24 +54,24 @@ export const createInstance = (baseURL) => {
         )
       }
     },
-    function (error) {
+    function(error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
       const response = error.response
       if (
-        response?.status === 403 &&
+        response?.status === 401 &&
         response.config &&
         !response.config._isRefreshBefore &&
-        response.config.url !== REFRESH_TOKEN_URL &&
+        response.config.url !== API_URL.AUTH.REFRESH_TOKEN &&
         localStorage.getItem('refreshToken')
       ) {
         return refreshAccessToken()
           .then((refresh) => {
-            if (refresh.statusCode === 200) {
+            if (refresh.status === 200) {
               axios.defaults.headers.common['Authorization'] =
-                refresh.data.accessToken
-              localStorage.setItem('token', refresh.data.accessToken)
-              localStorage.setItem('refreshToken', refresh.data.refreshToken)
+                refresh.token
+              localStorage.setItem('token', refresh.token)
+              localStorage.setItem('refreshToken', refresh.refresh_token)
               response.config._isRefreshBefore = true
               return instance(response.config)
             } else {
@@ -280,7 +274,7 @@ const instance = createInstance(BASE_URL)
 export const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('refreshToken')
-  // window.location.href = '/login'
+  window.location.href = '/lottery'
 }
 /**
  *
@@ -288,7 +282,7 @@ export const logout = () => {
  */
 export const refreshAccessToken = () => {
   const refreshToken = localStorage.getItem('refreshToken')
-  return instance.get(REFRESH_TOKEN_URL, {
+  return instance.get(API_URL.AUTH.REFRESH_TOKEN, {
     headers: {
       Authorization: `Bearer ${refreshToken}`,
       'x-auth-token': `Bearer ${refreshToken}`,

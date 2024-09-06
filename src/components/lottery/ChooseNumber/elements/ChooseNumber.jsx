@@ -1,5 +1,5 @@
 import { Typography } from 'antd'
-import { Icon } from 'src/components/common/icons/Index'
+import { Icon } from 'src/components/common/icons'
 import { useState } from 'react'
 import useLottery from 'src/store/hooks/lottery'
 

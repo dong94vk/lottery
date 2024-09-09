@@ -2,7 +2,6 @@ import { Button, Col, Form, Input, Modal, Row, Typography } from 'antd'
 import styled from 'styled-components'
 import { Icon } from 'src/components/common/icons'
 import useAuth from 'src/store/hooks/authentication'
-import { useState } from 'react'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;

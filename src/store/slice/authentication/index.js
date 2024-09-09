@@ -33,6 +33,27 @@ export const authSlice = createSlice({
         errors: 'Có lỗi xả xảy ra vui lòng thử lại',
       }
     },
+    signUp: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+        errors: null,
+      }
+    },
+    signUpSuccess: (state) => {
+      return {
+        ...state,
+        isLoading: false,
+        errors: null,
+      }
+    },
+    signUpFailed: (state) => {
+      return {
+        ...state,
+        isLoading: false,
+        errors: 'Có lỗi xả xảy ra vui lòng thử lại',
+      }
+    },
     logout: (state) => {
       return {
         ...state,
@@ -65,5 +86,8 @@ export const {
   getAccountInfo,
   getAccountInfoSuccess,
   getAccountInfoFailed,
+  signUp,
+  signUpSuccess,
+  signUpFailed,
 } = authSlice.actions
 export default authSlice.reducer

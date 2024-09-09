@@ -2,15 +2,14 @@ import { Button, Col, Form, Input, Modal, Row, Typography } from 'antd'
 import styled from 'styled-components'
 import { Icon } from 'src/components/common/icons'
 import useAuth from 'src/store/hooks/authentication'
-import { useEffect, useState } from 'react'
-import { isNil } from 'lodash'
+import { useState } from 'react'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
   color: #ffffff;
 
   .ant-modal-content {
-    background: #13151D;
+    background: #13151d;
     width: 600px;
     height: 360px;
   }
@@ -21,38 +20,40 @@ export const ModalStyled = styled(Modal)`
     font-weight: 400;
   }
 `
-export const LoginPage = () => {
-  const token = localStorage.getItem('token')
+export const SignUpPage = (props) => {
   const { actions } = useAuth()
-  const [open, setOpen] = useState(isNil(token))
 
-  useEffect(() => {
-    const listenerRemoveToken = () => {
-      setOpen(true)
-    }
-    window.addEventListener('removeToken', listenerRemoveToken)
-    return () => window.removeEventListener('removeToken',listenerRemoveToken)
-  }, [])
-
-  const onSubmitLogin = (values) => {
+  const onSubmitSignUp = (values) => {
     const body = {
-      email: values.username,
+      email: values.email,
       password: values.password,
     }
-    const onError = () => setOpen(false)
-    actions.login({ body, onSuccess: getAccountInfo, onError })
+    const onError = () => props.setOpenSignUp(false)
+    actions.signUp({ body, onSuccess: getAccountInfo, onError })
   }
 
   const getAccountInfo = () => {
-    actions.getAccountInfo({ onSuccess: () => setOpen(false) })
+    actions.getAccountInfo({ onSuccess: () => props.setOpenSignUp(false) })
+  }
+
+  const handleClickSignIn = () => {
+    props.setOpenSignUp(false)
+    props.setOpenSignIn(true)
   }
 
   return (
-    <ModalStyled open={open} closable={true} onCancel={() => setOpen(false)} footer={null} wrapClassName="!bg-[#00000070]" className="relative">
+    <ModalStyled
+      open={props.open}
+      closable={true}
+      onCancel={() => props.setOpenSignUp(false)}
+      footer={null}
+      wrapClassName="!bg-[#00000070]"
+      className="relative"
+    >
       <Row gutter={24}>
         <Col span={24}>
           <Typography.Text className="text-base font-bold !text-[#7D8091]">
-            SIGN IN
+            REGISTER
           </Typography.Text>
         </Col>
         <Col span={15} className="mt-4">
@@ -61,30 +62,55 @@ export const LoginPage = () => {
           </Typography.Text>
         </Col>
         <Col span={15} className="mt-4 z-10">
-          <Form onFinish={onSubmitLogin}>
-            <Form.Item name="username" rules={[{
-              required: true,
-              message: 'username is required',
-            }]}>
-              <Input className="bg-[#181C28] p-4 text-white" placeholder="Username" />
+          <Form onFinish={onSubmitSignUp}>
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: 'email is required',
+                },
+              ]}
+            >
+              <Input
+                className="bg-[#181C28] p-4 text-white"
+                placeholder="Email"
+              />
             </Form.Item>
-            <Form.Item name="password" rules={[{
-              required: true,
-              message: 'password is required',
-            }, {
-              min: 8,
-              message: 'Password that must be at least 8 characters ',
-            }]}>
-              <Input className="bg-[#181C28] p-4 text-white" placeholder="Password" type="password" />
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'password is required',
+                },
+                {
+                  min: 8,
+                  message: 'Password that must be at least 8 characters ',
+                },
+              ]}
+            >
+              <Input
+                className="bg-[#181C28] p-4 text-white"
+                placeholder="Password"
+                type="password"
+              />
             </Form.Item>
-            <Button type="primary" htmlType="submit" className="w-full h-10 bg-custom-gradient text-[#F3F3F3] text-base mt-2">
-              Sign in
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="w-full h-10 bg-custom-gradient text-[#F3F3F3] text-base mt-2"
+            >
+              Register
             </Button>
           </Form>
         </Col>
         <Col span={15} className="mt-1.5 flex justify-center">
-          <Typography.Text className="text-[#F3F3F3] text-sm font-normal">
-            Don’t have account? Register now
+          <Typography.Text
+            className="text-[#F3F3F3] text-sm font-normal"
+            onClick={handleClickSignIn}
+          >
+            Have an account? Sign in now
           </Typography.Text>
         </Col>
         <Icon name="login" className="absolute top-0 right-0" />

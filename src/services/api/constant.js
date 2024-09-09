@@ -1,6 +1,7 @@
 export const API_URL = {
   AUTH: {
     LOGIN: 'users/tokens/sign_in',
+    SIGN_UP: 'users/tokens/sign_up',
     REFRESH_TOKEN: 'users/tokens/refresh_token',
     ACCOUNT_INFO: 'player/account'
   },

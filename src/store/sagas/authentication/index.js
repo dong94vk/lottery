@@ -9,6 +9,7 @@ import {
 import {
   GET_ACCOUNT_INFO,
   LOGIN,
+  SIGN_UP,
 } from 'src/store/slice/authentication/type'
 
 /* start login */
@@ -55,10 +56,36 @@ function* doGetAccountInfo({ payload }) {
 }
 /* end get account info */
 
+/* start sign up */
+const apiSignUp = (params) => {
+  return api.post(API_URL.AUTH.SIGN_UP, params)
+}
+
+function* doSignUp({ payload }) {
+  try {
+    const response = yield call(apiSignUp, payload.body)
+    // Save token to local storage
+    if (response.token) {
+      localStorage.setItem('token', response.token)
+      localStorage.setItem('refreshToken', response.refresh_token)
+      if (payload.onSuccess) {
+        yield payload.onSuccess()
+      }
+    }
+  } catch (error) {
+    yield put(loginFailed(error))
+  }
+}
+/* end sign up */
+
 export function* watchDoLogin() {
   yield takeLatest(LOGIN, doLogin)
 }
 
 export function* watchDoGetAccountInfo() {
   yield takeLatest(GET_ACCOUNT_INFO, doGetAccountInfo)
+}
+
+export function* watchDoSignUp() {
+  yield takeLatest(SIGN_UP, doSignUp)
 }

@@ -4,9 +4,9 @@ export const API_URL = {
     REFRESH_TOKEN: 'users/tokens/refresh_token',
     ACCOUNT_INFO: 'player/account'
   },
-  LOTTERY: {
+  GAME: {
     GET_HISTORY: 'game',
-    GET_SETTING: 'schema/LT6452',
+    GET_SETTING: 'schema/:gameCode',
     SUBMIT_BET: 'player/bet',
     GET_BET_HISTORY: 'player/bet',
   },

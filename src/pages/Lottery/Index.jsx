@@ -5,12 +5,12 @@ import { ChooseNumber } from 'src/components/lottery/ChooseNumber/Index'
 import { Row } from 'antd'
 import { useEffect, useState } from 'react'
 import { createArrayHasQuantityElement } from 'src/components/lottery/ChooseNumber/helper'
-import useLottery from 'src/store/hooks/lottery'
+import useGame from 'src/store/hooks/game'
 import useAuth from 'src/store/hooks/authentication'
 import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 
 export const LotteryPage = () => {
-  const { actions, data } = useLottery()
+  const { actions, data } = useGame()
   const { setting, currentBet } = data
   const { data: { account } } = useAuth()
 

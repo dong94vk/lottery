@@ -3,7 +3,7 @@ import {
   watchDoGetHistory,
   watchDoGetSetting,
   watchDoSubmitBet,
-} from './lottery'
+} from './game'
 import { watchDoGetAccountInfo, watchDoLogin } from './authentication'
 
 const rootSaga = function* () {

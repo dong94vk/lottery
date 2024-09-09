@@ -2,14 +2,14 @@ import { Row } from 'antd'
 import { TicketNumber } from './elements/TicketNumber'
 import dayjs from 'dayjs'
 import { numberWithCommas } from '../Prize/helper'
-import useLottery from 'src/store/hooks/lottery'
+import useGame from 'src/store/hooks/game'
 import { useEffect, useState } from 'react'
 import { flatMap, isEmpty, map } from 'lodash'
-import { apiBetHistory } from 'src/store/sagas/lottery'
+import { apiBetHistory } from 'src/store/sagas/game'
 import { createArrayHasQuantityElement } from '../ChooseNumber/helper'
 
 export const History = () => {
-  const { data: { histories } } = useLottery()
+  const { data: { histories } } = useGame()
   const [betHistories, setHistoryData] = useState([])
 
   useEffect(() => {

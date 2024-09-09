@@ -2,7 +2,7 @@ import { Layout } from 'antd'
 import { isEmpty } from 'lodash'
 import { useEffect } from 'react'
 import Header from 'src/components/layout/Header'
-import { LoginPage } from 'src/pages/Login/Index'
+import { LoginPage } from 'src/pages/Login'
 import useAuth from 'src/store/hooks/authentication'
 
 const { Content } = Layout

@@ -1,12 +1,11 @@
-import { Col, Row, Typography } from 'antd'
+import { Col, Row } from 'antd'
+import logo from 'src/assets/icons/logo.png'
 
 function Header() {
   return (
     <Row gutter={[24, 0]} className="bg-[#68778B10] h-12 flex items-center">
       <Col span={3} offset={1}>
-        <Typography.Title level={1} className="!text-white !mb-0">
-          LOGO
-        </Typography.Title>
+        <img src={logo} alt="JPopStar" style={{ width: '150px' }} />
       </Col>
     </Row>
   )

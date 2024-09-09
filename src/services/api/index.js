@@ -65,28 +65,30 @@ export const createInstance = (baseURL) => {
         response.config.url !== API_URL.AUTH.REFRESH_TOKEN &&
         localStorage.getItem('refreshToken')
       ) {
-        return refreshAccessToken()
-          .then((refresh) => {
-            if (refresh.status === 200) {
-              axios.defaults.headers.common['Authorization'] =
-                refresh.token
-              localStorage.setItem('token', refresh.token)
-              localStorage.setItem('refreshToken', refresh.refresh_token)
-              response.config._isRefreshBefore = true
-              return instance(response.config)
-            } else {
-              logout()
-            }
-          })
-          .catch(() => {
-            logout()
-          })
-      } else if (response?.status === 401) {
         logout()
-      } else {
-        addNotification(response?.data?.message, NOTIFICATION_TYPE.ERROR)
-        return Promise.reject(error)
       }
+      //   return refreshAccessToken()
+      //     .then((refresh) => {
+      //       if (refresh.status === 200) {
+      //         axios.defaults.headers.common['Authorization'] =
+      //           refresh.token
+      //         localStorage.setItem('token', refresh.token)
+      //         localStorage.setItem('refreshToken', refresh.refresh_token)
+      //         response.config._isRefreshBefore = true
+      //         return instance(response.config)
+      //       } else {
+      //         logout()
+      //       }
+      //     })
+      //     .catch(() => {
+      //       logout()
+      //     })
+      // } else if (response?.status === 401) {
+      //   logout()
+      // } else {
+      //   addNotification(response?.data?.message, NOTIFICATION_TYPE.ERROR)
+      //   return Promise.reject(error)
+      // }
     },
   )
 
@@ -274,7 +276,7 @@ const instance = createInstance(BASE_URL)
 export const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('refreshToken')
-  window.location.href = '/lottery'
+  window.dispatchEvent("removeToken");
 }
 /**
  *

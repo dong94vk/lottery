@@ -3,12 +3,12 @@ import { ChooseNumberElement } from './elements/ChooseNumber'
 import { AddedNumber } from './elements/AddedNumber'
 import { Icon } from 'src/components/common/icons'
 import dayjs from 'dayjs'
-import useLottery from 'src/store/hooks/lottery'
+import useGame from 'src/store/hooks/game'
 import { useState } from 'react'
 
 export const ChooseNumber = (props) => {
   const { selectedNumber } = props
-  const { data } = useLottery()
+  const { data } = useGame()
   const { currentBet, setting } = data
   const [numberSelected, setNumberSelected] = useState([])
   const onChangeNumber = (index, number) => {

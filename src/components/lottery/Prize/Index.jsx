@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { PrizeNumber } from './elements/Prize'
-import useLottery from 'src/store/hooks/lottery'
+import useGame from 'src/store/hooks/game'
 
 export const Prize = (props) => {
   const [selectedPrize, setSelectedPrize] = useState(null)
-  const { data } = useLottery()
+  const { data } = useGame()
   const { prizes } = data
 
   const handleClickPrize = (prize) => {

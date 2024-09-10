@@ -1,11 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PrizeNumber } from './elements/Prize'
 import useGame from 'src/store/hooks/game'
+import { isEmpty } from 'lodash'
 
 export const Prize = (props) => {
   const [selectedPrize, setSelectedPrize] = useState(null)
-  const { data } = useGame()
+  const { data, actions } = useGame()
   const { prizes } = data
+
+  useEffect(() => {
+    if(isEmpty(prizes)) {
+      actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
+    }
+  }, [prizes])
 
   const handleClickPrize = (prize) => {
     setSelectedPrize(prize.prize)

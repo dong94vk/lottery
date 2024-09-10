@@ -24,7 +24,7 @@ export const History = () => {
     const res = await Promise.all(
       ids.map((id) => apiBetHistory({ game_id: id })),
     )
-    const lastBet = flatMap(map(res, 'data'))?.find(history => history.status === 'done')
+    const lastBet = flatMap(map(res, 'data'))?.find(history => history?.status === 'done')
     const betHistory = histories.find(bet => +lastBet?.id === +bet?.attributes?.source)
     setLatBetDone({...lastBet, betHistory})
   }

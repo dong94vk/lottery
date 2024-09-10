@@ -1,3 +1,4 @@
+import { first } from 'lodash'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
@@ -5,12 +6,14 @@ import {
   getAccountInfoFailed,
   getAccountInfoSuccess,
   loginFailed,
+  signUpFailed,
 } from 'src/store/slice/authentication'
 import {
   GET_ACCOUNT_INFO,
   LOGIN,
   SIGN_UP,
 } from 'src/store/slice/authentication/type'
+import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 
 /* start login */
 const apiLogin = (params) => {
@@ -71,9 +74,23 @@ function* doSignUp({ payload }) {
       if (payload.onSuccess) {
         yield payload.onSuccess()
       }
+    } else if (response.error) {
+      addNotification(
+        first(response.error_description),
+        NOTIFICATION_TYPE.ERROR,
+      )
+    } else {
+      addNotification(
+        'Something went wrong. Please try again!',
+        NOTIFICATION_TYPE.ERROR,
+      )
     }
   } catch (error) {
-    yield put(loginFailed(error))
+    addNotification(
+      'Something went wrong. Please try again!',
+      NOTIFICATION_TYPE.ERROR,
+    )
+    yield put(signUpFailed(error))
   }
 }
 /* end sign up */

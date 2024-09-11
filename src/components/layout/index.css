@@ -1,0 +1,12 @@
+.ant-menu-item {
+  padding-inline: 10px !important;
+  padding-top: 4px !important;
+}
+
+.ant-menu-item-selected {
+  background: linear-gradient(65.84deg, #00C3FD 25.98%, #0194FE 65.48%) !important;
+  box-shadow: 0 0 4px 0 #01A5FE;
+  border: 3px solid #010513;
+  padding-inline: 7px !important;
+  border-radius: 15px !important;
+}

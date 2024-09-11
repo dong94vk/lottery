@@ -5,8 +5,9 @@ import Header from 'src/components/layout/Header'
 import { LoginPage } from 'src/pages/Login'
 import { SignUpPage } from 'src/pages/SignUp'
 import useAuth from 'src/store/hooks/authentication'
+import Sidebar from 'src/components/layout/Sidebar'
 
-const { Content } = Layout
+const { Content, Sider } = Layout
 
 function PrivateLayout({ children }) {
   const { actions, data } = useAuth()
@@ -21,12 +22,19 @@ function PrivateLayout({ children }) {
   const [openSignIn, setOpenSignIn] = useState(isNil(token))
 
   return (
-    <Layout className="bg-[#12151d] m-0">
-      <LoginPage setOpenSignUp={setOpenRegister} open={openSignIn} setOpenSignIn={setOpenSignIn} />
-      <SignUpPage open={openRegister} setOpenSignUp={setOpenRegister} setOpenSignIn={setOpenSignIn} />
+    <>
       <Header />
-      <Content className="flex mt-6">{children}</Content>
-    </Layout>
+      <Layout className="bg-[#12151d] pr-[10px] pl-[10px] pt-6">
+        <Sider width={76} className="!bg-[#363940] h-[100vh] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden">
+          <Sidebar />
+        </Sider>
+        <Content className="flex">{children}</Content>
+        <LoginPage setOpenSignUp={setOpenRegister} open={openSignIn} setOpenSignIn={setOpenSignIn} />
+        <SignUpPage open={openRegister} setOpenSignUp={setOpenRegister} setOpenSignIn={setOpenSignIn} />
+        <Sider width={250} className="!bg-[#050609] h-[100vh] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden">
+        </Sider>
+      </Layout>
+    </>
   )
 }
 

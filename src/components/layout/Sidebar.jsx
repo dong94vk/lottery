@@ -1,10 +1,10 @@
 import { Menu } from 'antd'
 import { NavLink, useLocation } from 'react-router-dom'
-import logo from 'src/assets/images/logo.png'
 import { Icon } from '../common/icons'
 import { routes } from 'src/routes'
+import './index.css'
 
-function Sidebar({ color }) {
+function Sidebar() {
   const { pathname } = useLocation()
   const page = pathname.replace('/', '')
   const getMenuIcon = (icon) => {
@@ -16,34 +16,19 @@ function Sidebar({ color }) {
   }
 
   return (
-    <>
-      <div className="brand">
-        <img src={logo} alt="" />
-        <span>VOD management</span>
-      </div>
-      <hr />
-      <Menu theme="light" mode="inline">
-        {routes
-          .filter((route) => route.showInSidebar)
-          .map((route) => {
-            return (
-              <Menu.Item key={route.path}>
-                <NavLink to={`/${route.path}`}>
-                  <span
-                    className="icon"
-                    style={{
-                      background: page === route.path ? color : '',
-                    }}
-                  >
-                    {getMenuIcon(route.icon)}
-                  </span>
-                  <span className="label">{route.name}</span>
-                </NavLink>
-              </Menu.Item>
-            )
-          })}
-      </Menu>
-    </>
+    <Menu className="bg-transparent pt-[20px] flex flex-col justify-center items-center" defaultSelectedKeys={[page]}>
+      {routes
+        .filter((route) => route.showInSidebar)
+        .map((route) => {
+          return (
+            <Menu.Item key={route.path} className="!mt-3 !w-[50px] !h-[50px]">
+              <NavLink to={`/${route.path}`}>
+                {getMenuIcon(route.icon)}
+              </NavLink>
+            </Menu.Item>
+          )
+        })}
+    </Menu>
   )
 }
 

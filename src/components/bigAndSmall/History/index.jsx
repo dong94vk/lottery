@@ -32,7 +32,7 @@ export const History = () => {
   return (
     <Row gutter={24} className="gamezone w-[1100px] h-[300px] bg-[#1f2129] rounded-[20px] overflow-hidden mb-20">
       <Col span={12} className="gamezone__flag !pl-0 !pr-0">
-        <Icon name="bigAndSmall" />
+        <Icon name="bigAndSmallFlag" />
       </Col>
       <Col span={12} className="gamezone__bet p-5 flex flex-col justify-center items-center w-full !pl-[50px]">
         <div className="w-full flex justify-center gap-10">

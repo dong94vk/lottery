@@ -8,6 +8,10 @@ import { ReactComponent as ChevronUp } from 'src/assets/icons/chevron-up.svg'
 import { ReactComponent as ChevronDown } from 'src/assets/icons/chevron-down.svg'
 import { ReactComponent as Login } from 'src/assets/icons/login.svg'
 import { ReactComponent as BigAndSmallFlag } from 'src/assets/icons/big-and-small-flag.svg'
+import { ReactComponent as Lottery } from 'src/assets/icons/lottery.svg'
+import { ReactComponent as BigAndSmall } from 'src/assets/icons/big-and-small.svg'
+import { ReactComponent as Keno } from 'src/assets/icons/keno.svg'
+import { ReactComponent as Home } from 'src/assets/icons/home.svg'
 
 const icons = {
   topUpWallet: <TopUpWallet />,
@@ -18,8 +22,12 @@ const icons = {
   chevronUp: <ChevronUp />,
   chevronDown: <ChevronDown />,
   login: <Login />,
-  bigAndSmall: <BigAndSmallFlag />,
-  dollar16: <Dollar16 />
+  bigAndSmallFlag: <BigAndSmallFlag />,
+  dollar16: <Dollar16 />,
+  lottery: <Lottery />,
+  bigAndSmall: <BigAndSmall />,
+  keno: <Keno />,
+  home: <Home />
 }
 
 export const Icon = (props) => {

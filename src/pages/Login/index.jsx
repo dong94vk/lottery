@@ -114,10 +114,7 @@ export const LoginPage = (props) => {
           </Form>
         </Col>
         <Col span={15} className="mt-1.5 flex justify-center">
-          <Typography.Text
-            className="text-[#F3F3F3] text-sm font-normal"
-            onClick={handleClickRegister}
-          >
+          <Typography.Text className="text-[#F3F3F3] text-sm font-normal cursor-pointer z-10" onClick={handleClickRegister}>
             Don’t have account? Register now
           </Typography.Text>
         </Col>

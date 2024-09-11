@@ -13,11 +13,12 @@ export const routes = [
     isPublic: true,
   },
   {
-    path: '/',
+    path: '',
     name: 'Home',
     component: Home,
-    showInSidebar: false,
+    showInSidebar: true,
     isPublic: false,
+    icon: 'home'
   },
   {
     path: 'lottery',
@@ -25,6 +26,7 @@ export const routes = [
     component: LotteryPage,
     showInSidebar: true,
     isPublic: false,
+    icon: 'lottery'
   },
   {
     path: 'big-and-small',
@@ -32,5 +34,6 @@ export const routes = [
     component: BigAndSmall,
     showInSidebar: true,
     isPublic: false,
+    icon: 'bigAndSmall'
   }
 ]

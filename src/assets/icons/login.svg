@@ -1,5 +1,5 @@
 <svg width="360" height="360" viewBox="35 40 230 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_59_1322)">
+<g filter="url(#filter0_d_59_1323)">
 <ellipse cx="197.335" cy="179.916" rx="47.0408" ry="29.0409" fill="#D9D9D9"/>
 </g>
 <path style="mix-blend-mode:screen" d="M234.447 172.801C237.915 151.296 223.293 131.053 201.789 127.585C180.285 124.117 160.041 138.739 156.573 160.243C153.106 181.747 167.727 201.991 189.231 205.459C210.735 208.926 230.979 194.305 234.447 172.801Z" fill="url(#paint0_radial_59_1322)"/>
@@ -290,7 +290,7 @@
 <path style="mix-blend-mode:screen" opacity="0.2" fill-rule="evenodd" clip-rule="evenodd" d="M155.961 131.544L170.145 149.888L143.022 210.044L141.024 206.348C143.664 207.371 165.662 161.048 165.559 151.391C165.461 142.256 159.259 135.038 156.44 134.579C154.776 134.309 154.157 135.609 154.157 135.609L155.961 131.544Z" fill="url(#paint171_radial_59_1322)"/>
 <path style="mix-blend-mode:multiply" opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M144.916 210.699C158.929 215.301 187.514 159.363 177.7 152.676L185.271 155.471L158.236 215.301L144.916 210.699Z" fill="url(#paint172_radial_59_1322)"/>
 <defs>
-<filter id="filter0_d_59_1322" x="0.294434" y="0.875" width="394.082" height="358.082" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_59_1323" x="0.294434" y="0.875" width="394.082" height="358.082" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset/>

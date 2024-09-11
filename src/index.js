@@ -7,10 +7,11 @@ import 'react-notifications-component/dist/theme.css'
 import './assets/styles/main.css'
 import './assets/styles/responsive.css'
 import { ConfigProvider } from 'antd'
+import { theme } from './antd.config'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <ConfigProvider>
+  <ConfigProvider theme={theme}>
     <App />
   </ConfigProvider>,
 )

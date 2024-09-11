@@ -50,8 +50,10 @@ export const formatPrizeData = (payload) => {
   )
 
   const getIconByName = (priceName) => {
-    if (priceName === 'First price') return 'firstPrize'
-    if (priceName === 'Second price') return 'secondPrize'
+    if (priceName === 'Jackport') return 'firstPrize'
+    if (priceName === 'First price') return 'secondPrize'
+    // if (priceName === 'First price') return 'firstPrize'
+    // if (priceName === 'Second price') return 'secondPrize'
     return 'thirdPrize'
   }
 

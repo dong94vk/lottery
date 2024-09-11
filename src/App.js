@@ -40,7 +40,7 @@ function App() {
                 />
               )
             })}
-            <Route path="*" element={<Navigate to="/lottery" />} />
+            <Route path="*" element={<Navigate to="" />} />
           </Routes>
         </BrowserRouter>
       </ReduxProvider>

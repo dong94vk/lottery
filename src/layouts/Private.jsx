@@ -25,13 +25,13 @@ function PrivateLayout({ children }) {
     <>
       <Header />
       <Layout className="bg-[#12151d] pr-[10px] pl-[10px] pt-6">
-        <Sider width={76} className="!bg-[#363940] h-[100vh] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden">
+        <Sider width={76} className="!bg-[#363940] h-[calc(100vh-105px)] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden">
           <Sidebar />
         </Sider>
-        <Content className="flex">{children}</Content>
+        <Content className="pl-12 pr-12">{children}</Content>
         <LoginPage setOpenSignUp={setOpenRegister} open={openSignIn} setOpenSignIn={setOpenSignIn} />
         <SignUpPage open={openRegister} setOpenSignUp={setOpenRegister} setOpenSignIn={setOpenSignIn} />
-        <Sider width={250} className="!bg-[#050609] h-[100vh] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden">
+        <Sider width={250} className="!bg-[#050609] h-[calc(100vh-105px)] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden">
         </Sider>
       </Layout>
     </>

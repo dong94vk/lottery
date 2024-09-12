@@ -1,15 +1,18 @@
 import { Button, Col, Row, Typography } from 'antd'
+import { useNavigate } from 'react-router-dom'
 import { History } from 'src/components/bigAndSmall/History'
-import { Prize } from 'src/components/lottery/Prize'
+import { Prize } from 'src/components/home/Prize'
 
 export const Home = () => {
-  const onClickBuyTicket = () => {}
+  const navigate = useNavigate()
+  const onClickBuyTicket = () => navigate('/lottery')
+
   return (
     <Row
       gutter={24}
-      className="lottery-page flex items-center justify-center w-full"
+      className="lottery-page flex flex-col items-center justify-center w-full gap-6"
     >
-      <Col span={24} className="flex w-full justify-around">
+      <Col span={24} className="flex w-full justify-between">
         <Typography.Text className="text-white text-[40px] font-semibold ">
           Join Lottery Today & Win Big Prize
         </Typography.Text>
@@ -22,16 +25,15 @@ export const Home = () => {
           </Typography.Text>
         </Button>
       </Col>
-      <Col span={24} className="mt-16">
+      <Col span={24} className="mt-28">
         <Prize />
       </Col>
-      <Col span={24} className="flex w-full justify-around">
-        <Typography.Text className="text-white text-[40px] font-semibold ">
+      <Col span={24} className="flex w-full justify-between">
+        <Typography.Text className="text-white text-[30px] font-semibold ">
           Other games
         </Typography.Text>
-        <Typography.Text />
       </Col>
-      <Col span={24} className='w-full flex justify-around'>
+      <Col span={24} className="w-full flex justify-around">
         <History />
       </Col>
     </Row>

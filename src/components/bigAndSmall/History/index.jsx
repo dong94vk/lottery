@@ -30,7 +30,7 @@ export const History = () => {
   }
 
   return (
-    <Row gutter={24} className="gamezone w-[1100px] h-[300px] bg-[#1f2129] rounded-[20px] overflow-hidden mb-20">
+    <Row gutter={24} className="gamezone w-full h-[300px] bg-[#1f2129] rounded-[20px] overflow-hidden">
       <Col span={12} className="gamezone__flag !pl-0 !pr-0">
         <Icon name="bigAndSmallFlag" />
       </Col>

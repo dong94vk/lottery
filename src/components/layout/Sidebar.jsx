@@ -16,7 +16,7 @@ function Sidebar() {
   }
 
   return (
-    <Menu className="bg-transparent pt-[20px] flex flex-col justify-center items-center" defaultSelectedKeys={[page]}>
+    <Menu className="bg-transparent pt-[20px] flex flex-col justify-center items-center" selectedKeys={[page]}>
       {routes
         .filter((route) => route.showInSidebar)
         .map((route) => {

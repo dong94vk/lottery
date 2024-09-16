@@ -9,7 +9,7 @@ export const Prize = (props) => {
   const { prizes } = data
 
   useEffect(() => {
-    if(isEmpty(prizes)) {
+    if (isEmpty(prizes)) {
       actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
     }
   }, [prizes])
@@ -20,7 +20,7 @@ export const Prize = (props) => {
   }
 
   return (
-    <div className="prize flex justify-center mt-32 gap-20">
+    <div className="prize flex justify-center mt-28 gap-20">
       {prizes.map((prize) => (
         <PrizeNumber
           icon={prize.icon}

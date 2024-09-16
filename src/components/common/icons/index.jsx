@@ -12,6 +12,8 @@ import { ReactComponent as Lottery } from 'src/assets/icons/lottery.svg'
 import { ReactComponent as BigAndSmall } from 'src/assets/icons/big-and-small.svg'
 import { ReactComponent as Keno } from 'src/assets/icons/keno.svg'
 import { ReactComponent as Home } from 'src/assets/icons/home.svg'
+import { ReactComponent as Trash } from 'src/assets/icons/trash.svg'
+import { ReactComponent as Plus } from 'src/assets/icons/plus.svg'
 
 const icons = {
   topUpWallet: <TopUpWallet />,
@@ -27,7 +29,9 @@ const icons = {
   lottery: <Lottery />,
   bigAndSmall: <BigAndSmall />,
   keno: <Keno />,
-  home: <Home />
+  home: <Home />,
+  trash: <Trash />,
+  plus: <Plus />,
 }
 
 export const Icon = (props) => {

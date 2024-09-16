@@ -8,23 +8,20 @@ function Sidebar() {
   const { pathname } = useLocation()
   const page = pathname.replace('/', '')
   const getMenuIcon = (icon) => {
-    return typeof icon === 'string' ? (
-      <Icon name={icon} />
-    ) : (
-      icon
-    )
+    return typeof icon === 'string' ? <Icon name={icon} /> : icon
   }
 
   return (
-    <Menu className="bg-transparent pt-[20px] flex flex-col justify-center items-center" selectedKeys={[page]}>
+    <Menu
+      className="bg-transparent pt-[20px] flex flex-col justify-center items-center"
+      selectedKeys={[page]}
+    >
       {routes
         .filter((route) => route.showInSidebar)
         .map((route) => {
           return (
             <Menu.Item key={route.path} className="!mt-3 !w-[50px] !h-[50px]">
-              <NavLink to={`/${route.path}`}>
-                {getMenuIcon(route.icon)}
-              </NavLink>
+              <NavLink to={`/${route.path}`}>{getMenuIcon(route.icon)}</NavLink>
             </Menu.Item>
           )
         })}

@@ -2,7 +2,10 @@ import useGame from 'src/store/hooks/game'
 import { useEffect, useState } from 'react'
 
 export const useCountDown = () => {
-  const { actions, data: { currentBet } } = useGame()
+  const {
+    actions,
+    data: { currentBet },
+  } = useGame()
 
   const [remainTime, setRemainTime] = useState({})
 

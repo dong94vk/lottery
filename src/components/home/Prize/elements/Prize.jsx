@@ -16,7 +16,9 @@ export const PrizeNumber = (props) => {
           </Typography.Text>
         </div>
         <div className="prize_content__name flex justify-center flex-end w-full absolute bottom-0">
-          <div className={`shadow-[inset_0_4px_6px_0_#6098FF80] w-[137px] h-[40px] rounded-[36px_36px_0_0] flex justify-center items-center`}>
+          <div
+            className={`shadow-[inset_0_4px_6px_0_#6098FF80] w-[137px] h-[40px] rounded-[36px_36px_0_0] flex justify-center items-center`}
+          >
             {name}
           </div>
         </div>

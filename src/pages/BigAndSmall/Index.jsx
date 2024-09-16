@@ -5,7 +5,6 @@ import { useEffect } from 'react'
 import { History } from 'src/components/bigAndSmall/History'
 
 export const BigAndSmall = () => {
-
   const { actions } = useGame()
   useEffect(() => {
     actions.getSetting('TX1')
@@ -13,9 +12,9 @@ export const BigAndSmall = () => {
   }, [])
 
   return (
-  <Row className="lottery-page flex flex-col items-center justify-center w-full">
-    <GameZone />
-    <History />
-  </Row>
+    <Row className="lottery-page flex flex-col items-center justify-center w-full">
+      <GameZone />
+      <History />
+    </Row>
   )
 }

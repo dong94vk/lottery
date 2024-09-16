@@ -1,84 +1,115 @@
-import { Button, Typography } from 'antd'
-import { ChooseNumberElement } from './elements/ChooseNumber'
-import { AddedNumber } from './elements/AddedNumber'
-import { Icon } from 'src/components/common/icons'
-import dayjs from 'dayjs'
+import { Button, Col, Row, Typography } from 'antd'
 import useGame from 'src/store/hooks/game'
 import { useState } from 'react'
+import { createArrayFromNumberToNumber } from 'src/components/lottery/ChooseNumber/helper'
+import { LotteryNumber } from 'src/components/lottery/ChooseNumber/elements/Number'
+import { ChoseNumberElement } from 'src/components/lottery/ChooseNumber/elements/ChooseNumber'
+import { Icon } from 'src/components/common/icons'
+import { pullAt } from 'lodash'
 
 export const ChooseNumber = (props) => {
-  const { selectedNumber } = props
   const { data } = useGame()
-  const { currentBet, setting } = data
-  const [numberSelected, setNumberSelected] = useState([])
-  const onChangeNumber = (index, number) => {
-    numberSelected[index] = number
-    setNumberSelected(numberSelected)
-  }
+  const { setting } = data
+  const [numberSelected, setNumberSelected] = useState([
+    [1, 2, 3, 4, 5, 6],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+    [7, 8, 9, 10, 11, 12],
+  ])
 
   const onSubmit = () => {
     props.onSubmitBuyTicket(numberSelected)
   }
+
+  const onClickNumber = (number, selected) => {}
+
+  const handleDeleteSelectedNumbers = (index) => {
+    const numbers = [...numberSelected]
+    pullAt(numbers, index)
+    setNumberSelected(numbers)
+  }
   return (
-    <div className="choose-number flex justify-around w-full h-32 mt-12 gap-10">
-      <div className="choose-number__buy-ticket flex flex-col justify-center items-center h-32">
-        <div className="choose-number__buy-ticket__title flex justify-center items-center w-full">
-          <Typography.Title
-            level={1}
-            className="!text-white !font-medium !text-4xl	"
-          >
-            Choose {setting.numberQuantity} Numbers
-          </Typography.Title>
-        </div>
-        <div className="choose-number__buy-ticket__choose-number flex justify-center items-center w-full gap-4">
-          {Array.from(Array(setting.numberQuantity).keys()).map((_, index) => (
-            <ChooseNumberElement
+    <Row
+      gutter={[24, 24]}
+      className="flex items-start justify-center bg-[#1f2129] w-full rounded-[20px] p-4"
+    >
+      <Col
+        span={12}
+        className="flex flex-col items-center justify-center gap-6 "
+      >
+        <Typography.Text className="text-[28px] font-semibold !text-white order-first">
+          Choose 6 Numbers
+        </Typography.Text>
+        <Row className="w-full gap-3 flex justify-center order-2">
+          {createArrayFromNumberToNumber(
+            setting.range.min,
+            setting.range.max,
+          ).map((item, index) => {
+            return (
+              <LotteryNumber
+                number={item}
+                key={index}
+                handleClickNumber={onClickNumber}
+              />
+            )
+          })}
+        </Row>
+        <Button
+          className="bg-custom-gradient rounded-xl p-[12px_46px_12px_46px] w-[185px] h-[50px] text-lg font-semibold !text-white order-last"
+          onClick={onSubmit}
+        >
+          Add Ticket
+        </Button>
+      </Col>
+      <Col
+        span={11}
+        className="flex flex-col items-center justify-center gap-6 border-l-2 border-dashed	border-[#66686C99]"
+      >
+        <Typography.Text className="text-[28px] font-semibold !text-white order-first">
+          Your Tickets
+        </Typography.Text>
+        <Row className="flex justify-center order-2" gutter={[24, 24]}>
+          {numberSelected.map((item, index) => (
+            <ChoseNumberElement
               index={index}
+              numbers={item}
               key={index}
-              onChangeNumber={onChangeNumber}
-              numberSelected={numberSelected}
+              handleDelete={handleDeleteSelectedNumbers}
             />
           ))}
-        </div>
-        <div className="choose-number__buy-ticket__button-submit flex justify-center items-center w-full gap-3 mt-8">
-          <Button
-            className="bg-custom-gradient rounded-xl p-[12px_46px_12px_46px] w-[185px] h-[50px] text-lg font-semibold !text-white"
-            onClick={onSubmit}
-          >
-            <Typography.Text className="text-lg font-semibold !text-white">
-              BUY TICKET
-            </Typography.Text>
-          </Button>
-        </div>
-        <div className="choose-number__buy-ticket__rate flex justify-center items-center w-full gap-1 mt-2">
-          <span className="text-sm font-semibold !text-white">
-            1 Ticket = {setting.price || 1}
-          </span>
-          <Icon name="dollar" />
-        </div>
-      </div>
-      <div className="choose-number__ticket-added flex flex-col justify-center items-center">
-        <div className="choose-number__ticket-added__title flex flex-col justify-center items-center">
-          <Typography.Text className="!text-white !font-medium !text-4xl">
-            Draw {currentBet?.id?.toString().padStart(2, '0') || '??'}
-          </Typography.Text>
-          <Typography.Text className="!text-white !font-medium !text-xl">
-            {dayjs(currentBet?.created_at).format('DD/MM/YYYY')}
-          </Typography.Text>
-        </div>
-        <div className="choose-number__ticket-added__ticket-number flex flex-col justify-center items-center mt-10">
-          <div className="choose-number__ticket-added__ticket-number__title">
-            <Typography.Text className="!text-white !font-semibold !text-2xl mb-5">
-              Ticket added
-            </Typography.Text>
+        </Row>
+        <Row className="gap-3 flex justify-around order-3 w-full">
+          <div className="flex justify-center items-center cursor-pointer gap-1">
+            {numberSelected.length < 10 && (
+              <>
+                <Typography.Text className="text-[#0194FE]">
+                  Add more
+                </Typography.Text>
+                <Icon name="plus" />
+              </>
+            )}
           </div>
-          <div className="choose-number__ticket-added__ticket-number__number flex justify-center items-center mt-4 gap-3">
-            {selectedNumber.map((number, index) => (
-              <AddedNumber number={number ?? '??'} key={index} />
-            ))}
+          <div className="flex justify-center items-center gap-1">
+            <Typography.Text className="text-sm font-semibold !text-white">
+              1 Ticket = {setting.price || 1}
+            </Typography.Text>
+            <Icon name="dollar" />
           </div>
-        </div>
-      </div>
-    </div>
+        </Row>
+
+        <Button
+          className="bg-custom-gradient rounded-xl p-[12px_46px_12px_46px] w-[185px] h-[50px] text-lg font-semibold !text-white order-last mb-8"
+          onClick={onSubmit}
+        >
+          Buy Ticket
+        </Button>
+      </Col>
+    </Row>
   )
 }

@@ -105,7 +105,10 @@ export const SignUpPage = (props) => {
           </Form>
         </Col>
         <Col span={15} className="mt-1.5 flex justify-center z-10">
-          <Typography.Text className="text-[#F3F3F3] text-sm font-normal cursor-pointer" onClick={handleClickSignIn}>
+          <Typography.Text
+            className="text-[#F3F3F3] text-sm font-normal cursor-pointer"
+            onClick={handleClickSignIn}
+          >
             Have an account? Sign in now
           </Typography.Text>
         </Col>

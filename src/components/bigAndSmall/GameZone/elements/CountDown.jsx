@@ -6,8 +6,7 @@ export const CountDown = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="text-4xl font-medium">
-        {padStart(remainTime.hours)}:
-        {padStart(remainTime.minutes)}:
+        {padStart(remainTime.hours)}:{padStart(remainTime.minutes)}:
         {padStart(remainTime.seconds)}
       </div>
       <div className="text-[12px] font-medium">left to open</div>

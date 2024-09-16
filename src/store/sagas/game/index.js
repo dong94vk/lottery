@@ -7,11 +7,7 @@ import {
   submitBetFailed,
   submitBetSuccess,
 } from 'src/store/slice/game'
-import {
-  GET_HISTORY,
-  GET_SETTING,
-  SUBMIT_BET,
-} from 'src/store/slice/game/type'
+import { GET_HISTORY, GET_SETTING, SUBMIT_BET } from 'src/store/slice/game/type'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
 

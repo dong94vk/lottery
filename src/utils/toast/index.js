@@ -20,7 +20,7 @@ export const NOTIFICATION_TYPE = {
 const addNotification = (
   message,
   type = NOTIFICATION_TYPE.INFO,
-  title = "Thông báo",
+  title = 'Thông báo',
   duration = NOTIFICATION_DURATION,
 ) => {
   Store.addNotification({

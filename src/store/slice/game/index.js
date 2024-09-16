@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { formatCurrentBetData, formatDataHistory, formatPrizeData, formatSettingData, SLICE_GAME } from './type'
+import {
+  formatCurrentBetData,
+  formatDataHistory,
+  formatPrizeData,
+  formatSettingData,
+  SLICE_GAME,
+} from './type'
 import { defaultSetting } from 'src/dummy'
 
 const initialState = {

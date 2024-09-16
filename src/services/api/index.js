@@ -21,8 +21,11 @@ export const createInstance = (baseURL) => {
 
   // Add a request interceptor
   instance.interceptors.request.use(
-    function(config) {
-      if (config.url !== API_URL.AUTH.REFRESH_TOKEN && localStorage.getItem('token')) {
+    function (config) {
+      if (
+        config.url !== API_URL.AUTH.REFRESH_TOKEN &&
+        localStorage.getItem('token')
+      ) {
         // const token = localStorage.getItem('token')
         const token = localStorage.getItem('token')
         config.headers['Authorization'] = `Bearer ${token}`
@@ -30,7 +33,7 @@ export const createInstance = (baseURL) => {
       }
       return config
     },
-    function(error) {
+    function (error) {
       // Các trường hợp lỗi 5xx, 4xx, network xử lý ở đây
       // Do something with request error
       return Promise.reject(error)
@@ -39,7 +42,7 @@ export const createInstance = (baseURL) => {
 
   // Add a response interceptor
   instance.interceptors.response.use(
-    async function(response) {
+    async function (response) {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response
       if (validateStatus(response?.status)) {
@@ -54,7 +57,7 @@ export const createInstance = (baseURL) => {
         )
       }
     },
-    function(error) {
+    function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
       const response = error.response
@@ -276,7 +279,7 @@ const instance = createInstance(BASE_URL)
 export const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('refreshToken')
-  window.dispatchEvent("removeToken");
+  window.dispatchEvent('removeToken')
 }
 /**
  *

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { authSlice } from '../slice/authentication'
 
-
 function useAuth() {
   const data = useSelector((state) => get(state, 'auth'))
 

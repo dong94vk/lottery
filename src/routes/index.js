@@ -1,4 +1,3 @@
-
 import { NotFound } from 'src/pages/NotFound/Index'
 import { LotteryPage } from 'src/pages/Lottery/Index'
 import { BigAndSmall } from 'src/pages/BigAndSmall/Index'
@@ -18,7 +17,7 @@ export const routes = [
     component: Home,
     showInSidebar: true,
     isPublic: false,
-    icon: 'home'
+    icon: 'home',
   },
   {
     path: 'lottery',
@@ -26,7 +25,7 @@ export const routes = [
     component: LotteryPage,
     showInSidebar: true,
     isPublic: false,
-    icon: 'lottery'
+    icon: 'lottery',
   },
   {
     path: 'big-and-small',
@@ -34,6 +33,6 @@ export const routes = [
     component: BigAndSmall,
     showInSidebar: true,
     isPublic: false,
-    icon: 'bigAndSmall'
-  }
+    icon: 'bigAndSmall',
+  },
 ]

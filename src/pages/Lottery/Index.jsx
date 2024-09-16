@@ -12,7 +12,9 @@ import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 export const LotteryPage = () => {
   const { actions, data } = useGame()
   const { setting, currentBet } = data
-  const { data: { account } } = useAuth()
+  const {
+    data: { account },
+  } = useAuth()
 
   useEffect(() => {
     actions.getSetting('LT6452')
@@ -20,7 +22,9 @@ export const LotteryPage = () => {
   }, [])
 
   const [selectedPrize, setSelectedPrize] = useState(null)
-  const [selectedNumber, setSelectedNumber] = useState(createArrayHasQuantityElement(6))
+  const [selectedNumber, setSelectedNumber] = useState(
+    createArrayHasQuantityElement(6),
+  )
 
   useEffect(() => {
     setSelectedNumber(createArrayHasQuantityElement(setting?.numberQuantity))
@@ -42,7 +46,7 @@ export const LotteryPage = () => {
 
   return (
     <Row className="lottery-page flex flex-col items-center justify-center w-full">
-      <CountDown />
+      {/*<CountDown />*/}
       <Prize setSelectedPrize={setSelectedPrize} />
       <ChooseNumber
         onSubmitBuyTicket={onSubmitBuyTicket}

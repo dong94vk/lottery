@@ -1,10 +1,10 @@
 import { all, fork } from 'redux-saga/effects'
+import { watchDoGetHistory, watchDoGetSetting, watchDoSubmitBet } from './game'
 import {
-  watchDoGetHistory,
-  watchDoGetSetting,
-  watchDoSubmitBet,
-} from './game'
-import { watchDoGetAccountInfo, watchDoLogin, watchDoSignUp } from './authentication'
+  watchDoGetAccountInfo,
+  watchDoLogin,
+  watchDoSignUp,
+} from './authentication'
 
 const rootSaga = function* () {
   yield all([
@@ -13,7 +13,7 @@ const rootSaga = function* () {
     fork(watchDoSubmitBet),
     fork(watchDoGetAccountInfo),
     fork(watchDoLogin),
-    fork(watchDoSignUp)
+    fork(watchDoSignUp),
   ])
 }
 

@@ -1,5 +1,4 @@
 import { History } from 'src/components/lottery/History'
-import { CountDown } from 'src/components/lottery/CountDown'
 import { Prize } from 'src/components/lottery/Prize'
 import { ChooseNumber } from 'src/components/lottery/ChooseNumber'
 import { Row } from 'antd'
@@ -18,7 +17,7 @@ export const LotteryPage = () => {
 
   useEffect(() => {
     actions.getSetting('LT6452')
-    actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
+    actions.getHistory({ code: 'LT6452', page: 1, limit: 5 })
   }, [])
 
   const [selectedPrize, setSelectedPrize] = useState(null)
@@ -46,7 +45,6 @@ export const LotteryPage = () => {
 
   return (
     <Row className="lottery-page flex flex-col items-center justify-center w-full">
-      {/*<CountDown />*/}
       <Prize setSelectedPrize={setSelectedPrize} />
       <ChooseNumber
         onSubmitBuyTicket={onSubmitBuyTicket}

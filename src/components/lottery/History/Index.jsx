@@ -1,4 +1,4 @@
-import { Row } from 'antd'
+import { Col, Row } from 'antd'
 import { TicketNumber } from './elements/TicketNumber'
 import dayjs from 'dayjs'
 import { numberWithCommas } from '../Prize/helper'
@@ -7,6 +7,9 @@ import { useEffect, useState } from 'react'
 import { flatMap, isEmpty, map } from 'lodash'
 import { apiBetHistory } from 'src/store/sagas/game'
 import { createArrayHasQuantityElement } from '../ChooseNumber/helper'
+import { CountDown } from '../CountDown'
+import { PrizePot } from './elements/PrizePot'
+import { NumberTicket } from './elements/NumberTicket'
 
 export const History = () => {
   const {
@@ -29,16 +32,22 @@ export const History = () => {
   }
 
   return (
-    <Row className="history flex justify-center bg-[#182a3e] mt-32 rounded-3xl w-[1130px] p-3">
-      <div className="border-solid border-2 border-[linear-gradient(161.06deg, rgba(154, 232, 255, 0) 3.06%, #9AE8FF 32%, #0A9AFC 56.47%, rgba(10, 154, 252, 0) 86.85%)] w-full rounded-3xl p-3">
-        <table className="bg-transparent table-auto w-full">
-          <thead>
-            <tr className="table-header text-[16px] font-medium">
-              <td>Time</td>
-              <td>Number</td>
-              <td>Prize pot</td>
-              <td>Your Ticket</td>
-              <td>Winning</td>
+    <Row
+      gutter={[24, 24]}
+      className="flex items-start justify-center bg-[#1f2129] w-full rounded-[20px] p-8 mt-10"
+    >
+      <Col span={24}>
+        <CountDown />
+      </Col>
+      <Col span={24} className="flex justify-center mt-10">
+        <table className="bg-transparent table-auto w-3/4">
+          <thead className="border-b-2 border-[#66686C60] text-center table-header text-[16px] font-medium">
+            <tr>
+              <td className='pb-5'>Time</td>
+              <td className='pb-5'>Draw</td>
+              <td className='pb-5'>Winning</td>
+              <td className='pb-5'>Prize pot</td>
+              <td className='pb-5'>Your tickets</td>
             </tr>
           </thead>
           <tbody>
@@ -46,18 +55,16 @@ export const History = () => {
               const betHistory = betHistories.find((bet) => {
                 return +history.id === +bet?.attributes?.source
               })?.attributes
-              const betValue = betHistory?.bet_value
-                ? betHistory?.bet_value?.split(',')
-                : createArrayHasQuantityElement(6)
+
               const historyPrize = !isEmpty(history?.prize)
                 ? history?.prize
                 : createArrayHasQuantityElement(6)
+
               return (
-                <tr key={index}>
-                  <td className="text-xl font-semibold">
-                    {dayjs(history.time).format('DD/MM/YYYY')}
-                  </td>
-                  <td className="flex gap-3">
+                <tr key={index} className="text-center text-base font-semibold">
+                  <td>{dayjs(history.time).format('DD/MM/YYYY')}</td>
+                  <td>#{history.id}</td>
+                  <td className="flex gap-3 justify-center py-2">
                     {historyPrize.map((numberElement, index) => {
                       return (
                         <TicketNumber
@@ -70,38 +77,17 @@ export const History = () => {
                       )
                     })}
                   </td>
-                  <td className="text-xl font-semibold">
-                    ${numberWithCommas(history.current_pot)}
+                  <td>
+                    <PrizePot prize={history.current_pot} />
                   </td>
-                  <td className="flex gap-3">
-                    {betValue.map((numberElement, index) => {
-                      return (
-                        <TicketNumber
-                          number={
-                            history?.status === 'done' && numberElement
-                              ? numberElement
-                              : '??'
-                          }
-                          key={index}
-                          className={
-                            history?.prize?.includes(numberElement) &&
-                            history?.status === 'done'
-                              ? '!text-cyan-500'
-                              : '!text-white'
-                          }
-                        />
-                      )
-                    })}
-                  </td>
-                  <td className="text-xl font-semibold">
-                    {betHistory?.win_amount ?? '??'}
-                  </td>
+                  <td>
+                    <NumberTicket numberTicket={betHistory?.win_amount || '??'} /></td>
                 </tr>
               )
             })}
           </tbody>
         </table>
-      </div>
+      </Col>
     </Row>
   )
 }

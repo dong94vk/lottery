@@ -15,7 +15,7 @@ export const LotteryNumber = (props) => {
       }`}
       onClick={handleClickNumber && handleClick}
     >
-      {number.toString().padStart(2, '0')}
+      {number?.toString().padStart(2, '0')}
     </Typography.Text>
   )
 }

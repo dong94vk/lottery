@@ -1,7 +1,7 @@
 import { Button, Col, Row, Typography } from 'antd'
 import useGame from 'src/store/hooks/game'
 import { useState } from 'react'
-import { createArrayFromNumberToNumber } from 'src/components/lottery/ChooseNumber/helper'
+import { createArrayFromNumberToNumber, createArrayHasQuantityElement } from 'src/components/lottery/ChooseNumber/helper'
 import { LotteryNumber } from 'src/components/lottery/ChooseNumber/elements/Number'
 import { ChoseNumberElement } from 'src/components/lottery/ChooseNumber/elements/ChooseNumber'
 import { Icon } from 'src/components/common/icons'
@@ -33,6 +33,15 @@ export const ChooseNumber = (props) => {
     const numbers = [...numberSelected]
     pullAt(numbers, index)
     setNumberSelected(numbers)
+  }
+
+  const handleClickAddMore = () => {
+    if(numberSelected.length < 10) {
+      const newElements = createArrayHasQuantityElement(setting?.numberQuantity)
+      const numbers = [...numberSelected];
+      numbers.push(newElements)
+      setNumberSelected(numbers)
+    }
   }
   return (
     <Row
@@ -85,7 +94,7 @@ export const ChooseNumber = (props) => {
           ))}
         </Row>
         <Row className="gap-3 flex justify-around order-3 w-full">
-          <div className="flex justify-center items-center cursor-pointer gap-1">
+          <div className="flex justify-center items-center cursor-pointer gap-1" onClick={handleClickAddMore}>
             {numberSelected.length < 10 && (
               <>
                 <Typography.Text className="text-[#0194FE]">

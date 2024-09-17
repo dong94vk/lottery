@@ -1,7 +1,6 @@
 import { Col, Row } from 'antd'
 import { TicketNumber } from './elements/TicketNumber'
 import dayjs from 'dayjs'
-import { numberWithCommas } from '../Prize/helper'
 import useGame from 'src/store/hooks/game'
 import { useEffect, useState } from 'react'
 import { flatMap, isEmpty, map } from 'lodash'
@@ -81,7 +80,7 @@ export const History = () => {
                     <PrizePot prize={history.current_pot} />
                   </td>
                   <td>
-                    <NumberTicket numberTicket={betHistory?.win_amount || '??'} /></td>
+                    <NumberTicket numberTicket={betHistory?.win_amount || '??'} ticketId={history.id} /></td>
                 </tr>
               )
             })}

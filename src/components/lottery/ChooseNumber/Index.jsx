@@ -6,10 +6,12 @@ import { LotteryNumber } from 'src/components/lottery/ChooseNumber/elements/Numb
 import { ChoseNumberElement } from 'src/components/lottery/ChooseNumber/elements/ChooseNumber'
 import { Icon } from 'src/components/common/icons'
 import { pullAt } from 'lodash'
+import { BuyTicketSuccessModal } from './elements/BuyTicketModal'
 
 export const ChooseNumber = (props) => {
   const { data } = useGame()
   const { setting } = data
+  const [openBuyTicketModal, setOpenBuyTicketModal] = useState(false)
   const [numberSelected, setNumberSelected] = useState([
     [1, 2, 3, 4, 5, 6],
     [7, 8, 9, 10, 11, 12],
@@ -24,6 +26,7 @@ export const ChooseNumber = (props) => {
   ])
 
   const onSubmit = () => {
+    setOpenBuyTicketModal(true)
     props.onSubmitBuyTicket(numberSelected)
   }
 
@@ -119,6 +122,7 @@ export const ChooseNumber = (props) => {
           Buy Ticket
         </Button>
       </Col>
+      <BuyTicketSuccessModal open={openBuyTicketModal} setOpen={setOpenBuyTicketModal} />
     </Row>
   )
 }

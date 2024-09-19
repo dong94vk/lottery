@@ -1,51 +1,72 @@
 import { Button, Col, Row, Typography } from 'antd'
 import useGame from 'src/store/hooks/game'
 import { useState } from 'react'
-import { createArrayFromNumberToNumber, createArrayHasQuantityElement } from 'src/components/lottery/ChooseNumber/helper'
+import {
+  createArrayFromNumberToNumber,
+  createArrayHasQuantityElement,
+} from 'src/components/lottery/ChooseNumber/helper'
 import { LotteryNumber } from 'src/components/lottery/ChooseNumber/elements/Number'
 import { ChoseNumberElement } from 'src/components/lottery/ChooseNumber/elements/ChooseNumber'
 import { Icon } from 'src/components/common/icons'
-import { pullAt } from 'lodash'
-import { BuyTicketSuccessModal } from './elements/BuyTicketModal'
+import { cloneDeep, compact, concat, isEmpty, pullAt } from 'lodash'
+import { MaxNumberTicket } from './constant'
 
 export const ChooseNumber = (props) => {
+  const { onSubmitBuyTicket } = props
   const { data } = useGame()
   const { setting } = data
-  const [openBuyTicketModal, setOpenBuyTicketModal] = useState(false)
-  const [numberSelected, setNumberSelected] = useState([
-    [1, 2, 3, 4, 5, 6],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-    [7, 8, 9, 10, 11, 12],
-  ])
 
+  const [numberAdd, setNumberAdd] = useState([]) // dãy số đang add
+  const [numberSelected, setNumberSelected] = useState([
+    createArrayHasQuantityElement(setting?.numberQuantity),
+    createArrayHasQuantityElement(setting?.numberQuantity),
+    createArrayHasQuantityElement(setting?.numberQuantity),
+    createArrayHasQuantityElement(setting?.numberQuantity),
+    createArrayHasQuantityElement(setting?.numberQuantity),
+  ]) // dãy số đã add, mặc định 5 dãy chưa có số nào được chọn
   const onSubmit = () => {
-    setOpenBuyTicketModal(true)
-    props.onSubmitBuyTicket(numberSelected)
+    onSubmitBuyTicket(numberSelected)
   }
 
-  const onClickNumber = (number, selected) => {}
-
   const handleDeleteSelectedNumbers = (index) => {
-    const numbers = [...numberSelected]
+    const numbers = cloneDeep(numberSelected)
     pullAt(numbers, index)
     setNumberSelected(numbers)
   }
 
   const handleClickAddMore = () => {
-    if(numberSelected.length < 10) {
-      const newElements = createArrayHasQuantityElement(setting?.numberQuantity)
-      const numbers = [...numberSelected];
-      numbers.push(newElements)
-      setNumberSelected(numbers)
+    const numbersArr = cloneDeep(numberSelected)
+    const remainElement = MaxNumberTicket - numbersArr.length
+    let newElements = []
+    if (remainElement > 0) {
+      newElements = createArrayHasQuantityElement(remainElement).map(() =>
+        createArrayHasQuantityElement(setting?.numberQuantity),
+      )
     }
+    const newArr = concat(numbersArr, newElements)
+    setNumberSelected(newArr)
   }
+
+  const onClickAddTicket = () => {
+    const newNumberSelected = cloneDeep(numberSelected)
+
+    const indexEmpty = newNumberSelected.findIndex((numbers) =>
+      isEmpty(compact(numbers)),
+    )
+    if (indexEmpty !== -1) {
+      newNumberSelected[indexEmpty] = numberAdd
+    }
+    if (
+      indexEmpty === -1 &&
+      numberSelected.length < MaxNumberTicket &&
+      numberAdd.length === setting?.numberQuantity
+    ) {
+      newNumberSelected.push(numberAdd)
+    }
+    setNumberSelected(newNumberSelected)
+    setNumberAdd([])
+  }
+
   return (
     <Row
       gutter={[24, 24]}
@@ -67,14 +88,15 @@ export const ChooseNumber = (props) => {
               <LotteryNumber
                 number={item}
                 key={index}
-                handleClickNumber={onClickNumber}
+                numberAdded={numberAdd}
+                setNumberAdded={setNumberAdd}
               />
             )
           })}
         </Row>
         <Button
           className="bg-custom-gradient rounded-xl p-[12px_46px_12px_46px] w-[185px] h-[50px] text-lg font-semibold !text-white order-last"
-          onClick={onSubmit}
+          onClick={onClickAddTicket}
         >
           Add Ticket
         </Button>
@@ -97,8 +119,11 @@ export const ChooseNumber = (props) => {
           ))}
         </Row>
         <Row className="gap-3 flex justify-around order-3 w-full">
-          <div className="flex justify-center items-center cursor-pointer gap-1" onClick={handleClickAddMore}>
-            {numberSelected.length < 10 && (
+          <div
+            className="flex justify-center items-center cursor-pointer gap-1"
+            onClick={handleClickAddMore}
+          >
+            {numberSelected.length < MaxNumberTicket && (
               <>
                 <Typography.Text className="text-[#0194FE]">
                   Add more
@@ -122,7 +147,6 @@ export const ChooseNumber = (props) => {
           Buy Ticket
         </Button>
       </Col>
-      <BuyTicketSuccessModal open={openBuyTicketModal} setOpen={setOpenBuyTicketModal} />
     </Row>
   )
 }

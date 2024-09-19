@@ -66,7 +66,7 @@ export const apiSubmitBet = (payload) => {
 
 function* doSubmitBet({ payload }) {
   try {
-    const response = yield call(apiSubmitBet, payload)
+    const response = yield call(apiSubmitBet, payload.body)
     if (!response?.data) {
       yield put(submitBetFailed())
     }

@@ -1,7 +1,6 @@
 import { Button, Col, Row, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { GameZone } from 'src/components/bigAndSmall/GameZone'
-import { History } from 'src/components/bigAndSmall/History'
 import { Prize } from 'src/components/home/Prize'
 
 export const Home = () => {

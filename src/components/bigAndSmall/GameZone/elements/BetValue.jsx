@@ -33,7 +33,7 @@ export const BetValue = (props) => {
       {betValue.map((value) => (
         <span
           key={value}
-          className={`flex items-center gap-1 pb-2 pt-2 pl-4 pr-4 shadow-[inset_0_1px_4px_0px_#FFFFFF40] rounded-lg select-none cursor-pointer ${
+          className={`flex items-center gap-1 pb-2 pt-2 pl-2 pr-2 shadow-[inset_0_1px_4px_0px_#FFFFFF40] rounded-lg select-none cursor-pointer ${
             selected === value ? selectedClass : ''
           } ${flagSelected ? flagClass : ''}`}
           onClick={() => onChangeBetValue(value)}

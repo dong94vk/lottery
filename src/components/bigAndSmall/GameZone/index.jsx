@@ -35,7 +35,7 @@ export const GameZone = () => {
   return (
     <Row
       gutter={[24, 24]}
-      className="w-full bg-[#1f2129] rounded-[20px] overflow-hidden mb-20"
+      className="w-full bg-[#1f2129] rounded-[20px] overflow-hidden"
     >
       <Col span={8} className="gamezone__flag !pl-0 !pr-0">
         <Icon name="bigAndSmallFlag" />

@@ -12,7 +12,7 @@ export const BigAndSmall = () => {
   }, [])
 
   return (
-    <Row className="lottery-page flex flex-col items-center justify-center w-full">
+    <Row className="lottery-page flex flex-col items-center justify-center w-full gap-8">
       <GameZone />
       <History />
     </Row>

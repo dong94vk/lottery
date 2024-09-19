@@ -38,10 +38,10 @@ export const GameZone = () => {
   }
 
   const handleChangeBet = (bet) => {
-    if(isNil(selectedBetValue) || +selectedBetValue === 0) {
+    if (isNil(selectedBetValue) || +selectedBetValue === 0) {
       setFlagSelected(true)
       setSelectBet(null)
-      return 
+      return
     }
     setSelectBet(bet)
   }
@@ -75,7 +75,11 @@ export const GameZone = () => {
           <CountDown />
         </div>
         <div className="flex w-3/5">
-          <BetValue onChange={handleChangeBetValue} flag={flagSelected} setFlag={setFlagSelected}/>
+          <BetValue
+            onChange={handleChangeBetValue}
+            flag={flagSelected}
+            setFlag={setFlagSelected}
+          />
         </div>
 
         <div className="w-full flex justify-center items-center mt-6 gap-10">

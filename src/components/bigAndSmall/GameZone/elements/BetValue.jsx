@@ -1,6 +1,13 @@
 import { Input, Typography } from 'antd'
 import { useEffect, useState } from 'react'
 import { Icon } from 'src/components/common/icons'
+import styled from 'styled-components'
+
+export const BetValueStyled = styled.div`
+  .ant-input {
+    padding: unset !important;
+  }
+`
 
 export const BetValue = (props) => {
   const { onChange, flag, setFlag } = props
@@ -29,7 +36,7 @@ export const BetValue = (props) => {
   const selectedClass = 'border-solid border-[1px] bg-[#8e9094]'
 
   return (
-    <div className="flex w-full justify-center gap-4">
+    <BetValueStyled className="flex w-full justify-center gap-4">
       {betValue.map((value) => (
         <span
           key={value}
@@ -57,6 +64,6 @@ export const BetValue = (props) => {
         />
         <Icon name="dollar" />
       </span>
-    </div>
+    </BetValueStyled>
   )
 }

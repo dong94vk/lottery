@@ -3,10 +3,13 @@ import { Icon } from 'src/components/common/icons'
 
 export const BetButton = (props) => {
   const { title, joinNumber, prize, selected, textColor, onClick } = props
-  const selectedClass = "border-2 border-white shadow-[inset_0_0_24px_0_#FFFFFF40] bg-[#4b4d54]"
+  const selectedClass =
+    'border-2 border-white shadow-[inset_0_0_24px_0_#FFFFFF40] bg-[#4b4d54]'
   return (
     <div
-      className={`flex flex-col w-[210px] h-[140px] rounded-[20px] shadow-[inset_0_0_32px_0_#FFFFFF26] p-3 cursor-pointer relative ${selected ? selectedClass : ''}`}
+      className={`flex flex-col w-[210px] h-[140px] rounded-[20px] shadow-[inset_0_0_32px_0_#FFFFFF26] p-3 cursor-pointer relative ${
+        selected ? selectedClass : ''
+      }`}
       onClick={onClick}
     >
       <div className="flex justify-around">

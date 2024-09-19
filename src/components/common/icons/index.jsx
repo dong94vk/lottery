@@ -39,7 +39,7 @@ const icons = {
   nextArrow: <NextArrow />,
   lotterySuccess: <LotterySuccess />,
   firstWinIcon: <FirstWinIcon />,
-  dollar24: <Dollar24 />
+  dollar24: <Dollar24 />,
 }
 
 export const Icon = (props) => {

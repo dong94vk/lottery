@@ -123,7 +123,7 @@ export const HistoryTicketModal = (props) => {
                           index={index === 1 ? ticketIndex + 5 : ticketIndex}
                           numbers={ticket}
                           key={index * ticketIndex}
-                          className={"!gap-3 mt-2"}
+                          className={'!gap-3 mt-2'}
                         />
                       )
                     })}

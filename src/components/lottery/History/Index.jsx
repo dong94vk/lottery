@@ -42,11 +42,11 @@ export const History = () => {
         <table className="bg-transparent table-auto w-3/4">
           <thead className="border-b-2 border-[#66686C60] text-center table-header text-[16px] font-medium">
             <tr>
-              <td className='pb-5'>Time</td>
-              <td className='pb-5'>Draw</td>
-              <td className='pb-5'>Winning</td>
-              <td className='pb-5'>Prize pot</td>
-              <td className='pb-5'>Your tickets</td>
+              <td className="pb-5">Time</td>
+              <td className="pb-5">Draw</td>
+              <td className="pb-5">Winning</td>
+              <td className="pb-5">Prize pot</td>
+              <td className="pb-5">Your tickets</td>
             </tr>
           </thead>
           <tbody>
@@ -80,7 +80,11 @@ export const History = () => {
                     <PrizePot prize={history.current_pot} />
                   </td>
                   <td>
-                    <NumberTicket numberTicket={betHistory?.win_amount || '??'} ticketId={history.id} /></td>
+                    <NumberTicket
+                      numberTicket={betHistory?.win_amount || '??'}
+                      ticketId={history.id}
+                    />
+                  </td>
                 </tr>
               )
             })}

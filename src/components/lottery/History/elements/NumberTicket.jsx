@@ -8,7 +8,10 @@ export const NumberTicket = ({ numberTicket, ticketId }) => {
 
   return (
     <>
-      <div className="flex items-center justify-center cursor-pointer gap-4" onClick={() => setOpen(true)}>
+      <div
+        className="flex items-center justify-center cursor-pointer gap-4"
+        onClick={() => setOpen(true)}
+      >
         {numberWithCommas(numberTicket)} Tickets <Icon name="nextArrow" />
       </div>
       <HistoryTicketModal open={open} setOpen={setOpen} ticketId={ticketId} />

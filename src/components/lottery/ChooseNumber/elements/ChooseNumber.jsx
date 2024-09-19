@@ -10,7 +10,10 @@ export const ChoseNumberElement = (props) => {
   }
 
   return (
-    <Col span={24} className={`flex items-center justify-center gap-8 ${className}`}>
+    <Col
+      span={24}
+      className={`flex items-center justify-center gap-8 ${className}`}
+    >
       {index + 1}
       <div className="flex gap-2">
         {numbers?.map((number) => (

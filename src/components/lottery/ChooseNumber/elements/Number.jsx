@@ -3,15 +3,14 @@ import { cloneDeep, remove } from 'lodash'
 import useGame from 'src/store/hooks/game'
 
 export const LotteryNumber = (props) => {
-  const { number, className, numberAdded, setNumberAdded } =
-    props
+  const { number, className, numberAdded, setNumberAdded } = props
   const { data } = useGame()
   const { setting } = data
 
   const handleClick = () => {
     const newArr = cloneDeep(numberAdded)
     if (newArr?.includes(number)) {
-      remove(newArr, item => +item === +number)
+      remove(newArr, (item) => +item === +number)
       setNumberAdded(newArr)
       return
     }

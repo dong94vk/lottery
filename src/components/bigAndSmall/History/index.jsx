@@ -112,14 +112,19 @@ export const History = () => {
               ))}
             </tr>
           </thead>
-          <tbody className='pt-4 pb-4'>
+          <tbody className="pt-4 pb-4">
             {historyData.map((history, index) => {
               return (
-                <tr key={`historyBigAndSmall-${index}`} className="text-center text-base font-semibold">
+                <tr
+                  key={`historyBigAndSmall-${index}`}
+                  className="text-center text-base font-semibold"
+                >
                   <td>{history.time}</td>
                   <td>#{history.session}</td>
                   <td>{winningContent(history.winning)}</td>
-                  <td><PrizePot prize={history.yourReward} /></td>
+                  <td>
+                    <PrizePot prize={history.yourReward} />
+                  </td>
                 </tr>
               )
             })}

@@ -25,7 +25,9 @@ export const LotteryPage = () => {
   const [openBuyTicketModal, setOpenBuyTicketModal] = useState(false)
 
   const onSubmitBuyTicket = (numberSelected) => {
-    const numbersArr = numberSelected.filter(numbers => !isEmpty(compact(numbers))) // các dãy só được chọn
+    const numbersArr = numberSelected.filter(
+      (numbers) => !isEmpty(compact(numbers)),
+    ) // các dãy só được chọn
     const numberTicket = numbersArr.length
     const amount = +setting?.price * numberTicket // số tiền cần trả
     if (numberTicket <= 0) {
@@ -42,7 +44,8 @@ export const LotteryPage = () => {
         bet_value: numbersArr.map((numbers) => numbers.join(',')),
       },
       onSuccess: () => setOpenBuyTicketModal(true), // show popup thông báo mua ticket thành công
-      onFail: () => addNotification('Something went wrong!', NOTIFICATION_TYPE.ERROR)
+      onFail: () =>
+        addNotification('Something went wrong!', NOTIFICATION_TYPE.ERROR),
     })
   }
 

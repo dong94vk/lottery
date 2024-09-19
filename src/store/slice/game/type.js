@@ -14,6 +14,10 @@ export const SUBMIT_BET = `${SLICE_GAME}/submitBet`
 export const SUBMIT_BET_SUCCESS = `${SLICE_GAME}/submitBetSuccess`
 export const SUBMIT_BET_FAILED = `${SLICE_GAME}/submitBetFailed`
 
+export const SUBMIT_BET_BATCH = `${SLICE_GAME}/submitBetBatch`
+export const SUBMIT_BET_BATCH_SUCCESS = `${SLICE_GAME}/submitBetBatchSuccess`
+export const SUBMIT_BET_BATCH_FAILED = `${SLICE_GAME}/submitBetBatchFailed`
+
 export const formatSettingData = (payload) => {
   const data = payload.attributes
   return {
@@ -28,18 +32,23 @@ export const formatSettingData = (payload) => {
 }
 
 export const formatDataHistory = (payload) => {
-  return payload.map((data) => {
+  const histories = []
+  payload.forEach((data) => {
     const { attributes = {} } = data
-    return {
-      id: data.id,
-      created_at: attributes.created_at,
-      end_at: attributes.end_at,
-      prize: attributes.win_prize?.split(','),
-      current_pot: attributes.current_pot,
-      status: attributes.status,
-      bet_value: [],
+    if (attributes.status !== 'active') {
+      // trạng thái active => game đang chạy => ko phải lịch sử
+      histories.push({
+        id: data.id,
+        created_at: attributes.created_at,
+        end_at: attributes.end_at,
+        prize: attributes.win_prize?.split(','),
+        current_pot: attributes.current_pot,
+        status: attributes.status,
+        bet_value: [],
+      })
     }
   })
+  return histories
 }
 
 export const formatPrizeData = (payload) => {

@@ -27,7 +27,7 @@ export const useCountDown = () => {
       setRemainTime({ hours, minutes, seconds })
     }
     if (-1 <= timeDifference <= 0) {
-      actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
+      actions.getHistory({ code: 'LT6452', page: 1, limit: 6 })
       clearInterval(intervalId)
       setRemainTime({ hours: '??', minutes: '??', seconds: '??' })
     }

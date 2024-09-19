@@ -89,6 +89,27 @@ export const gameSlice = createSlice({
         errors: null,
       }
     },
+    submitBetBatch: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+        errors: null,
+      }
+    },
+    submitBetBatchSuccess: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+        errors: null,
+      }
+    },
+    submitBetBatchFailed: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+        errors: null,
+      }
+    },
   },
 })
 
@@ -102,5 +123,8 @@ export const {
   submitBet,
   submitBetSuccess,
   submitBetFailed,
+  submitBetBatch,
+  submitBetBatchSuccess,
+  submitBetBatchFailed
 } = gameSlice.actions
 export default gameSlice.reducer

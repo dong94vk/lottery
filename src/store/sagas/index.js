@@ -1,5 +1,5 @@
 import { all, fork } from 'redux-saga/effects'
-import { watchDoGetHistory, watchDoGetSetting, watchDoSubmitBet } from './game'
+import { watchDoGetHistory, watchDoGetSetting, watchDoSubmitBet, watchDoSubmitBetBatch } from './game'
 import {
   watchDoGetAccountInfo,
   watchDoLogin,
@@ -11,6 +11,7 @@ const rootSaga = function* () {
     fork(watchDoGetSetting),
     fork(watchDoGetHistory),
     fork(watchDoSubmitBet),
+    fork(watchDoSubmitBetBatch),
     fork(watchDoGetAccountInfo),
     fork(watchDoLogin),
     fork(watchDoSignUp),

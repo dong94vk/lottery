@@ -6,8 +6,10 @@ import {
   getHistorySuccess,
   submitBetFailed,
   submitBetSuccess,
+  submitBetBatchFailed,
+  submitBetBatchSuccess,
 } from 'src/store/slice/game'
-import { GET_HISTORY, GET_SETTING, SUBMIT_BET } from 'src/store/slice/game/type'
+import { GET_HISTORY, GET_SETTING, SUBMIT_BET, SUBMIT_BET_BATCH } from 'src/store/slice/game/type'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
 
@@ -81,6 +83,28 @@ function* doSubmitBet({ payload }) {
 
 /* end submit bet */
 
+/* start submit bet batch */
+export const apiSubmitBetBatch = (payload) => {
+  return api.post(API_URL.GAME.SUBMIT_BET_BATCH, payload)
+}
+
+function* doSubmitBetBatch({ payload }) {
+  try {
+    const response = yield call(apiSubmitBetBatch, payload.body)
+    if (!response?.data) {
+      yield put(submitBetBatchFailed())
+    }
+    yield put(submitBetBatchSuccess(response.data))
+    if (payload.onSuccess) {
+      yield payload.onSuccess()
+    }
+  } catch (error) {
+    yield put(submitBetBatchFailed(error))
+  }
+}
+
+/* end submit bet batch*/
+
 export function* watchDoGetSetting() {
   yield takeLatest(GET_SETTING, doGetSetting)
 }
@@ -91,4 +115,8 @@ export function* watchDoGetHistory() {
 
 export function* watchDoSubmitBet() {
   yield takeLatest(SUBMIT_BET, doSubmitBet)
+}
+
+export function* watchDoSubmitBetBatch() {
+  yield takeLatest(SUBMIT_BET_BATCH, doSubmitBetBatch)
 }

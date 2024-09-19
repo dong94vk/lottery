@@ -7,8 +7,10 @@ export const API_URL = {
   },
   GAME: {
     GET_HISTORY: 'game',
+    GET_DETAIL_HISTORY: 'game/:gameId',
     GET_SETTING: 'schema/:gameCode',
     SUBMIT_BET: 'player/bet',
+    SUBMIT_BET_BATCH: 'player/bet_batch',
     GET_BET_HISTORY: 'player/bet',
   },
 }

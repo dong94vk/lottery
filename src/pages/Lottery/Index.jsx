@@ -36,7 +36,7 @@ export const LotteryPage = () => {
     if (+account?.attributes?.balance < amount) {
       return addNotification('Not enough amount!', NOTIFICATION_TYPE.ERROR) // thông báo ko đủ tiền bet
     }
-    return actions.submitBet({
+    return actions.submitBetBatch({
       body: {
         account_id: +account.id,
         game_id: +currentBet?.id,

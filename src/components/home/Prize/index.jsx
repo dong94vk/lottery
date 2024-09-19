@@ -8,7 +8,7 @@ export const Prize = (props) => {
   const { prizes } = data
 
   useEffect(() => {
-    actions.getHistory({ code: 'LT6452', page: 1, limit: 1 })
+    actions.getHistory({ code: 'LT6452', page: 1, limit: 6 })
   }, [prizes])
 
   const handleClickPrize = (prize) => {

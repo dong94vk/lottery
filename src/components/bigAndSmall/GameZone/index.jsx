@@ -8,6 +8,7 @@ import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
 import { useState } from 'react'
+import { isNil } from 'lodash'
 
 export const GameZone = () => {
   const { actions, data } = useGame()
@@ -16,6 +17,8 @@ export const GameZone = () => {
     data: { account },
   } = useAuth()
   const [selectedBet, setSelectBet] = useState(null)
+  const [selectedBetValue, setSelectBetValue] = useState(null)
+  const [flagSelected, setFlagSelected] = useState(false)
 
   const onSubmitBuyTicket = (numberSelected) => {
     if (+account?.attributes?.balance > +setting?.price) {
@@ -30,7 +33,17 @@ export const GameZone = () => {
     return addNotification('Not enough amount!', NOTIFICATION_TYPE.ERROR)
   }
 
-  const handleChangeBetValue = () => {}
+  const handleChangeBetValue = (betValue) => {
+    setSelectBetValue(betValue)
+  }
+
+  const handleChangeBet = (bet) => {
+    if(isNil(selectedBetValue) || +selectedBetValue === 0) {
+      setFlagSelected(true)
+      return 
+    }
+    setSelectBet(bet)
+  }
 
   return (
     <Row
@@ -61,7 +74,7 @@ export const GameZone = () => {
           <CountDown />
         </div>
         <div className="flex w-3/5">
-          <BetValue onChange={handleChangeBetValue} />
+          <BetValue onChange={handleChangeBetValue} flag={flagSelected} setFlag={setFlagSelected}/>
         </div>
 
         <div className="w-full flex justify-center items-center mt-6 gap-10">
@@ -71,7 +84,7 @@ export const GameZone = () => {
             prize="1,200,000"
             selected={selectedBet === 'small'}
             textColor="#00FBFB"
-            onClick={() => setSelectBet('small')}
+            onClick={() => handleChangeBet('small')}
           />
           <BetButton
             title="big"
@@ -79,7 +92,7 @@ export const GameZone = () => {
             prize="1,060,000"
             selected={selectedBet === 'big'}
             textColor="#51EE37"
-            onClick={() => setSelectBet('big')}
+            onClick={() => handleChangeBet('big')}
           />
 
           {/* <Price range="3 to 10" amount="120,000" textColor="#00FBFB" />

@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <Row
       gutter={24}
-      className="lottery-page flex flex-col items-center justify-center w-full gap-6"
+      className="lottery-page flex flex-col items-center justify-center w-full gap-5"
     >
       <Col span={24} className="flex w-full justify-between">
         <Typography.Text className="text-white text-[40px] font-semibold ">

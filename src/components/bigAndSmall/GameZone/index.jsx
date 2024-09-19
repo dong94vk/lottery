@@ -40,6 +40,7 @@ export const GameZone = () => {
   const handleChangeBet = (bet) => {
     if(isNil(selectedBetValue) || +selectedBetValue === 0) {
       setFlagSelected(true)
+      setSelectBet(null)
       return 
     }
     setSelectBet(bet)

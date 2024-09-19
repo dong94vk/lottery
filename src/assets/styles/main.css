@@ -1,5 +1,6 @@
 body {
-  font-family: 'Inter';font-size: 22px;
+  font-family: 'Inter';
+  font-size: 22px;
   padding: 0 0 30px 0;
   background-color: #12151d;
   letter-spacing: -0.3px;
@@ -7,11 +8,26 @@ body {
   font-size: 16px;
   line-height: 1.6;
   font-weight: 400;
+  user-select: none !important;
 }
 
-.border-image { 
-  border-image: linear-gradient(161.06deg, rgba(154, 232, 255, 0) 3.06%, #9AE8FF 32%, #0A9AFC 56.47%, rgba(10, 154, 252, 0) 86.85%);
+.border-image {
+  border-image: linear-gradient(
+    161.06deg,
+    rgba(154, 232, 255, 0) 3.06%,
+    #9ae8ff 32%,
+    #0a9afc 56.47%,
+    rgba(10, 154, 252, 0) 86.85%
+  );
   border-width: 2px;
+}
+
+.ant-input {
+  padding: unset !important;
+}
+
+input::placeholder {
+  color: #757575 !important;
 }
 
 .ant-input-number {
@@ -23,7 +39,6 @@ body {
 .ant-input-number-focused:hover {
   border: none;
   box-shadow: none !important;
-
 }
 
 .ant-input-number-input {

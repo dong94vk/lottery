@@ -1,5 +1,6 @@
 import { ReactComponent as Dollar } from 'src/assets/icons/dollar.svg'
 import { ReactComponent as Dollar16 } from 'src/assets/icons/dollar_16x16.svg'
+import { ReactComponent as Dollar24 } from 'src/assets/icons/dollar_24x24.svg'
 import { ReactComponent as TopUpWallet } from 'src/assets/icons/top-up-wallet.svg'
 import { ReactComponent as FirstPrize } from 'src/assets/icons/1st-prize.svg'
 import { ReactComponent as SecondPrize } from 'src/assets/icons/2nd-prize.svg'
@@ -37,7 +38,8 @@ const icons = {
   plus: <Plus />,
   nextArrow: <NextArrow />,
   lotterySuccess: <LotterySuccess />,
-  firstWinIcon: <FirstWinIcon />
+  firstWinIcon: <FirstWinIcon />,
+  dollar24: <Dollar24 />
 }
 
 export const Icon = (props) => {

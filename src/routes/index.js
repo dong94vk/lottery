@@ -1,6 +1,6 @@
 import { NotFound } from 'src/pages/NotFound/Index'
 import { LotteryPage } from 'src/pages/Lottery'
-import { BigAndSmall } from 'src/pages/BigAndSmall/Index'
+import { BigAndSmall } from 'src/pages/BigAndSmall'
 import { Home } from 'src/pages/Home'
 
 export const routes = [

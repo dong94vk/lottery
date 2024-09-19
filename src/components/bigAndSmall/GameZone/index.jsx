@@ -1,11 +1,13 @@
-import { Col, Row } from 'antd'
+import { Col, Row, Typography } from 'antd'
 import { Icon } from 'src/components/common/icons'
 import { Number } from 'src/components/bigAndSmall/GameZone/elements/Number'
-import { Price } from 'src/components/bigAndSmall/GameZone/elements/Price'
 import { CountDown } from 'src/components/bigAndSmall/GameZone/elements/CountDown'
 import useAuth from 'src/store/hooks/authentication'
 import useGame from 'src/store/hooks/game'
 import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
+import { BetValue } from './elements/BetValue'
+import { BetButton } from './elements/BetButton'
+import { useState } from 'react'
 
 export const GameZone = () => {
   const { actions, data } = useGame()
@@ -13,6 +15,7 @@ export const GameZone = () => {
   const {
     data: { account },
   } = useAuth()
+  const [selectedBet, setSelectBet] = useState(null)
 
   const onSubmitBuyTicket = (numberSelected) => {
     if (+account?.attributes?.balance > +setting?.price) {
@@ -27,27 +30,60 @@ export const GameZone = () => {
     return addNotification('Not enough amount!', NOTIFICATION_TYPE.ERROR)
   }
 
+  const handleChangeBetValue = () => {}
+
   return (
     <Row
-      gutter={24}
-      className="gamezone w-full h-[300px] bg-[#1f2129] rounded-[20px] overflow-hidden mb-20"
+      gutter={[24, 24]}
+      className="w-full bg-[#1f2129] rounded-[20px] overflow-hidden mb-20"
     >
-      <Col span={12} className="gamezone__flag !pl-0 !pr-0">
+      <Col span={8} className="gamezone__flag !pl-0 !pr-0">
         <Icon name="bigAndSmallFlag" />
       </Col>
       <Col
-        span={12}
-        className="gamezone__bet p-5 flex flex-col justify-center items-center w-full !pl-[50px]"
+        span={16}
+        className="p-5 flex flex-col justify-center items-center w-full !pl-[50px] gap-5"
       >
-        <div className="w-full flex justify-center gap-10">
-          <Number number={'??'} />
-          <Number number={'??'} />
-          <Number number={'??'} />
-        </div>
-        <div className="w-full flex justify-center items-center mt-6 gap-10">
-          <Price range="3 to 10" amount="120,000" textColor="#00FBFB" />
+        <div className="flex justify-between w-3/5">
+          <div className="flex justify-center gap-6">
+            <Number number={'?'} />
+            <Number number={'?'} />
+            <Number number={'?'} />
+          </div>
+          <div className="flex flex-col justify-center items-center">
+            <Typography.Text className="text-white font-medium text-base">
+              Session
+            </Typography.Text>
+            <Typography.Text className="text-white font-medium text-base">
+              #55
+            </Typography.Text>
+          </div>
           <CountDown />
-          <Price range="11 to 18" amount="160,000" textColor="#51EE36" />
+        </div>
+        <div className="flex w-3/5">
+          <BetValue onChange={handleChangeBetValue} />
+        </div>
+
+        <div className="w-full flex justify-center items-center mt-6 gap-10">
+          <BetButton
+            title="small"
+            joinNumber="3515"
+            prize="1,200,000"
+            selected={selectedBet === 'small'}
+            textColor="#00FBFB"
+            onClick={() => setSelectBet('small')}
+          />
+          <BetButton
+            title="big"
+            joinNumber="3890"
+            prize="1,060,000"
+            selected={selectedBet === 'big'}
+            textColor="#51EE37"
+            onClick={() => setSelectBet('big')}
+          />
+
+          {/* <Price range="3 to 10" amount="120,000" textColor="#00FBFB" />
+          <Price range="11 to 18" amount="160,000" textColor="#51EE36" /> */}
         </div>
       </Col>
     </Row>

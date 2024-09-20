@@ -1,3 +1,4 @@
+import { concat } from 'lodash'
 import { MaxNumberTicket } from '../constant'
 
 export const createArrayHasQuantityElement = (quantity) => {
@@ -11,17 +12,30 @@ export const createArrayFromNumberToNumber = (min = 0, max = 45, step = 1) => {
   )
 }
 
+export const createArrayHasQuantityArrayElement = (
+  numberArray = 5,
+  numberElement = 6,
+) => {
+  return createArrayHasQuantityElement(numberArray).map(() =>
+    createArrayHasQuantityElement(numberElement),
+  )
+}
+
 export const formatDataHistory = (betHistory, setting) => {
-  const yourTickets = []
+  const tickets = []
   let totalWinning = 0
   betHistory.forEach((bet) => {
     const { attributes } = bet
-    yourTickets.push(attributes?.bet_value?.split(','))
+    tickets.push(attributes?.bet_value?.split(','))
     totalWinning += +attributes.current_pot
   })
-  const remainTicketEmpty = MaxNumberTicket - yourTickets.length
-  createArrayHasQuantityElement(remainTicketEmpty).map(() =>
-    yourTickets.push(createArrayHasQuantityElement(setting.numberQuantity)),
+  const remainTicketEmpty = MaxNumberTicket - tickets.length
+  const yourTickets = concat(
+    tickets,
+    createArrayHasQuantityArrayElement(
+      remainTicketEmpty,
+      setting.numberQuantity,
+    ),
   )
   return { yourTickets, totalWinning }
 }

@@ -3,6 +3,7 @@ import useGame from 'src/store/hooks/game'
 import { useState } from 'react'
 import {
   createArrayFromNumberToNumber,
+  createArrayHasQuantityArrayElement,
   createArrayHasQuantityElement,
 } from 'src/components/lottery/ChooseNumber/helper'
 import { LotteryNumber } from 'src/components/lottery/ChooseNumber/elements/Number'
@@ -17,15 +18,10 @@ export const ChooseNumber = (props) => {
   const { setting } = data
 
   const [numberAdd, setNumberAdd] = useState([]) // dãy số đang add
-  const [numberSelected, setNumberSelected] = useState([
-    createArrayHasQuantityElement(setting?.numberQuantity),
-    createArrayHasQuantityElement(setting?.numberQuantity),
-    createArrayHasQuantityElement(setting?.numberQuantity),
-    createArrayHasQuantityElement(setting?.numberQuantity),
-    createArrayHasQuantityElement(setting?.numberQuantity),
-  ]) // dãy số đã add, mặc định 5 dãy chưa có số nào được chọn
+  const [numberSelected, setNumberSelected] = useState(createArrayHasQuantityArrayElement(5, setting?.numberQuantity)) // dãy số đã add, mặc định 5 dãy chưa có số nào được chọn
   const onSubmit = () => {
     onSubmitBuyTicket(numberSelected)
+    setNumberSelected(createArrayHasQuantityArrayElement(5, setting?.numberQuantity))
   }
 
   const handleDeleteSelectedNumbers = (index) => {
@@ -39,15 +35,16 @@ export const ChooseNumber = (props) => {
     const remainElement = MaxNumberTicket - numbersArr.length
     let newElements = []
     if (remainElement > 0) {
-      newElements = createArrayHasQuantityElement(remainElement).map(() =>
-        createArrayHasQuantityElement(setting?.numberQuantity),
-      )
+      newElements = createArrayHasQuantityArrayElement(remainElement, setting.numberQuantity)
     }
     const newArr = concat(numbersArr, newElements)
     setNumberSelected(newArr)
   }
 
   const onClickAddTicket = () => {
+    if (numberAdd.length !== setting?.numberQuantity) {
+      return
+    }
     const newNumberSelected = cloneDeep(numberSelected)
 
     const indexEmpty = newNumberSelected.findIndex((numbers) =>
@@ -56,11 +53,7 @@ export const ChooseNumber = (props) => {
     if (indexEmpty !== -1) {
       newNumberSelected[indexEmpty] = numberAdd
     }
-    if (
-      indexEmpty === -1 &&
-      numberSelected.length < MaxNumberTicket &&
-      numberAdd.length === setting?.numberQuantity
-    ) {
+    if (indexEmpty === -1 && numberSelected.length < MaxNumberTicket) {
       newNumberSelected.push(numberAdd)
     }
     setNumberSelected(newNumberSelected)

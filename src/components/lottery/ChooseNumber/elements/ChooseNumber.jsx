@@ -17,7 +17,7 @@ export const ChoseNumberElement = (props) => {
       {index + 1}
       <div className="flex gap-2">
         {numbers?.map((number) => (
-          <LotteryNumber number={number} key={index} />
+          <LotteryNumber number={number} key={index} className="cursor-default" />
         ))}
       </div>
       {handleDelete && (

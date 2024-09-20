@@ -2,9 +2,7 @@ import { Col, Row } from 'antd'
 import { TicketNumber } from './elements/TicketNumber'
 import dayjs from 'dayjs'
 import useGame from 'src/store/hooks/game'
-import { useEffect, useState } from 'react'
-import { flatMap, isEmpty, map } from 'lodash'
-import { apiBetHistory } from 'src/store/sagas/game'
+import { isEmpty } from 'lodash'
 import { createArrayHasQuantityElement } from '../ChooseNumber/helper'
 import { CountDown } from '../CountDown'
 import { PrizePot } from './elements/PrizePot'
@@ -14,21 +12,6 @@ export const History = () => {
   const {
     data: { histories },
   } = useGame()
-  const [betHistories, setHistoryData] = useState([])
-
-  useEffect(() => {
-    if (!isEmpty(histories)) {
-      const gameIds = map(histories, 'id')
-      fetchHistoryBetData(gameIds)
-    }
-  }, [histories])
-
-  const fetchHistoryBetData = async (ids) => {
-    const res = await Promise.all(
-      ids.map((id) => apiBetHistory({ game_id: id })),
-    )
-    setHistoryData(flatMap(map(res, 'data')))
-  }
 
   return (
     <Row
@@ -51,11 +34,7 @@ export const History = () => {
           </thead>
           <tbody>
             {histories?.map((history, index) => {
-              const betHistory = betHistories.find((bet) => {
-                return +history.id === +bet?.attributes?.source
-              })?.attributes
-
-              const historyPrize = !isEmpty(history?.prize)
+              const historyPrize = !isEmpty(history?.prize) // số trúng giải
                 ? history?.prize
                 : createArrayHasQuantityElement(6)
 
@@ -81,8 +60,9 @@ export const History = () => {
                   </td>
                   <td>
                     <NumberTicket
-                      numberTicket={betHistory?.win_amount || '??'}
+                      numberTicket={history?.ticket_count ?? '??'}
                       ticketId={history.id}
+                      history={history}
                     />
                   </td>
                 </tr>

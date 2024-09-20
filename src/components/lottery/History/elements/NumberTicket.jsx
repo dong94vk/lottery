@@ -3,7 +3,7 @@ import { numberWithCommas } from 'src/components/home/Prize/helper'
 import { HistoryTicketModal } from '../../ChooseNumber/elements/HistoryTicketModal'
 import { useState } from 'react'
 
-export const NumberTicket = ({ numberTicket, ticketId }) => {
+export const NumberTicket = ({ numberTicket, history }) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -14,7 +14,7 @@ export const NumberTicket = ({ numberTicket, ticketId }) => {
       >
         {numberWithCommas(numberTicket)} Tickets <Icon name="nextArrow" />
       </div>
-      <HistoryTicketModal open={open} setOpen={setOpen} ticketId={ticketId} />
+      <HistoryTicketModal open={open} setOpen={setOpen} history={history} />
     </>
   )
 }

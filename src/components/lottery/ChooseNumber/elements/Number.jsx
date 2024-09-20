@@ -14,10 +14,10 @@ export const LotteryNumber = (props) => {
       setNumberAdded(newArr)
       return
     }
-    if (newArr.length >= setting?.numberQuantity) {
+    if (newArr?.length >= setting?.numberQuantity) {
       return
     }
-    if (numberAdded.length < setting?.numberQuantity) {
+    if (numberAdded?.length < setting?.numberQuantity) {
       newArr.push(number)
       setNumberAdded(newArr)
     }

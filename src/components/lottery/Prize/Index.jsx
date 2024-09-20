@@ -10,7 +10,7 @@ export const Prize = (props) => {
 
   useEffect(() => {
     if (isEmpty(prizes)) {
-      actions.getHistory({ code: 'LT6452', page: 1, limit: 30 })
+      actions.getHistory({ code: 'LT6452', page: 1, limit: 1 })
     }
   }, [prizes])
 

@@ -4,8 +4,12 @@ import { LotteryNumber } from './Number'
 import { PrizePot } from '../../History/elements/PrizePot'
 import { Icon } from 'src/components/common/icons'
 import { ChoseNumberElement } from './ChooseNumber'
-import { createArrayHasQuantityElement } from '../helper'
+import { formatDataHistory } from '../helper'
 import { chunk } from 'lodash'
+import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
+import { apiBetHistory } from 'src/store/sagas/game'
+import useGame from 'src/store/hooks/game'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -26,21 +30,22 @@ export const ModalStyled = styled(Modal)`
   }
 `
 export const HistoryTicketModal = (props) => {
-  const numbers = [1, 2, 3, 4, 5, 6]
-  const yourTickets = [
-    [1, 2, 3, 4, 5, 6],
-    [1, 2, 3, 4, 5, 6],
-    [1, 2, 3, 4, 5, 6],
-    [1, 2, 3, 4, 5, 6],
-    [1, 2, 3, 4, 5, 6],
-    [1, 2, 3, 4, 5, 6],
-    createArrayHasQuantityElement(6),
-    createArrayHasQuantityElement(6),
-    createArrayHasQuantityElement(6),
-    createArrayHasQuantityElement(6),
-  ]
+  const { history } = props
+  const { data } = useGame()
+  const { setting } = data
+  const [betHistory, setBetHistory] = useState(null)
 
-  const yourTicket = chunk(yourTickets, 5)
+  useEffect(() => {
+    if (history) {
+      fetchHistoryBetData(history.id)
+    }
+  }, [history])
+
+  const fetchHistoryBetData = async (id) => {
+    const res = await apiBetHistory({ game_id: id })
+    setBetHistory(formatDataHistory(res?.data, setting))
+  }
+  const yourTickets = chunk(betHistory?.yourTickets, 5)
 
   return (
     <ModalStyled
@@ -59,7 +64,7 @@ export const HistoryTicketModal = (props) => {
     >
       <Row gutter={[24, 24]}>
         <Col span={24} className="flex justify-center items-center gap-3">
-          {numbers.map((number, index) => (
+          {history?.prize?.map((number, index) => (
             <LotteryNumber
               number={number}
               key={index}
@@ -82,13 +87,17 @@ export const HistoryTicketModal = (props) => {
             </thead>
             <tbody className="border-b-2 border-dashed border-[#66686C60]">
               <tr className="text-center text-base font-semibold">
-                <td className="pb-5">23/07/2024</td>
-                <td className="pb-5">#55</td>
-                <td className="pb-5">{<PrizePot prize={'1,000,000'} />}</td>
-                <td className="pb-5">0 win</td>
-                <td className="pb-5">1 win</td>
-                <td className="pb-5">5 win</td>
-                <td className="pb-5">20 win</td>
+                <td className="pb-5">
+                  {dayjs(history.time).format('DD/MM/YYYY')}
+                </td>
+                <td className="pb-5">#{history?.id}</td>
+                <td className="pb-5">
+                  {<PrizePot prize={history.current_pot} />}
+                </td>
+                <td className="pb-5">{history?.jackpot ?? 0} win</td>
+                <td className="pb-5">{history?.secondPrize ?? 0} win</td>
+                <td className="pb-5">{history?.thirdPrize ?? 0} win</td>
+                <td className="pb-5">{history?.fourthPrize ?? 0} win</td>
               </tr>
             </tbody>
           </table>
@@ -103,7 +112,7 @@ export const HistoryTicketModal = (props) => {
               <Typography.Text className="font-medium text-white text-[24px]">
                 You have win
               </Typography.Text>
-              <PrizePot prize={'100,000'} />
+              <PrizePot prize={betHistory?.totalWinning ?? 0} />
             </div>
           </Col>
           <Col span={18} className="flex flex-col justify-center items-center">
@@ -114,10 +123,10 @@ export const HistoryTicketModal = (props) => {
               gutter={[24, 24]}
               className="flex justify-center items-center gap-8"
             >
-              {yourTicket.map((yourTickets, index) => {
+              {yourTickets?.map((yourTicket, index) => {
                 return (
                   <Col span={10}>
-                    {yourTickets?.map((ticket, ticketIndex) => {
+                    {yourTicket?.map((ticket, ticketIndex) => {
                       return (
                         <ChoseNumberElement
                           index={index === 1 ? ticketIndex + 5 : ticketIndex}

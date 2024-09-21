@@ -4,7 +4,6 @@ import { useState } from 'react'
 import {
   createArrayFromNumberToNumber,
   createArrayHasQuantityArrayElement,
-  createArrayHasQuantityElement,
 } from 'src/components/lottery/ChooseNumber/helper'
 import { LotteryNumber } from 'src/components/lottery/ChooseNumber/elements/Number'
 import { ChoseNumberElement } from 'src/components/lottery/ChooseNumber/elements/ChooseNumber'
@@ -18,10 +17,14 @@ export const ChooseNumber = (props) => {
   const { setting } = data
 
   const [numberAdd, setNumberAdd] = useState([]) // dãy số đang add
-  const [numberSelected, setNumberSelected] = useState(createArrayHasQuantityArrayElement(5, setting?.numberQuantity)) // dãy số đã add, mặc định 5 dãy chưa có số nào được chọn
+  const [numberSelected, setNumberSelected] = useState(
+    createArrayHasQuantityArrayElement(5, setting?.numberQuantity),
+  ) // dãy số đã add, mặc định 5 dãy chưa có số nào được chọn
   const onSubmit = () => {
     onSubmitBuyTicket(numberSelected)
-    setNumberSelected(createArrayHasQuantityArrayElement(5, setting?.numberQuantity))
+    setNumberSelected(
+      createArrayHasQuantityArrayElement(5, setting?.numberQuantity),
+    )
   }
 
   const handleDeleteSelectedNumbers = (index) => {
@@ -35,7 +38,10 @@ export const ChooseNumber = (props) => {
     const remainElement = MaxNumberTicket - numbersArr.length
     let newElements = []
     if (remainElement > 0) {
-      newElements = createArrayHasQuantityArrayElement(remainElement, setting.numberQuantity)
+      newElements = createArrayHasQuantityArrayElement(
+        remainElement,
+        setting.numberQuantity,
+      )
     }
     const newArr = concat(numbersArr, newElements)
     setNumberSelected(newArr)

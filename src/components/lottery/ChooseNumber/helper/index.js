@@ -1,10 +1,12 @@
 import { concat } from 'lodash'
 import { MaxNumberTicket } from '../constant'
 
-export const createArrayHasQuantityElement = (quantity) => {
-  return Array.from(Array(quantity).keys()).map(() => null)
+// tạo mảng có n phần tử
+export const createArrayHasQuantityElement = (n) => {
+  return Array.from(Array(n).keys()).map(() => null)
 }
 
+// tạo mảng có phần tử từ min đến max với bước nhảy step
 export const createArrayFromNumberToNumber = (min = 0, max = 45, step = 1) => {
   return Array.from(
     { length: (max - min) / step + 1 },
@@ -12,6 +14,7 @@ export const createArrayFromNumberToNumber = (min = 0, max = 45, step = 1) => {
   )
 }
 
+// tạo mảng bao gồm createArrayHasQuantityArrayElement mảng có numberElement phần tử
 export const createArrayHasQuantityArrayElement = (
   numberArray = 5,
   numberElement = 6,
@@ -24,10 +27,10 @@ export const createArrayHasQuantityArrayElement = (
 export const formatDataHistory = (betHistory, setting) => {
   const tickets = []
   let totalWinning = 0
-  betHistory.forEach((bet) => {
+  betHistory?.forEach((bet) => {
     const { attributes } = bet
     tickets.push(attributes?.bet_value?.split(','))
-    totalWinning += +attributes.current_pot
+    totalWinning += +attributes.win_amount
   })
   const remainTicketEmpty = MaxNumberTicket - tickets.length
   const yourTickets = concat(

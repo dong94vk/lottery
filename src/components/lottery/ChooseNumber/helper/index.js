@@ -30,7 +30,7 @@ export const formatDataHistory = (betHistory, setting) => {
   betHistory?.forEach((bet) => {
     const { attributes } = bet
     tickets.push(attributes?.bet_value?.split(','))
-    totalWinning += +attributes.win_amount
+    totalWinning += +attributes?.win_amount || 0
   })
   const remainTicketEmpty = MaxNumberTicket - tickets.length
   const yourTickets = concat(

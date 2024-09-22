@@ -1,7 +1,7 @@
 import useGame from 'src/store/hooks/game'
 import { useEffect, useState } from 'react'
 
-export const useCountDown = () => {
+export const useCountDown = ({ gameCode, limit }) => {
   const {
     actions,
     data: { currentBet },
@@ -27,7 +27,7 @@ export const useCountDown = () => {
       setRemainTime({ hours, minutes, seconds })
     }
     if (-1 <= timeDifference <= 0) {
-      actions.getHistory({ code: 'LT6452', page: 1, limit: 6 })
+      actions.getHistory({ code: gameCode, page: 1, limit: limit })
       clearInterval(intervalId)
       setRemainTime({ hours: '??', minutes: '??', seconds: '??' })
     }

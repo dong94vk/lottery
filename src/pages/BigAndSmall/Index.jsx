@@ -8,7 +8,7 @@ export const BigAndSmall = () => {
   const { actions } = useGame()
   useEffect(() => {
     actions.getSetting('TX1')
-    actions.getHistory({ code: 'TX1', page: 1, limit: 30 })
+    actions.getHistory({ code: 'TX1', page: 1, limit: 11 })
   }, [])
 
   return (

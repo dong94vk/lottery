@@ -3,7 +3,7 @@ import { CountDownNumber } from './elements/CountDown'
 import { useCountDown } from 'src/store/hooks/countdown'
 
 export const CountDown = () => {
-  const remainTime = useCountDown()
+  const remainTime = useCountDown({ gameCode: 'TX1', limit: 11 })
 
   return (
     <div className="count-down">

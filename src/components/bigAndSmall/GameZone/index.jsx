@@ -9,6 +9,7 @@ import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
 import { useState } from 'react'
 import { isNil } from 'lodash'
+import { ConfirmBetModal } from './elements/ConfirmBetModal'
 
 export const GameZone = () => {
   const { actions, data } = useGame()
@@ -16,20 +17,25 @@ export const GameZone = () => {
   const {
     data: { account },
   } = useAuth()
-  const [selectedBet, setSelectBet] = useState(null)
-  const [selectedBetValue, setSelectBetValue] = useState(null)
-  const [flagSelected, setFlagSelected] = useState(false)
+  const [selectedBet, setSelectBet] = useState(null) // bet big/small
+  const [selectedBetValue, setSelectBetValue] = useState(null) // tiền bet
+  const [flagSelected, setFlagSelected] = useState(false) // cờ active bet
+  const [openConfirmModal, setOpenConfirmModal] = useState(false) // open confirm modal
 
-  const onSubmitBuyTicket = (numberSelected) => {
+  const onSubmitBuyTicket = (bet) => {
     if (+account?.attributes?.balance > +setting?.price) {
       return actions.submitBet({
-        account_id: +account.id,
-        game_id: +currentBet?.id,
-        amount: +setting?.price,
-        bet_value: numberSelected.join(','),
+        body: {
+          account_id: +account.id,
+          game_id: +currentBet?.id,
+          amount: +setting?.price,
+          bet_value: +(bet === 'small'),
+        },
+        onSuccess: () => setOpenConfirmModal(false),
+        onFailed: () => setOpenConfirmModal(false),
       })
     }
-
+    setOpenConfirmModal(false)
     return addNotification('Not enough amount!', NOTIFICATION_TYPE.ERROR)
   }
 
@@ -44,6 +50,11 @@ export const GameZone = () => {
       return
     }
     setSelectBet(bet)
+    if (isNil(localStorage.getItem('isShowConfirm'))) {
+      setOpenConfirmModal(true)
+    } else {
+      onSubmitBuyTicket(bet)
+    }
   }
 
   return (
@@ -69,7 +80,7 @@ export const GameZone = () => {
               Session
             </Typography.Text>
             <Typography.Text className="text-white font-medium text-base">
-              #55
+              #{currentBet?.id}
             </Typography.Text>
           </div>
           <CountDown />
@@ -81,7 +92,6 @@ export const GameZone = () => {
             setFlag={setFlagSelected}
           />
         </div>
-
         <div className="w-full flex justify-center items-center mt-6 gap-10">
           <BetButton
             title="small"
@@ -99,11 +109,15 @@ export const GameZone = () => {
             textColor="#51EE37"
             onClick={() => handleChangeBet('big')}
           />
-
-          {/* <Price range="3 to 10" amount="120,000" textColor="#00FBFB" />
-          <Price range="11 to 18" amount="160,000" textColor="#51EE36" /> */}
         </div>
       </Col>
+      <ConfirmBetModal
+        open={openConfirmModal}
+        betValue={selectedBetValue}
+        betSelected={selectedBet}
+        setOpen={setOpenConfirmModal}
+        onClickConfirm={onSubmitBuyTicket}
+      />
     </Row>
   )
 }

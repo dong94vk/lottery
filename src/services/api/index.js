@@ -279,6 +279,7 @@ const instance = createInstance(BASE_URL)
 export const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('refreshToken')
+  localStorage.removeItem('isShowConfirm')
   window.dispatchEvent('removeToken')
 }
 /**

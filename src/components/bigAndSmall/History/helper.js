@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { bigNumber } from './constant'
 
 export const winningContent = (winning) => {
@@ -8,4 +9,23 @@ export const winningContent = (winning) => {
     return `BIG(${displayNumber})`
   }
   return `SMALL(${displayNumber})`
+}
+
+/**
+[{
+      time: '23/07/2024',
+      session: '55',
+      winning: '4,5,6',
+      yourReward: '10,000',
+}] 
+ */
+export const formatHistory = (histories) => {
+  return histories.map((history) => {
+    return {
+      time: dayjs(history.created_at).format('DD/MM/YYYY'),
+      session: history.id,
+      winning: history.prize.join(','),
+      yourReward: history.current_pot,
+    }
+  })
 }

@@ -2,7 +2,7 @@ import { useCountDown } from 'src/store/hooks/countdown'
 import { padStart } from 'src/utils/helper'
 
 export const CountDown = () => {
-  const remainTime = useCountDown({ gameCode: 'LT6452', limit: 6 })
+  const remainTime = useCountDown({ gameCode: 'TX1', limit: 11 })
   return (
     <div className="flex flex-col justify-center items-center w-[150px]">
       <div className="text-4xl font-medium">

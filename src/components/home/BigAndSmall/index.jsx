@@ -1,6 +1,6 @@
 import { Col, Row, Typography } from 'antd'
 import { Icon } from 'src/components/common/icons'
-import { Number } from 'src/components/bigAndSmall/GameZone/elements/Number'
+import { Number } from './elements/Number'
 import { CountDown } from './elements/CountDown'
 import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'

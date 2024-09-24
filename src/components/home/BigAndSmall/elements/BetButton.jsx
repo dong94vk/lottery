@@ -3,6 +3,7 @@ import { Icon } from 'src/components/common/icons'
 
 export const BetButton = (props) => {
   const { title, joinNumber, prize, textColor, onClick } = props
+
   return (
     <div
       className="flex flex-col w-[210px] h-[140px] rounded-[20px] shadow-[inset_0_0_32px_0_#FFFFFF26] p-3 cursor-pointer relative"

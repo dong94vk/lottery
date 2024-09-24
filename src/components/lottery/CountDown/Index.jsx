@@ -1,9 +1,13 @@
 import { Typography } from 'antd'
 import { CountDownNumber } from './elements/CountDown'
 import { useCountDown } from 'src/store/hooks/countdown'
+import useGame from 'src/store/hooks/game'
 
 export const CountDown = () => {
-  const remainTime = useCountDown({ gameCode: 'LT6452', limit: 6 })
+  const {
+    data: { currentBet },
+  } = useGame()
+  const remainTime = useCountDown({ gameCode: 'LT6452', limit: 6, currentBet })
 
   return (
     <div className="count-down">

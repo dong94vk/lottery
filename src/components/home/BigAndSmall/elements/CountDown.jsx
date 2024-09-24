@@ -1,8 +1,8 @@
 import { useCountDown } from 'src/store/hooks/countdown'
 import { padStart } from 'src/utils/helper'
 
-export const CountDown = () => {
-  const remainTime = useCountDown({ gameCode: 'TX1', limit: 11 })
+export const CountDown = (props) => {
+  const remainTime = useCountDown({ gameCode: 'TX1', limit: 11, currentBet: props?.currentBet })
   return (
     <div className="flex flex-col justify-center items-center w-[150px]">
       <div className="text-4xl font-medium">

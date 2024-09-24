@@ -1,16 +1,26 @@
 import { Col, Row, Typography } from 'antd'
 import { Icon } from 'src/components/common/icons'
 import { Number } from 'src/components/bigAndSmall/GameZone/elements/Number'
-import { CountDown } from 'src/components/bigAndSmall/GameZone/elements/CountDown'
-import useGame from 'src/store/hooks/game'
+import { CountDown } from './elements/CountDown'
 import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { apiGetHistory } from 'src/store/sagas/game'
+import { formatCurrentBetData } from 'src/store/slice/game/type'
 
 export const BigAndSmall = () => {
-  const { data } = useGame()
-  const { currentBet } = data
+  const [currentBet, setCurrentBet] = useState(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    const res = await apiGetHistory({ code: 'TX1', page: 1, limit: 5 })
+    setCurrentBet(formatCurrentBetData(res.data))
+  }
 
   const handleChangeBet = () => {
     navigate('/big-and-small')
@@ -42,7 +52,7 @@ export const BigAndSmall = () => {
               #{currentBet?.id}
             </Typography.Text>
           </div>
-          <CountDown />
+          <CountDown currentBet={currentBet} />
         </div>
         <div className="flex w-3/5">
           <BetValue />

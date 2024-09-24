@@ -1,33 +1,27 @@
 import { useEffect, useState } from 'react'
 import { PrizeNumber } from './elements/Prize'
-import useGame from 'src/store/hooks/game'
-import { isEmpty } from 'lodash'
+import { apiGetHistory } from 'src/store/sagas/game'
+import { formatPrizeData } from 'src/store/slice/game/type'
 
-export const Prize = (props) => {
-  const [selectedPrize, setSelectedPrize] = useState(null)
-  const { data, actions } = useGame()
-  const { prizes } = data
-
+export const Prize = () => {
+  const [prizes, setPrizes] = useState([])
   useEffect(() => {
-    if (isEmpty(prizes))
-      actions.getHistory({ code: 'LT6452', page: 1, limit: 1 })
-  }, [prizes])
+    fetchData()
+  }, [])
 
-  const handleClickPrize = (prize) => {
-    setSelectedPrize(prize.prize)
-    props?.setSelectedPrize(prize.prize)
+  const fetchData = async () => {
+    const res = await apiGetHistory({ code: 'LT6452', page: 1, limit: 1 })
+    setPrizes(formatPrizeData(res?.data))
   }
 
   return (
     <div className="prize flex justify-between gap-28">
-      {prizes.map((prize) => (
+      {prizes?.map((prize, index) => (
         <PrizeNumber
           icon={prize.icon}
           prize={prize.prize}
           name={prize.name}
-          key={prize}
-          onClick={handleClickPrize}
-          className={selectedPrize === prize.prize ? 'text-cyan-500' : ''}
+          key={`home-prize-${index}`}
         />
       ))}
     </div>

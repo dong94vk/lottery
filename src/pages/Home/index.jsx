@@ -1,6 +1,6 @@
 import { Button, Col, Row, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { GameZone } from 'src/components/bigAndSmall/GameZone'
+import { BigAndSmall } from 'src/components/home/BigAndSmall'
 import { Prize } from 'src/components/home/Prize'
 
 export const Home = () => {
@@ -34,7 +34,7 @@ export const Home = () => {
         </Typography.Text>
       </Col>
       <Col span={24} className="w-full flex justify-around">
-        <GameZone />
+        <BigAndSmall />
       </Col>
     </Row>
   )

@@ -21,12 +21,12 @@ export const Prize = (props) => {
 
   return (
     <div className="prize flex justify-center mt-28 gap-20">
-      {prizes.map((prize) => (
+      {prizes.map((prize, index) => (
         <PrizeNumber
           icon={prize.icon}
           prize={prize.prize}
           name={prize.name}
-          key={prize}
+          key={`lottery-prize-${index}`}
           onClick={handleClickPrize}
           className={selectedPrize === prize.prize ? 'text-cyan-500' : ''}
         />

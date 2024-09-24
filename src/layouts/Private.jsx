@@ -45,10 +45,10 @@ function PrivateLayout({ children }) {
           setOpenSignUp={setOpenRegister}
           setOpenSignIn={setOpenSignIn}
         />
-        <Sider
+        {/* <Sider
           width={250}
           className="!bg-[#050609] h-[calc(100vh-105px)] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden"
-        ></Sider>
+        ></Sider> */}
       </Layout>
     </>
   )

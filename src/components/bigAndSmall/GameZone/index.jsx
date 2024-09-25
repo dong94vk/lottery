@@ -31,8 +31,14 @@ export const GameZone = () => {
           amount: +setting?.price,
           bet_value: +(bet === 'small'),
         },
-        onSuccess: () => setOpenConfirmModal(false),
-        onFailed: () => setOpenConfirmModal(false),
+        onSuccess: () => {
+          setSelectBet(null)
+          setOpenConfirmModal(false)
+        },
+        onFailed: () => {
+          setSelectBet(null)
+          setOpenConfirmModal(false)
+        },
       })
     }
     setOpenConfirmModal(false)

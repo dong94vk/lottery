@@ -70,6 +70,9 @@ function* doSubmitBet({ payload }) {
   try {
     const response = yield call(apiSubmitBet, payload.body)
     if (!response?.data) {
+      if(payload.onFailed) {
+        yield payload.onFailed()
+      }
       yield put(submitBetFailed())
     }
     yield put(submitBetSuccess(response.data))
@@ -77,6 +80,9 @@ function* doSubmitBet({ payload }) {
       yield payload.onSuccess()
     }
   } catch (error) {
+    if(payload.onFailed) {
+      yield payload.onFailed()
+    }
     yield put(submitBetFailed(error))
   }
 }

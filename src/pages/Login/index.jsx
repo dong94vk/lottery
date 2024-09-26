@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Icon } from 'src/components/common/icons'
 import useAuth from 'src/store/hooks/authentication'
 import { useEffect } from 'react'
+import { first } from 'lodash'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -37,10 +38,11 @@ export const LoginPage = (props) => {
       password: values.password,
     }
     const onError = () => props.setOpenSignIn(false)
-    actions.login({ body, onSuccess: getAccountInfo, onError })
+    actions.login({ body, onSuccess: () => getAccountInfo(body), onError })
   }
 
-  const getAccountInfo = () => {
+  const getAccountInfo = (body) => {
+    localStorage.setItem('username', first(body.email.split("@")))
     actions.getAccountInfo({ onSuccess: () => props.setOpenSignIn(false) })
   }
 

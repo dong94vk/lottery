@@ -1,8 +1,11 @@
 import useGame from 'src/store/hooks/game'
 import { useEffect, useState } from 'react'
+import useAuth from './authentication'
+import { delay } from 'lodash'
 
 export const useCountDown = ({ gameCode, limit, currentBet }) => {
   const { actions } = useGame()
+  const { actions: authAction } = useAuth()
 
   const [remainTime, setRemainTime] = useState({})
 
@@ -24,6 +27,8 @@ export const useCountDown = ({ gameCode, limit, currentBet }) => {
       setRemainTime({ hours, minutes, seconds })
     }
     if (-1 <= timeDifference <= 0) {
+      authAction.getAccountInfo()
+      // delay(() => actions.getHistory({ code: gameCode, page: 1, limit: limit }), 10000)
       actions.getHistory({ code: gameCode, page: 1, limit: limit })
       clearInterval(intervalId)
       setRemainTime({ hours: '??', minutes: '??', seconds: '??' })

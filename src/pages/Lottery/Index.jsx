@@ -11,6 +11,8 @@ import { compact, isEmpty } from 'lodash'
 
 export const LotteryPage = () => {
   const { actions, data } = useGame()
+  const { actions: authAction } = useAuth()
+
   const { setting, currentBet } = data
   const {
     data: { account },
@@ -18,7 +20,12 @@ export const LotteryPage = () => {
 
   useEffect(() => {
     actions.getSetting('LT6452')
-    actions.getHistory({ code: 'LT6452', page: 1, limit: 6, user_id: account?.id })
+    actions.getHistory({
+      code: 'LT6452',
+      page: 1,
+      limit: 6,
+      user_id: account?.id,
+    })
   }, [])
 
   const [selectedPrize, setSelectedPrize] = useState(null)
@@ -43,8 +50,11 @@ export const LotteryPage = () => {
         amount,
         bet_value: numbersArr.map((numbers) => numbers.join(',')),
       },
-      onSuccess: () => setOpenBuyTicketModal(true), // show popup thông báo mua ticket thành công
-      onFail: () =>
+      onSuccess: () => {
+        setOpenBuyTicketModal(true)
+        authAction.getAccountInfo()
+      }, // show popup thông báo mua ticket thành công
+      onFailed: () =>
         addNotification('Something went wrong!', NOTIFICATION_TYPE.ERROR),
     })
   }

@@ -15,15 +15,15 @@ export const ChooseNumber = (props) => {
   const { onSubmitBuyTicket } = props
   const { data } = useGame()
   const { setting } = data
-
+  
   const [numberAdd, setNumberAdd] = useState([]) // dãy số đang add
   const [numberSelected, setNumberSelected] = useState(
-    createArrayHasQuantityArrayElement(5, setting?.numberQuantity),
+    createArrayHasQuantityArrayElement(5, setting?.numberQuantity || 6),
   ) // dãy số đã add, mặc định 5 dãy chưa có số nào được chọn
   const onSubmit = () => {
     onSubmitBuyTicket(numberSelected)
     setNumberSelected(
-      createArrayHasQuantityArrayElement(5, setting?.numberQuantity),
+      createArrayHasQuantityArrayElement(5, setting?.numberQuantity || 6),
     )
   }
 
@@ -112,7 +112,7 @@ export const ChooseNumber = (props) => {
             <ChoseNumberElement
               index={index}
               numbers={item}
-              key={index}
+              key={`numberSelected-${index}`}
               handleDelete={handleDeleteSelectedNumbers}
             />
           ))}

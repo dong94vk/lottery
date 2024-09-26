@@ -15,8 +15,10 @@ export const GameZone = () => {
   const { actions, data } = useGame()
   const { setting, currentBet } = data
   const {
+    actions: authAction,
     data: { account },
   } = useAuth()
+
   const [selectedBet, setSelectBet] = useState(null) // bet big/small
   const [selectedBetValue, setSelectBetValue] = useState(null) // tiền bet
   const [flagSelected, setFlagSelected] = useState(false) // cờ active bet
@@ -28,12 +30,13 @@ export const GameZone = () => {
         body: {
           account_id: +account.id,
           game_id: +currentBet?.id,
-          amount: +setting?.price,
+          amount: +selectedBetValue,
           bet_value: +(bet === 'small'),
         },
         onSuccess: () => {
           setSelectBet(null)
           setOpenConfirmModal(false)
+          authAction.getAccountInfo()
         },
         onFailed: () => {
           setSelectBet(null)

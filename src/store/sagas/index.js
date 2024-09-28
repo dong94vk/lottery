@@ -1,9 +1,9 @@
 import { all, fork } from 'redux-saga/effects'
 import {
-  watchDoGetHistory,
-  watchDoGetSetting,
-  watchDoSubmitBet,
-  watchDoSubmitBetBatch,
+  watchDoGetHistory as watchDoGetHistoryBigAndSmall,
+  watchDoGetSetting as watchDoGetSettingBigAndSmall,
+  watchDoSubmitBet as watchDoSubmitBetBigAndSmall,
+  watchDoSubmitBetBatch as watchDoSubmitBetBatchBigAndSmall,
 } from './bigAndSmall'
 import {
   watchDoGetHistory as watchDoGetHistoryLottery,
@@ -19,10 +19,10 @@ import {
 
 const rootSaga = function* () {
   yield all([
-    fork(watchDoGetSetting),
-    fork(watchDoGetHistory),
-    fork(watchDoSubmitBet),
-    fork(watchDoSubmitBetBatch),
+    fork(watchDoGetSettingBigAndSmall),
+    fork(watchDoGetHistoryBigAndSmall),
+    fork(watchDoSubmitBetBigAndSmall),
+    fork(watchDoSubmitBetBatchBigAndSmall),
     fork(watchDoGetAccountInfo),
     fork(watchDoGetHistoryLottery),
     fork(watchDoGetSettingLottery),

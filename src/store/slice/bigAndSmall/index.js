@@ -4,7 +4,7 @@ import {
   formatDataHistory,
   formatPrizeData,
   formatSettingData,
-  SLICE_GAME,
+  SLICE_BIG_AND_SMALL,
 } from './type'
 import { defaultSetting } from 'src/dummy'
 
@@ -17,7 +17,7 @@ const initialState = {
 }
 
 export const gameSlice = createSlice({
-  name: SLICE_GAME,
+  name: SLICE_BIG_AND_SMALL,
   initialState: initialState,
   reducers: {
     getSetting: (state) => {

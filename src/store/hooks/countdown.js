@@ -1,10 +1,9 @@
-import useGame from 'src/store/hooks/bigAndSmall'
+import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import { useEffect, useState } from 'react'
 import useAuth from './authentication'
-import { delay } from 'lodash'
 
-export const useCountDown = ({ gameCode, limit, currentBet }) => {
-  const { actions } = useGame()
+export const useCountDown = ({ gameCode, limit, currentBet, onEndTime }) => {
+  const { actions } = useBigAndSmall()
   const { actions: authAction } = useAuth()
 
   const [remainTime, setRemainTime] = useState({})
@@ -27,6 +26,7 @@ export const useCountDown = ({ gameCode, limit, currentBet }) => {
       setRemainTime({ hours, minutes, seconds })
     }
     if (-1 <= timeDifference <= 0) {
+      onEndTime && onEndTime()
       authAction.getAccountInfo()
       // delay(() => actions.getHistory({ code: gameCode, page: 1, limit: limit }), 10000)
       actions.getHistory({ code: gameCode, page: 1, limit: limit })

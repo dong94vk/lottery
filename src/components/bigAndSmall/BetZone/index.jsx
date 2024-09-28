@@ -1,9 +1,9 @@
 import { Col, Row, Typography } from 'antd'
 import { Icon } from 'src/components/common/icons'
-import { Number } from 'src/components/bigAndSmall/GameZone/elements/Number'
-import { CountDown } from 'src/components/bigAndSmall/GameZone/elements/CountDown'
+import { Number } from 'src/components/bigAndSmall/BetZone/elements/Number'
+import { CountDown } from 'src/components/bigAndSmall/BetZone/elements/CountDown'
 import useAuth from 'src/store/hooks/authentication'
-import useGame from 'src/store/hooks/bigAndSmall'
+import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
@@ -12,7 +12,7 @@ import { isNil } from 'lodash'
 import { ConfirmBetModal } from './elements/ConfirmBetModal'
 
 export const GameZone = () => {
-  const { actions, data } = useGame()
+  const { actions, data } = useBigAndSmall()
   const { setting, currentBet } = data
   const {
     actions: authAction,

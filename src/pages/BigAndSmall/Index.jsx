@@ -1,11 +1,11 @@
 import { Row } from 'antd'
-import { GameZone } from 'src/components/bigAndSmall/GameZone'
-import useGame from 'src/store/hooks/bigAndSmall'
+import { GameZone } from 'src/components/bigAndSmall/BetZone'
+import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import { useEffect } from 'react'
 import { History } from 'src/components/bigAndSmall/History'
 
 export const BigAndSmall = () => {
-  const { actions } = useGame()
+  const { actions } = useBigAndSmall()
   useEffect(() => {
     actions.getSetting('TX1')
     actions.getHistory({ code: 'TX1', page: 1, limit: 11 })

@@ -1,12 +1,12 @@
 import { Typography } from 'antd'
 import { CountDownNumber } from './elements/CountDown'
 import { useCountDown } from 'src/store/hooks/countdown'
-import useGame from 'src/store/hooks/bigAndSmall'
+import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 
 export const CountDown = () => {
   const {
     data: { currentBet },
-  } = useGame()
+  } = useBigAndSmall()
   const remainTime = useCountDown({ gameCode: 'LT6452', limit: 6, currentBet })
 
   return (

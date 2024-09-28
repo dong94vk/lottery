@@ -9,7 +9,7 @@ import { chunk } from 'lodash'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { apiBetHistory } from 'src/store/sagas/bigAndSmall'
-import useGame from 'src/store/hooks/bigAndSmall'
+import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -31,7 +31,7 @@ export const ModalStyled = styled(Modal)`
 `
 export const HistoryTicketModal = (props) => {
   const { history } = props
-  const { data } = useGame()
+  const { data } = useBigAndSmall()
   const { setting } = data
   const [betHistory, setBetHistory] = useState(null)
 

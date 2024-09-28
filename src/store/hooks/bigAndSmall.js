@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 
 import { gameSlice } from '../slice/bigAndSmall'
 
-function useGame() {
+function useBigAndSmall() {
   const data = useSelector((state) => get(state, 'bigAndSmall'))
 
   const dispatch = useDispatch()
@@ -19,4 +19,4 @@ function useGame() {
     data,
   }
 }
-export default useGame
+export default useBigAndSmall

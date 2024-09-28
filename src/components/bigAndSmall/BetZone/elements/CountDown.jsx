@@ -1,9 +1,9 @@
 import { useCountDown } from 'src/store/hooks/countdown'
-import useGame from 'src/store/hooks/bigAndSmall'
+import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import { padStart } from 'src/utils/helper'
 
 export const CountDown = () => {
-  const { data: { currentBet } } = useGame()
+  const { data: { currentBet } } = useBigAndSmall()
   const remainTime = useCountDown({ gameCode: 'TX1', limit: 11, currentBet })
   return (
     <div className="flex flex-col justify-center items-center w-[150px]">

@@ -1,10 +1,10 @@
 import { Typography } from 'antd'
 import { cloneDeep, remove } from 'lodash'
-import useGame from 'src/store/hooks/bigAndSmall'
+import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 
 export const LotteryNumber = (props) => {
   const { number, className, numberAdded, setNumberAdded } = props
-  const { data } = useGame()
+  const { data } = useBigAndSmall()
   const { setting } = data
 
   const handleClick = () => {

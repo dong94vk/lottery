@@ -3,16 +3,16 @@ import { Prize } from 'src/components/lottery/Prize'
 import { ChooseNumber } from 'src/components/lottery/ChooseNumber'
 import { Row } from 'antd'
 import { useEffect, useState } from 'react'
-import useGame from 'src/store/hooks/game'
 import useAuth from 'src/store/hooks/authentication'
 import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 import { BuyTicketSuccessModal } from 'src/components/lottery/ChooseNumber/elements/BuyTicketModal'
 import { compact, isEmpty } from 'lodash'
+import useLottery from 'src/store/hooks/lottery'
 
 export const LotteryPage = () => {
-  const { actions, data } = useGame()
+  const { actions, data } = useLottery()
   const { actions: authAction } = useAuth()
-
+  
   const { setting, currentBet } = data
   const {
     data: { account },

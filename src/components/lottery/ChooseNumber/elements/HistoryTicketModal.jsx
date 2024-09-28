@@ -8,8 +8,8 @@ import { formatDataHistory } from '../helper'
 import { chunk } from 'lodash'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
-import { apiBetHistory } from 'src/store/sagas/game'
-import useGame from 'src/store/hooks/game'
+import { apiBetHistory } from 'src/store/sagas/bigAndSmall'
+import useGame from 'src/store/hooks/bigAndSmall'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;

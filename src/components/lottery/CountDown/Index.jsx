@@ -1,7 +1,7 @@
 import { Typography } from 'antd'
 import { CountDownNumber } from './elements/CountDown'
 import { useCountDown } from 'src/store/hooks/countdown'
-import useGame from 'src/store/hooks/game'
+import useGame from 'src/store/hooks/bigAndSmall'
 
 export const CountDown = () => {
   const {

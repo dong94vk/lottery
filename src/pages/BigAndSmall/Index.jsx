@@ -1,6 +1,6 @@
 import { Row } from 'antd'
 import { GameZone } from 'src/components/bigAndSmall/GameZone'
-import useGame from 'src/store/hooks/game'
+import useGame from 'src/store/hooks/bigAndSmall'
 import { useEffect } from 'react'
 import { History } from 'src/components/bigAndSmall/History'
 

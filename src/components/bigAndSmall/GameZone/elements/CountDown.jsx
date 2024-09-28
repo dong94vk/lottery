@@ -1,5 +1,5 @@
 import { useCountDown } from 'src/store/hooks/countdown'
-import useGame from 'src/store/hooks/game'
+import useGame from 'src/store/hooks/bigAndSmall'
 import { padStart } from 'src/utils/helper'
 
 export const CountDown = () => {

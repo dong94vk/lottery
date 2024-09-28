@@ -8,8 +8,13 @@ import {
   submitBetSuccess,
   submitBetBatchFailed,
   submitBetBatchSuccess,
-} from 'src/store/slice/game'
-import { GET_HISTORY, GET_SETTING, SUBMIT_BET, SUBMIT_BET_BATCH } from 'src/store/slice/game/type'
+} from 'src/store/slice/lottery'
+import {
+  GET_HISTORY,
+  GET_SETTING,
+  SUBMIT_BET,
+  SUBMIT_BET_BATCH,
+} from 'src/store/slice/lottery/type'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
 
@@ -70,7 +75,7 @@ function* doSubmitBet({ payload }) {
   try {
     const response = yield call(apiSubmitBet, payload.body)
     if (!response?.data) {
-      if(payload.onFailed) {
+      if (payload.onFailed) {
         yield payload.onFailed()
       }
       yield put(submitBetFailed())
@@ -80,7 +85,7 @@ function* doSubmitBet({ payload }) {
       yield payload.onSuccess()
     }
   } catch (error) {
-    if(payload.onFailed) {
+    if (payload.onFailed) {
       yield payload.onFailed()
     }
     yield put(submitBetFailed(error))

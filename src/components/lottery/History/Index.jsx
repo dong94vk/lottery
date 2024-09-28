@@ -1,17 +1,17 @@
 import { Col, Row } from 'antd'
 import { TicketNumber } from './elements/TicketNumber'
 import dayjs from 'dayjs'
-import useGame from 'src/store/hooks/game'
 import { isEmpty } from 'lodash'
 import { createArrayHasQuantityElement } from '../ChooseNumber/helper'
 import { CountDown } from '../CountDown'
 import { PrizePot } from './elements/PrizePot'
 import { NumberTicket } from './elements/NumberTicket'
+import useLottery from 'src/store/hooks/lottery'
 
 export const History = () => {
   const {
     data: { histories },
-  } = useGame()
+  } = useLottery()
 
   return (
     <Row

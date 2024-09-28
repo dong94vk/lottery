@@ -6,8 +6,8 @@ import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { apiGetHistory } from 'src/store/sagas/game'
-import { formatCurrentBetData } from 'src/store/slice/game/type'
+import { apiGetHistory } from 'src/store/sagas/bigAndSmall'
+import { formatCurrentBetData } from 'src/store/slice/bigAndSmall/type'
 
 export const BigAndSmall = () => {
   const [currentBet, setCurrentBet] = useState(null)

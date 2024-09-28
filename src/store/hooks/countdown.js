@@ -1,4 +1,4 @@
-import useGame from 'src/store/hooks/game'
+import useGame from 'src/store/hooks/bigAndSmall'
 import { useEffect, useState } from 'react'
 import useAuth from './authentication'
 import { delay } from 'lodash'

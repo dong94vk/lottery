@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { PrizeNumber } from './elements/Prize'
-import useGame from 'src/store/hooks/game'
 import { isEmpty } from 'lodash'
+import useLottery from 'src/store/hooks/lottery'
 
 export const Prize = (props) => {
   const [selectedPrize, setSelectedPrize] = useState(null)
-  const { data, actions } = useGame()
+  const { data, actions } = useLottery()
   const { prizes } = data
 
   useEffect(() => {

@@ -1,5 +1,4 @@
 import { Button, Col, Row, Typography } from 'antd'
-import useGame from 'src/store/hooks/game'
 import { useState } from 'react'
 import {
   createArrayFromNumberToNumber,
@@ -10,10 +9,11 @@ import { ChoseNumberElement } from 'src/components/lottery/ChooseNumber/elements
 import { Icon } from 'src/components/common/icons'
 import { cloneDeep, compact, concat, isEmpty, pullAt } from 'lodash'
 import { MaxNumberTicket } from './constant'
+import useLottery from 'src/store/hooks/lottery'
 
 export const ChooseNumber = (props) => {
   const { onSubmitBuyTicket } = props
-  const { data } = useGame()
+  const { data } = useLottery()
   const { setting } = data
   
   const [numberAdd, setNumberAdd] = useState([]) // dãy số đang add

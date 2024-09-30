@@ -4,6 +4,7 @@ import {
   watchDoGetSetting as watchDoGetSettingBigAndSmall,
   watchDoSubmitBet as watchDoSubmitBetBigAndSmall,
   watchDoSubmitBetBatch as watchDoSubmitBetBatchBigAndSmall,
+  watchDoGetCurrentBetResult as watchDoGetCurrentBetResultBigAndSmall,
 } from './bigAndSmall'
 import {
   watchDoGetHistory as watchDoGetHistoryLottery,
@@ -23,6 +24,7 @@ const rootSaga = function* () {
     fork(watchDoGetHistoryBigAndSmall),
     fork(watchDoSubmitBetBigAndSmall),
     fork(watchDoSubmitBetBatchBigAndSmall),
+    fork(watchDoGetCurrentBetResultBigAndSmall),
     fork(watchDoGetAccountInfo),
     fork(watchDoGetHistoryLottery),
     fork(watchDoGetSettingLottery),

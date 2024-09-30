@@ -8,8 +8,16 @@ import {
   submitBetSuccess,
   submitBetBatchFailed,
   submitBetBatchSuccess,
+  getCurrentBetResultFailed,
+  getCurrentBetResultSuccess,
 } from 'src/store/slice/bigAndSmall'
-import { GET_HISTORY, GET_SETTING, SUBMIT_BET, SUBMIT_BET_BATCH } from 'src/store/slice/bigAndSmall/type'
+import {
+  GET_CURRENT_BET_RESULT,
+  GET_HISTORY,
+  GET_SETTING,
+  SUBMIT_BET,
+  SUBMIT_BET_BATCH,
+} from 'src/store/slice/bigAndSmall/type'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
 
@@ -36,10 +44,13 @@ function* doGetSetting({ payload }) {
 /* end get setting */
 
 /* start get setting */
+
+// payload example: { code: 'TX1', page: 1, limit: 5 }
 export const apiGetHistory = (payload) => {
   return api.get(API_URL.GAME.GET_HISTORY, payload)
 }
 
+// payload example { game_id: 58361 }
 export const apiBetHistory = (payload) => {
   return api.get(API_URL.GAME.GET_BET_HISTORY, payload)
 }
@@ -61,6 +72,23 @@ function* doGetHistory({ payload }) {
 
 /* end get setting */
 
+/* start get current bet result */
+function* doGeCurrentBetResult({ payload }) {
+  try {
+    const response = yield call(apiGetHistory, payload)
+    if (response?.status !== 200) {
+      yield put(getCurrentBetResultFailed())
+    }
+    yield put(getCurrentBetResultSuccess(response.data))
+    if (payload.onSuccess) {
+      yield payload.onSuccess()
+    }
+  } catch (error) {
+    yield put(getCurrentBetResultFailed(error))
+  }
+}
+/* end get current bet result */
+
 /* start submit bet */
 export const apiSubmitBet = (payload) => {
   return api.post(API_URL.GAME.SUBMIT_BET, payload)
@@ -70,7 +98,7 @@ function* doSubmitBet({ payload }) {
   try {
     const response = yield call(apiSubmitBet, payload.body)
     if (!response?.data) {
-      if(payload.onFailed) {
+      if (payload.onFailed) {
         yield payload.onFailed()
       }
       yield put(submitBetFailed())
@@ -80,7 +108,7 @@ function* doSubmitBet({ payload }) {
       yield payload.onSuccess()
     }
   } catch (error) {
-    if(payload.onFailed) {
+    if (payload.onFailed) {
       yield payload.onFailed()
     }
     yield put(submitBetFailed(error))
@@ -125,4 +153,8 @@ export function* watchDoSubmitBet() {
 
 export function* watchDoSubmitBetBatch() {
   yield takeLatest(SUBMIT_BET_BATCH, doSubmitBetBatch)
+}
+
+export function* watchDoGetCurrentBetResult() {
+  yield takeLatest(GET_CURRENT_BET_RESULT, doGeCurrentBetResult)
 }

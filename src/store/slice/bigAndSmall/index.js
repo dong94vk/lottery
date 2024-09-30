@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
   formatCurrentBetData,
   formatDataHistory,
+  formatPreBetData,
   formatPrizeData,
   formatSettingData,
   SLICE_BIG_AND_SMALL,
@@ -16,7 +17,7 @@ const initialState = {
   isLoading: false,
 }
 
-export const gameSlice = createSlice({
+export const bigAndSmallSlice = createSlice({
   name: SLICE_BIG_AND_SMALL,
   initialState: initialState,
   reducers: {
@@ -56,6 +57,7 @@ export const gameSlice = createSlice({
         histories: formatDataHistory(action.payload),
         prizes: formatPrizeData(action.payload),
         currentBet: formatCurrentBetData(action.payload),
+        preBet: formatPreBetData(action.payload),
         errors: null,
       }
     },
@@ -65,6 +67,7 @@ export const gameSlice = createSlice({
         isLoading: false,
         histories: [],
         currentBet: formatCurrentBetData([]),
+        preBet: formatPreBetData([]),
         errors: 'Có lỗi xảy ra vui lòng thử lại',
       }
     },
@@ -110,6 +113,32 @@ export const gameSlice = createSlice({
         errors: null,
       }
     },
+    getCurrentBetResult: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+        currentBet: null,
+        errors: null,
+      }
+    },
+    getCurrentBetResultSuccess: (state, action) => {
+      return {
+        ...state,
+        preBet: formatPreBetData(action.payload),
+        currentBet: null,
+        isLoading: false,
+        errors: null,
+      }
+    },
+    getCurrentBetResultFailed: (state) => {
+      return {
+        ...state,
+        isLoading: false,
+        preBet: null,
+        currentBet: null,
+        errors: 'Có lỗi xảy ra vui lòng thử lại',
+      }
+    },
   },
 })
 
@@ -125,6 +154,9 @@ export const {
   submitBetFailed,
   submitBetBatch,
   submitBetBatchSuccess,
-  submitBetBatchFailed
-} = gameSlice.actions
-export default gameSlice.reducer
+  submitBetBatchFailed,
+  getCurrentBetResult,
+  getCurrentBetResultSuccess,
+  getCurrentBetResultFailed,
+} = bigAndSmallSlice.actions
+export default bigAndSmallSlice.reducer

@@ -1,9 +1,7 @@
-import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import { useEffect, useState } from 'react'
 import useAuth from './authentication'
 
-export const useCountDown = ({ gameCode, limit, currentBet, onEndTime }) => {
-  const { actions } = useBigAndSmall()
+export const useCountDown = ({ currentBet, onCountDownEnd }) => {
   const { actions: authAction } = useAuth()
 
   const [remainTime, setRemainTime] = useState({})
@@ -26,10 +24,8 @@ export const useCountDown = ({ gameCode, limit, currentBet, onEndTime }) => {
       setRemainTime({ hours, minutes, seconds })
     }
     if (-1 <= timeDifference <= 0) {
-      onEndTime && onEndTime()
+      onCountDownEnd && onCountDownEnd()
       authAction.getAccountInfo()
-      // delay(() => actions.getHistory({ code: gameCode, page: 1, limit: limit }), 10000)
-      actions.getHistory({ code: gameCode, page: 1, limit: limit })
       clearInterval(intervalId)
       setRemainTime({ hours: '??', minutes: '??', seconds: '??' })
     }

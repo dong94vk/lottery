@@ -18,6 +18,10 @@ export const SUBMIT_BET_BATCH = `${SLICE_BIG_AND_SMALL}/submitBetBatch`
 export const SUBMIT_BET_BATCH_SUCCESS = `${SLICE_BIG_AND_SMALL}/submitBetBatchSuccess`
 export const SUBMIT_BET_BATCH_FAILED = `${SLICE_BIG_AND_SMALL}/submitBetBatchFailed`
 
+export const GET_CURRENT_BET_RESULT = `${SLICE_BIG_AND_SMALL}/getCurrentBetResult`
+export const GET_CURRENT_BET_RESULT_SUCCESS = `${SLICE_BIG_AND_SMALL}/getCurrentBetResultSuccess`
+export const GET_CURRENT_BET_RESULT_FAILED = `${SLICE_BIG_AND_SMALL}/getCurrentBetResultFailed`
+
 export const formatSettingData = (payload) => {
   const data = payload.attributes
   return {
@@ -67,8 +71,6 @@ export const formatPrizeData = (payload) => {
   const getIconByName = (priceName) => {
     if (priceName === 'Jackport') return 'firstPrize'
     if (priceName === 'First price') return 'secondPrize'
-    // if (priceName === 'First price') return 'firstPrize'
-    // if (priceName === 'Second price') return 'secondPrize'
     return 'thirdPrize'
   }
 
@@ -84,6 +86,22 @@ export const formatPrizeData = (payload) => {
 export const formatCurrentBetData = (payload) => {
   const rawCurrentBet = payload.find(
     (data) => data.attributes.status === 'active', // trạng thái active => game đang chạy => ko phải lịch sử,
+  )
+  if (!rawCurrentBet) return {}
+  return {
+    id: rawCurrentBet?.id,
+    created_at: rawCurrentBet?.attributes.created_at,
+    end_at: rawCurrentBet?.attributes.end_at,
+    prize: rawCurrentBet?.attributes.win_prize?.split(','),
+    current_pot: rawCurrentBet.attributes.current_pot,
+    status: rawCurrentBet.attributes.status,
+    bet_value: [],
+  }
+}
+
+export const formatPreBetData = (payload) => {
+  const rawCurrentBet = payload.find(
+    (data) => data.attributes.status === 'done', // trạng thái active => game đang chạy => ko phải lịch sử,
   )
   if (!rawCurrentBet) return {}
   return {

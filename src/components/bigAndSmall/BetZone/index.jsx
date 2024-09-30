@@ -8,12 +8,13 @@ import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
 import { useState } from 'react'
-import { isNil } from 'lodash'
 import { ConfirmBetModal } from './elements/ConfirmBetModal'
+import { createArrayHasQuantityArrayElement } from 'src/components/lottery/ChooseNumber/helper'
+import { isNil } from 'lodash'
 
 export const GameZone = () => {
   const { actions, data } = useBigAndSmall()
-  const { setting, currentBet } = data
+  const { setting, currentBet, preBet } = data
   const {
     actions: authAction,
     data: { account },
@@ -80,9 +81,14 @@ export const GameZone = () => {
       >
         <div className="flex justify-between w-3/5">
           <div className="flex justify-center gap-6">
-            <Number number={'?'} />
-            <Number number={'?'} />
-            <Number number={'?'} />
+            {isNil(currentBet) &&
+              preBet?.prize?.map((win_number) => (
+                <Number number={win_number || '?'} />
+              ))}
+            {!isNil(currentBet) &&
+              createArrayHasQuantityArrayElement(3).map(() => (
+                <Number number={'?'} />
+              ))}
           </div>
           <div className="flex flex-col justify-center items-center">
             <Typography.Text className="text-white font-medium text-base">

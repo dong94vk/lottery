@@ -1,4 +1,4 @@
-import { first, flatMap, map, sortBy } from 'lodash'
+import { first, flatMap, map, orderBy, sortBy } from 'lodash'
 
 export const SLICE_BIG_AND_SMALL = 'SLICE_BIG_AND_SMALL'
 
@@ -37,26 +37,58 @@ export const formatSettingData = (payload) => {
 
 export const formatDataHistory = (payload) => {
   const histories = []
-  payload.forEach((data) => {
-    const { attributes = {} } = data
+  payload.forEach((history) => {
+    const { attributes = {} } = history
     // trạng thái active => game đang chạy => ko phải lịch sử
     if (attributes.status !== 'active') {
       const { prize = [] } = attributes
       histories.push({
-        id: data.id,
+        id: history.id,
         created_at: attributes.created_at,
         end_at: attributes.end_at,
-        prize: attributes.win_prize?.split(','),
+        prize: attributes?.win_prize?.split(','),
         current_pot: attributes.current_pot,
         ticket_count: attributes?.ticket_count || 0,
         status: attributes.status,
-        jackpot: prize.find(priz => +priz.data.attributes.ordering === 1)?.quantity,
-        secondPrize: prize.find(priz => +priz.data.attributes.ordering === 2)?.quantity,
-        thirdPrize: prize.find(priz => +priz.data.attributes.ordering === 3)?.quantity,
-        fourthPrize: prize.find(priz => priz.data.attributes.ordering === 4)?.quantity,
+        jackpot: prize.find((priz) => +priz.data.attributes.ordering === 1)
+          ?.quantity,
+        secondPrize: prize.find((priz) => +priz.data.attributes.ordering === 2)
+          ?.quantity,
+        thirdPrize: prize.find((priz) => +priz.data.attributes.ordering === 3)
+          ?.quantity,
+        fourthPrize: prize.find((priz) => priz.data.attributes.ordering === 4)
+          ?.quantity,
         bet_value: [],
       })
     }
+  })
+  return histories
+}
+
+export const formatDataOldResult = (payload) => {
+  const histories = []
+  orderBy(payload, 'id', 'asc').forEach((history) => {
+    const { attributes = {} } = history
+    // trạng thái active => game đang chạy => ko phải lịch sử
+    const { prize = [] } = attributes
+    histories.push({
+      id: history.id,
+      created_at: attributes.created_at,
+      end_at: attributes.end_at,
+      prize: attributes?.win_prize?.split(',') || [],
+      current_pot: attributes.current_pot,
+      ticket_count: attributes?.ticket_count || 0,
+      status: attributes.status,
+      jackpot: prize.find((priz) => +priz.data.attributes.ordering === 1)
+        ?.quantity,
+      secondPrize: prize.find((priz) => +priz.data.attributes.ordering === 2)
+        ?.quantity,
+      thirdPrize: prize.find((priz) => +priz.data.attributes.ordering === 3)
+        ?.quantity,
+      fourthPrize: prize.find((priz) => priz.data.attributes.ordering === 4)
+        ?.quantity,
+      bet_value: [],
+    })
   })
   return histories
 }

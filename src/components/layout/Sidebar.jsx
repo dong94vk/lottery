@@ -25,6 +25,11 @@ function Sidebar() {
             </Menu.Item>
           )
         })}
+      <Menu.Item key="menu-setting" className="!mt-3 !w-[50px] !h-[50px]">
+        <NavLink to="/profile">
+          <Icon name="setting" />
+        </NavLink>
+      </Menu.Item>
     </Menu>
   )
 }

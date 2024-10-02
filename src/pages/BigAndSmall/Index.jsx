@@ -3,6 +3,7 @@ import { GameZone } from 'src/components/bigAndSmall/BetZone'
 import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import { useEffect } from 'react'
 import { History } from 'src/components/bigAndSmall/History'
+import { OldResult } from 'src/components/bigAndSmall/OldResult'
 
 export const BigAndSmall = () => {
   const { actions } = useBigAndSmall()
@@ -15,6 +16,7 @@ export const BigAndSmall = () => {
     <Row className="lottery-page flex flex-col items-center justify-center w-full gap-8">
       <GameZone />
       <History />
+      <OldResult />
     </Row>
   )
 }

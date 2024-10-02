@@ -48,7 +48,7 @@ export const LotteryPage = () => {
         account_id: +account.id,
         game_id: +currentBet?.id,
         amount,
-        bet_value: numbersArr.map((numbers) => numbers.join(',')),
+        bet_value: numbersArr.map((numbers) => numbers?.join(',')),
       },
       onSuccess: () => {
         setOpenBuyTicketModal(true)

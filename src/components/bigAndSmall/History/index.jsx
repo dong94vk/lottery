@@ -2,13 +2,12 @@ import { Col, Row } from 'antd'
 import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import { HistoryBigAndSmallHeader } from './constant'
 import { PrizePot } from 'src/components/lottery/History/elements/PrizePot'
-import { formatHistory, winningContent } from './helper'
+import { formatHistory, winningContent } from '../helper'
 
 export const History = () => {
   const {
     data: { histories },
   } = useBigAndSmall()
-  formatHistory(histories)
 
   return (
     <Row

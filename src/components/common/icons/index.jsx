@@ -18,6 +18,9 @@ import { ReactComponent as Plus } from 'src/assets/icons/plus.svg'
 import { ReactComponent as NextArrow } from 'src/assets/icons/next-arrow.svg'
 import { ReactComponent as LotterySuccess } from 'src/assets/icons/lottery-success.svg'
 import { ReactComponent as FirstWinIcon } from 'src/assets/icons/1st-win-icon.svg'
+import { ReactComponent as Previous } from 'src/assets/icons/previous.svg'
+import { ReactComponent as Next } from 'src/assets/icons/next.svg'
+import { ReactComponent as Setting } from 'src/assets/icons/setting.svg'
 
 const icons = {
   topUpWallet: <TopUpWallet />,
@@ -40,6 +43,9 @@ const icons = {
   lotterySuccess: <LotterySuccess />,
   firstWinIcon: <FirstWinIcon />,
   dollar24: <Dollar24 />,
+  previous: <Previous />,
+  next: <Next />,
+  setting: <Setting />
 }
 
 export const Icon = (props) => {

@@ -2,6 +2,7 @@ import { NotFound } from 'src/pages/NotFound/Index'
 import { LotteryPage } from 'src/pages/Lottery'
 import { BigAndSmall } from 'src/pages/BigAndSmall'
 import { Home } from 'src/pages/Home'
+import { UserProfile } from 'src/pages/UserProfile'
 
 export const routes = [
   {
@@ -34,5 +35,14 @@ export const routes = [
     showInSidebar: true,
     isPublic: false,
     icon: 'bigAndSmall',
+  },
+  {
+    path: 'user-profile',
+    name: 'User profile',
+    component: UserProfile,
+    showInSidebar: true,
+    isPublic: false,
+    icon: 'setting',
+    className: 'absolute bottom-[-65%]'
   },
 ]

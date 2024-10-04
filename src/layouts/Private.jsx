@@ -30,7 +30,7 @@ function PrivateLayout({ children }) {
       <Layout className="bg-[#12151d] pr-[10px] pl-[10px] pt-6">
         <Sider
           width={76}
-          className="!bg-[#363940] h-[calc(100vh-105px)] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden"
+          className="!bg-[#363940] h-[calc(100vh-105px)] !border !border-solid !border-[#757575] !rounded-[20px] overflow-hidden relative"
         >
           <Sidebar />
         </Sider>

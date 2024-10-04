@@ -10,6 +10,10 @@ body {
   font-weight: 400;
   user-select: none !important;
 }
+.ant-input {
+  color: #ffffff !important;
+  background: transparent;
+}
 
 .border-image {
   border-image: linear-gradient(

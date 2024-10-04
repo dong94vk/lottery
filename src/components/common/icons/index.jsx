@@ -21,6 +21,7 @@ import { ReactComponent as FirstWinIcon } from 'src/assets/icons/1st-win-icon.sv
 import { ReactComponent as Previous } from 'src/assets/icons/previous.svg'
 import { ReactComponent as Next } from 'src/assets/icons/next.svg'
 import { ReactComponent as Setting } from 'src/assets/icons/setting.svg'
+import { ReactComponent as ETH } from 'src/assets/icons/eth.svg'
 
 const icons = {
   topUpWallet: <TopUpWallet />,
@@ -45,7 +46,8 @@ const icons = {
   dollar24: <Dollar24 />,
   previous: <Previous />,
   next: <Next />,
-  setting: <Setting />
+  setting: <Setting />,
+  eth: <ETH />
 }
 
 export const Icon = (props) => {

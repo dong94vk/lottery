@@ -95,6 +95,21 @@ function* doSignUp({ payload }) {
 }
 /* end sign up */
 
+/* start api payment */
+export const apiGetConfig = () => {
+  return api.get(API_URL.AUTH.API_CONFIG)
+}
+
+export const apiCreatePayment = (payload) => {
+  return api.post(API_URL.AUTH.CREATE_PAYMENT, payload)
+}
+
+export const apiRefreshPayment = (payload) => {
+  return api.get(API_URL.AUTH.REFRESH_PAYMENT, payload)
+}
+
+/* end api payment */
+
 export function* watchDoLogin() {
   yield takeLatest(LOGIN, doLogin)
 }

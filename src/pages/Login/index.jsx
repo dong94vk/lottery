@@ -42,7 +42,8 @@ export const LoginPage = (props) => {
   }
 
   const getAccountInfo = (body) => {
-    localStorage.setItem('username', first(body.email.split("@")))
+    localStorage.setItem('username', first(body.email.split('@')))
+    localStorage.setItem('email', body.email)
     actions.getAccountInfo({ onSuccess: () => props.setOpenSignIn(false) })
   }
 

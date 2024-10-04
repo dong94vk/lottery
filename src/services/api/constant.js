@@ -4,6 +4,10 @@ export const API_URL = {
     SIGN_UP: 'users/tokens/sign_up',
     REFRESH_TOKEN: 'users/tokens/refresh_token',
     ACCOUNT_INFO: 'player/account',
+    API_CONFIG: 'config',
+    LIST_PAYMENT: 'payment',
+    CREATE_PAYMENT: 'payment/create',
+    REFRESH_PAYMENT: 'payment/refresh'
   },
   GAME: {
     GET_HISTORY: 'game',

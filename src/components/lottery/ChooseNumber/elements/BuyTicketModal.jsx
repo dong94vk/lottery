@@ -25,8 +25,8 @@ export const BuyTicketSuccessModal = (props) => {
       const autoCloseModal = () => {
         props.setOpen(false)
       }
-      const closeModalInterval = setTimeout(autoCloseModal, 2000)
-      return () => clearTimeout(closeModalInterval)
+      const closeModalTimeout = setTimeout(autoCloseModal, 2000)
+      return () => clearTimeout(closeModalTimeout)
     }
   }, [props.open])
 

@@ -139,6 +139,11 @@ function* doSubmitBetBatch({ payload }) {
 
 /* end submit bet batch*/
 
+/** api get bet joined*/
+export const apiGetBetJoined = () => {
+  return api.get(API_URL.GAME.GET_BET_JOINED)
+}
+
 export function* watchDoGetSetting() {
   yield takeLatest(GET_SETTING, doGetSetting)
 }

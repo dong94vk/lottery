@@ -2,7 +2,7 @@ import { Typography } from 'antd'
 import { Icon } from 'src/components/common/icons'
 
 export const BetButton = (props) => {
-  const { title, joinNumber, prize, textColor, onClick } = props
+  const { title, prize, textColor, onClick } = props
 
   return (
     <div
@@ -15,9 +15,6 @@ export const BetButton = (props) => {
           style={{ color: textColor }}
         >
           {title}
-        </Typography.Text>
-        <Typography.Text className="text-white text-base font-normal">
-          {joinNumber} join
         </Typography.Text>
       </div>
       <div className="flex items-center justify-center gap-2">

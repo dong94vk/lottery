@@ -6,15 +6,20 @@ import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { apiGetHistory } from 'src/store/sagas/bigAndSmall'
+import { apiGetBetJoined, apiGetHistory } from 'src/store/sagas/bigAndSmall'
 import { formatCurrentBetData } from 'src/store/slice/bigAndSmall/type'
 
 export const BigAndSmall = () => {
   const [currentBet, setCurrentBet] = useState(null)
   const navigate = useNavigate()
+  const [betJoined, setBetJoined] = useState({ big: 0, small: 0 })
 
   useEffect(() => {
     fetchData()
+    const interval = setInterval(() => {
+      getBetJoined()
+    }, 3000)
+    return () => clearInterval(interval)
   }, [])
 
   const fetchData = async () => {
@@ -24,6 +29,11 @@ export const BigAndSmall = () => {
 
   const handleChangeBet = () => {
     navigate('/big-and-small')
+  }
+
+  const getBetJoined = async () => {
+    const res = await apiGetBetJoined()
+    setBetJoined({ big: res.big || 0, small: res.small || 0 })
   }
 
   return (
@@ -61,14 +71,14 @@ export const BigAndSmall = () => {
           <BetButton
             title="small"
             joinNumber="3515"
-            prize="1,200,000"
+            prize={betJoined.small || 0}
             textColor="#00FBFB"
             onClick={() => handleChangeBet('small')}
           />
           <BetButton
             title="big"
             joinNumber="3890"
-            prize="1,060,000"
+            prize={betJoined.big || 0}
             textColor="#51EE37"
             onClick={() => handleChangeBet('big')}
           />

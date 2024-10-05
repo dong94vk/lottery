@@ -123,7 +123,7 @@ export const UserInfo = () => {
           )}
         </div>
         <Typography.Text className="!text-[#F3F3F3] w-full inline-flex justify-center">
-          {!walletAddress ? 'See the conversion rate here' : 'Payment history'}
+          {!walletAddress ? '' : 'Payment history'}
         </Typography.Text>
       </Col>
       <ModalDeposit open={openDeposit} setOpen={setOpenDeposit} />

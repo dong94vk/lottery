@@ -8,15 +8,18 @@ export const winningContent = (winning) => {
   if (total >= bigNumber) {
     return `BIG(${displayNumber})`
   }
-  return `SMALL(${displayNumber})`
+  if (total < bigNumber) {
+    return `SMALL(${displayNumber})`
+  }
+  return '?'
 }
 
 /**
 [{
-      time: '23/07/2024',
-      session: '55',
-      winning: '4,5,6',
-      yourReward: '10,000',
+  time: '23/07/2024',
+  session: '55',
+  winning: '4,5,6',
+  yourReward: '10,000',
 }] 
  */
 export const formatHistory = (histories) => {

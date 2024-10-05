@@ -17,6 +17,7 @@ export const API_URL = {
     SUBMIT_BET: 'player/bet',
     SUBMIT_BET_BATCH: 'player/bet_batch',
     GET_BET_HISTORY: 'player/bet',
+    GET_BET_JOINED: 'taixiu/live'
   },
 }
 

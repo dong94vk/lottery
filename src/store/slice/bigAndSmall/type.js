@@ -40,13 +40,13 @@ export const formatDataHistory = (payload) => {
   payload.forEach((history) => {
     const { attributes = {} } = history
     // trạng thái active => game đang chạy => ko phải lịch sử
-    if (attributes.status !== 'active') {
+    // if (attributes.status !== 'active') {
       const { prize = [] } = attributes
       histories.push({
         id: history.id,
         created_at: attributes.created_at,
         end_at: attributes.end_at,
-        prize: attributes?.win_prize?.split(','),
+        prize: attributes?.win_prize ? attributes?.win_prize?.split(',') : ['?'],
         current_pot: attributes.current_pot,
         ticket_count: attributes?.ticket_count || 0,
         status: attributes.status,
@@ -60,14 +60,14 @@ export const formatDataHistory = (payload) => {
           ?.quantity,
         bet_value: [],
       })
-    }
+    // }
   })
   return histories
 }
 
 export const formatDataOldResult = (payload) => {
   const histories = []
-  orderBy(payload, 'id', 'asc').forEach((history) => {
+  orderBy(payload, 'id', 'desc').forEach((history) => {
     const { attributes = {} } = history
     // trạng thái active => game đang chạy => ko phải lịch sử
     const { prize = [] } = attributes

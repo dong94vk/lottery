@@ -7,14 +7,16 @@ import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 import { BetValue } from './elements/BetValue'
 import { BetButton } from './elements/BetButton'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ConfirmBetModal } from './elements/ConfirmBetModal'
 import { createArrayHasQuantityArrayElement } from 'src/components/lottery/ChooseNumber/helper'
 import { isNil } from 'lodash'
+import { apiGetBetJoined } from 'src/store/sagas/bigAndSmall'
 
 export const GameZone = () => {
   const { actions, data } = useBigAndSmall()
   const { setting, currentBet, preBet } = data
+  const [betJoined, setBetJoined] = useState({ big: 0, small: 0 })
   const {
     actions: authAction,
     data: { account },
@@ -24,6 +26,18 @@ export const GameZone = () => {
   const [selectedBetValue, setSelectBetValue] = useState(null) // tiền bet
   const [flagSelected, setFlagSelected] = useState(false) // cờ active bet
   const [openConfirmModal, setOpenConfirmModal] = useState(false) // open confirm modal
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getBetJoined()
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const getBetJoined = async () => {
+    const res = await apiGetBetJoined()
+    setBetJoined({ big: res.big || 0, small: res.small || 0 })
+  }
 
   const onSubmitBuyTicket = (bet) => {
     if (+account?.attributes?.balance > +setting?.price) {
@@ -111,7 +125,7 @@ export const GameZone = () => {
           <BetButton
             title="small"
             joinNumber="3515"
-            prize="1,200,000"
+            prize={betJoined.small}
             selected={selectedBet === 'small'}
             textColor="#00FBFB"
             onClick={() => handleChangeBet('small')}
@@ -119,7 +133,7 @@ export const GameZone = () => {
           <BetButton
             title="big"
             joinNumber="3890"
-            prize="1,060,000"
+            prize={betJoined.big}
             selected={selectedBet === 'big'}
             textColor="#51EE37"
             onClick={() => handleChangeBet('big')}

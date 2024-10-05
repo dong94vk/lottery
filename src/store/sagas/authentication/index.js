@@ -100,6 +100,10 @@ export const apiGetConfig = () => {
   return api.get(API_URL.AUTH.API_CONFIG)
 }
 
+export const apiListPayment = (payload) => {
+  return api.get(API_URL.AUTH.LIST_PAYMENT, payload)
+}
+
 export const apiCreatePayment = (payload) => {
   return api.post(API_URL.AUTH.CREATE_PAYMENT, payload)
 }

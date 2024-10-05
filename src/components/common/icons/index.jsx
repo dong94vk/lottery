@@ -22,6 +22,8 @@ import { ReactComponent as Previous } from 'src/assets/icons/previous.svg'
 import { ReactComponent as Next } from 'src/assets/icons/next.svg'
 import { ReactComponent as Setting } from 'src/assets/icons/setting.svg'
 import { ReactComponent as ETH } from 'src/assets/icons/eth.svg'
+import { ReactComponent as PaginatePrevious } from 'src/assets/icons/paginate-previous.svg'
+import { ReactComponent as PaginateNext } from 'src/assets/icons/paginate-next.svg'
 
 const icons = {
   topUpWallet: <TopUpWallet />,
@@ -47,7 +49,9 @@ const icons = {
   previous: <Previous />,
   next: <Next />,
   setting: <Setting />,
-  eth: <ETH />
+  eth: <ETH />,
+  paginatePrevious: <PaginatePrevious />,
+  paginateNext: <PaginateNext />,
 }
 
 export const Icon = (props) => {

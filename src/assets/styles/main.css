@@ -15,6 +15,15 @@ body {
   background: transparent;
 }
 
+.ant-pagination .ant-pagination-item-active {
+  background: transparent;
+  color: #ffffff;
+}
+
+.ant-pagination .ant-pagination-item a {
+  color: #ffffff;
+}
+
 .border-image {
   border-image: linear-gradient(
     161.06deg,

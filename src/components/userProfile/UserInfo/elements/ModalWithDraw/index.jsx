@@ -29,12 +29,11 @@ export const ModalWithdraw = (props) => {
 
   const [amountValue, setAmountValue] = useState(null)
   const onSubmit = async () => {
-    const createPayoutData = [
-      {
-        amount: +amountValue,
-        address: walletAddress,
-      },
-    ]
+    const createPayoutData = {
+      amount: +amountValue,
+      address: walletAddress,
+    }
+
     await apiCreatePayout(createPayoutData)
     setOpen(false)
   }

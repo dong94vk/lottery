@@ -24,6 +24,7 @@ export const winningContent = (winning) => {
  */
 export const formatHistory = (histories) => {
   return histories.map((history) => {
+    console.log(history)
     return {
       time: dayjs(history.created_at).format('DD/MM/YYYY'),
       session: history.id,

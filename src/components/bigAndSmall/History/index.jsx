@@ -3,11 +3,43 @@ import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 import { HistoryBigAndSmallHeader } from './constant'
 import { PrizePot } from 'src/components/lottery/History/elements/PrizePot'
 import { formatHistory, winningContent } from '../helper'
+import { useEffect, useState } from 'react'
+import { apiBetHistory } from 'src/store/sagas/bigAndSmall'
+import { flatMap } from 'lodash'
 
 export const History = () => {
   const {
     data: { histories },
   } = useBigAndSmall()
+
+  const [historyData, setHistoryData] = useState([])
+
+  useEffect(() => {
+    fetchHistoryBetData()
+  }, [histories])
+
+  const fetchHistoryBetData = async () => {
+    const res = await Promise.all(
+      histories?.map((history) => {
+        return apiBetHistory({ game_id: history.id })
+      }),
+    )
+    const betHistories = flatMap(
+      res.map((bet) => {
+        return flatMap(bet.data)
+      }),
+    )
+    const historiesData = histories.map((history) => {
+      const betHistory = betHistories.filter((bet) => {
+        return bet.attributes.source === history.id
+      })
+      return {
+        ...history,
+        betHistory,
+      }
+    })
+    setHistoryData(historiesData)
+  }
 
   return (
     <Row
@@ -26,7 +58,7 @@ export const History = () => {
             </tr>
           </thead>
           <tbody className="pt-4 pb-4">
-            {formatHistory(histories)?.map((history, index) => {
+            {formatHistory(historyData)?.map((history, index) => {
               return (
                 <tr
                   key={`historyBigAndSmall-${index}`}

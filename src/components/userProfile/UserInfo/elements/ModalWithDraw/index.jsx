@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { UserProfileInput } from '../Input'
 import { Icon } from 'src/components/common/icons'
 import { useState } from 'react'
+import { apiCreatePayout } from 'src/store/sagas/authentication'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -23,13 +24,19 @@ export const ModalStyled = styled(Modal)`
   }
 `
 
-export const ModalDeposit = (props) => {
-  const { open, setOpen } = props
+export const ModalWithdraw = (props) => {
+  const { open, setOpen, walletAddress } = props
 
-  const [addValue, setAddValue] = useState(null)
-  const [byValue, setByValue] = useState(null)
-  const onSubmit = () => {
-    console.log('addValue, byValue :>> ', addValue, byValue)
+  const [amountValue, setAmountValue] = useState(null)
+  const onSubmit = async () => {
+    const createPayoutData = [
+      {
+        amount: +amountValue,
+        address: walletAddress,
+      },
+    ]
+    await apiCreatePayout(createPayoutData)
+    setOpen(false)
   }
   return (
     <ModalStyled
@@ -41,20 +48,20 @@ export const ModalDeposit = (props) => {
       className="relative"
       title={
         <Typography.Text className="uppercase text-[#7D8091] font-bold text-[16px]">
-          DEPOSIT
+          WITHDRAW
         </Typography.Text>
       }
     >
       <UserProfileInput
-        text="Add"
+        text="Amount"
         suffix={<Icon name="dollar" />}
-        onChange={setAddValue}
+        onChange={setAmountValue}
       />
       <UserProfileInput
-        text="By"
-        suffix={<Icon name="eth" />}
-        onChange={setByValue}
+        text="To Wallet"
+        value={walletAddress}
         inputClassName="mt-3"
+        disabled
       />
       <div className="flex justify-center">
         <Button

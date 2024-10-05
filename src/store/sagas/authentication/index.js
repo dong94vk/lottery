@@ -104,6 +104,10 @@ export const apiCreatePayment = (payload) => {
   return api.post(API_URL.AUTH.CREATE_PAYMENT, payload)
 }
 
+export const apiCreatePayout = (payload) => {
+  return api.post(API_URL.AUTH.CREATE_PAYOUT, payload)
+}
+
 export const apiRefreshPayment = (payload) => {
   return api.get(API_URL.AUTH.REFRESH_PAYMENT, payload)
 }

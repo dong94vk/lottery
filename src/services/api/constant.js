@@ -7,7 +7,8 @@ export const API_URL = {
     API_CONFIG: 'config',
     LIST_PAYMENT: 'payment',
     CREATE_PAYMENT: 'payment/create',
-    REFRESH_PAYMENT: 'payment/refresh'
+    REFRESH_PAYMENT: 'payment/refresh',
+    CREATE_PAYOUT: 'payout/create',
   },
   GAME: {
     GET_HISTORY: 'game',

@@ -63,7 +63,8 @@ export const ModalDeposit = (props) => {
         await apiCreatePayment(createPaymentData)
         setOpen(false)
       } catch (err) {
-        // console.log('err :>> ', err)
+        // eslint-disable-next-line no-console
+        console.log('err :>> ', err)
       }
     }
   }

@@ -18,20 +18,7 @@ export const UserInfo = () => {
   const { data } = useAuth()
 
   const onClickConnectWallet = async () => {
-    const ethereum = window.ethereum
-    // Check if MetaMask is installed
-    if (typeof ethereum !== 'undefined') {
-      // Request access to the user's MetaMask accounts
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      })
-      const address = accounts[0]
-      setWalletAddress(address)
-    }
-  }
-
-  const handleClickDeposit = async () => {
-    if (!walletAddress) {
+    try {
       const ethereum = window.ethereum
       // Check if MetaMask is installed
       if (typeof ethereum !== 'undefined') {
@@ -41,6 +28,29 @@ export const UserInfo = () => {
         })
         const address = accounts[0]
         setWalletAddress(address)
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('err :>> ', err)
+    }
+  }
+
+  const handleClickDeposit = async () => {
+    if (!walletAddress) {
+      try {
+        const ethereum = window.ethereum
+        // Check if MetaMask is installed
+        if (typeof ethereum !== 'undefined') {
+          // Request access to the user's MetaMask accounts
+          const accounts = await ethereum.request({
+            method: 'eth_requestAccounts',
+          })
+          const address = accounts[0]
+          setWalletAddress(address)
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log('err :>> ', err)
       }
     }
     setOpenDeposit(true)

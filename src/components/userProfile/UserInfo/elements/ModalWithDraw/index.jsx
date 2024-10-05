@@ -4,6 +4,7 @@ import { UserProfileInput } from '../Input'
 import { Icon } from 'src/components/common/icons'
 import { useState } from 'react'
 import { apiCreatePayout } from 'src/store/sagas/authentication'
+import useAuth from 'src/store/hooks/authentication'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -26,6 +27,7 @@ export const ModalStyled = styled(Modal)`
 
 export const ModalWithdraw = (props) => {
   const { open, setOpen, walletAddress } = props
+  const { actions: authAction } = useAuth()
 
   const [amountValue, setAmountValue] = useState(null)
   const onSubmit = async () => {
@@ -35,6 +37,7 @@ export const ModalWithdraw = (props) => {
     }
 
     await apiCreatePayout(createPayoutData)
+    authAction.getAccountInfo()
     setOpen(false)
   }
   return (

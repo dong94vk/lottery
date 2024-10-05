@@ -17,7 +17,7 @@ export const OldResult = () => {
 
   const fetchData = async (page) => {
     const res = await apiGetHistory({ code: 'TX1', page: page, limit: 10 })
-    const histories = formatDataOldResult(res.data)
+    const histories = formatDataOldResult(res?.data)
     setOldResult(histories)
   }
 

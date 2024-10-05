@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { Icon } from 'src/components/common/icons'
 import { PrizePot } from 'src/components/lottery/History/elements/PrizePot'
+import useAuth from 'src/store/hooks/authentication'
 import {
   apiListPayment,
   apiRefreshPayment,
@@ -13,18 +14,21 @@ export const PaymentHistoryTable = () => {
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
   const [histories, setHistories] = useState([])
+  const { actions: authAction } = useAuth()
+
   useEffect(() => {
     fetchData()
   }, [limit, page])
 
   const fetchData = async () => {
     const res = await apiListPayment({ limit, page })
-    setHistories(res.data || [])
+    setHistories(res?.data || [])
   }
 
   const onCheckStatus = async (history) => {
     if (history.action.toLowerCase() === 'deposit') {
       await apiRefreshPayment({ id: history.id })
+      authAction.getAccountInfo()
     }
     await fetchData()
   }

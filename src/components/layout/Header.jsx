@@ -21,6 +21,10 @@ function Header(props) {
     navigate(0)
   }
 
+  const onClickWallet = () => {
+    navigate('/user-profile')
+  }
+
   return (
     <Row
       gutter={[24, 24]}
@@ -49,7 +53,10 @@ function Header(props) {
         {token && (
           <>
             <div className="flex justify-center items-center gap-3">
-              <span className="flex justify-center items-center gap-1 shadow-[inset_0_0_4px_0_#FFFFFF40] p-1 pl-2 pr-2 rounded-lg">
+              <span
+                className="flex justify-center items-center gap-1 shadow-[inset_0_0_4px_0_#FFFFFF40] p-1 pl-2 pr-2 rounded-lg"
+                onClick={onClickWallet}
+              >
                 <Icon name="dollar" />
                 {numberWithCommas(data?.account?.attributes?.balance)}
                 <Divider type="vertical" style={{ borderColor: '#fff' }} />

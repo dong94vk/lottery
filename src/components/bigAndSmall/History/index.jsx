@@ -5,7 +5,7 @@ import { PrizePot } from 'src/components/lottery/History/elements/PrizePot'
 import { formatHistory, winningContent } from '../helper'
 import { useEffect, useState } from 'react'
 import { apiBetHistory } from 'src/store/sagas/bigAndSmall'
-import { flatMap } from 'lodash'
+import { flatMap, isEmpty } from 'lodash'
 
 export const History = () => {
   const {
@@ -25,20 +25,42 @@ export const History = () => {
       }),
     )
     const betHistories = flatMap(
-      res.map((bet) => {
-        return flatMap(bet.data)
+      res?.map((bet) => {
+        return flatMap(bet?.data)
       }),
     )
-    const historiesData = histories.map((history) => {
-      const betHistory = betHistories.filter((bet) => {
-        return bet.attributes.source === history.id
+
+    const historiesData = []
+    histories.forEach((history) => {
+      const betHistory = betHistories?.filter((bet) => {
+        return bet?.attributes?.source === history?.id
       })
-      return {
-        ...history,
-        betHistory,
+      if (!isEmpty(betHistory)) {
+        betHistory?.forEach((betH) => {
+          historiesData.push({
+            ...history,
+            ...betH,
+            id: betH?.attributes?.source,
+          })
+        })
+      } else {
+        historiesData.push(history)
       }
     })
     setHistoryData(historiesData)
+  }
+
+  const renderYourPick = (yourPick) => {
+    if (yourPick === 'NON-PICK') return yourPick
+    if (!isEmpty(yourPick.split('_'))) {
+      return (
+        <span className="flex items-center justify-center gap-3">
+          {yourPick.split('_')[0]}{' '}
+          <PrizePot prize={`${yourPick.split('_')[1]}`} />{' '}
+        </span>
+      )
+    }
+    return '?'
   }
 
   return (
@@ -67,6 +89,7 @@ export const History = () => {
                   <td>{history.time}</td>
                   <td>#{history.session}</td>
                   <td>{winningContent(history.winning)}</td>
+                  <td>{renderYourPick(history.yourPick)}</td>
                   <td>
                     <PrizePot prize={history.yourReward} />
                   </td>

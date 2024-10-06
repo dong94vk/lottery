@@ -20,18 +20,34 @@ export const winningContent = (winning) => {
   session: '55',
   winning: '4,5,6',
   yourReward: '10,000',
+  yourPick: BIG_1231,
 }] 
  */
 export const formatHistory = (histories) => {
   return histories.map((history) => {
-    console.log(history)
     return {
       time: dayjs(history.created_at).format('DD/MM/YYYY'),
       session: history.id,
       winning: history?.prize?.join(','),
-      yourReward: history.current_pot,
+      yourReward: formatYourReward(history),
+      yourPick: formatYourPick(history),
     }
   })
+}
+
+const formatYourPick = (history) => {
+  let betValue = 'NON-PICK'
+  if (+history?.attributes?.bet_value === 0) {
+    betValue = `SMALL_${history?.attributes?.current_pot}`
+  }
+  if (+history?.attributes?.bet_value === 1) {
+    betValue = `BIG_${history?.attributes?.current_pot}`
+  }
+  return betValue
+}
+
+const formatYourReward = (history) => {
+  return history?.attributes?.win_amount || '?'
 }
 
 export const getBigAndSmallResult = (winning) => {

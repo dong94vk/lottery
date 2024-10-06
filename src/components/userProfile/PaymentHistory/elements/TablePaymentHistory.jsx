@@ -72,13 +72,13 @@ export const PaymentHistoryTable = () => {
                   <PrizePot prize={history.amount} />
                 </td>
                 <td className="pt-5">{history.action}</td>
-                <td className="pt-5">{history.status}</td>
+                <td className="pt-5 uppercase">{history.status}</td>
                 <td
                   className="pt-5 flex items-center justify-center gap-3"
                   onClick={() => onCheckStatus({ ...history, id: data?.id })}
                 >
                   <CheckCircleOutlined />
-                  check status
+                  <span className='uppercase'>check status</span>
                 </td>
               </tr>
             )

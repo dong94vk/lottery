@@ -5,6 +5,7 @@ import { Icon } from 'src/components/common/icons'
 import { useState } from 'react'
 import { apiCreatePayment, apiGetConfig } from 'src/store/sagas/authentication'
 import { ethers } from 'ethers'
+import useAuth from 'src/store/hooks/authentication'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -27,6 +28,7 @@ export const ModalStyled = styled(Modal)`
 
 export const ModalDeposit = (props) => {
   const { open, setOpen } = props
+  const { actions: authAction } = useAuth()
 
   // const [addValue, setAddValue] = useState(null)
   const [byValue, setByValue] = useState(null)
@@ -62,6 +64,7 @@ export const ModalDeposit = (props) => {
         }
         await apiCreatePayment(createPaymentData)
         setOpen(false)
+        authAction.getListPayment({ limit: 10, page: 1 })
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log('err :>> ', err)

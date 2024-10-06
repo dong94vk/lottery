@@ -4,6 +4,7 @@ import { first } from 'lodash'
 
 const authInitialState = {
   account: null,
+  paymentHistories: [],
   isLoading: false,
   errors: null,
 }
@@ -73,7 +74,33 @@ export const authSlice = createSlice({
       }
     },
     getAccountInfoFailed: (state) => {
-      return { ...state, isLoading: false, errors: null }
+      return {
+        ...state,
+        isLoading: false,
+        errors: null,
+      }
+    },
+    getListPayment: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+        errors: null,
+      }
+    },
+    getListPaymentSuccess: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        errors: null,
+        paymentHistories: action.payload,
+      }
+    },
+    getListPaymentFailed: (state) => {
+      return {
+        ...state,
+        isLoading: false,
+        errors: null,
+      }
     },
   },
 })
@@ -89,5 +116,8 @@ export const {
   signUp,
   signUpSuccess,
   signUpFailed,
+  getListPayment,
+  getListPaymentSuccess,
+  getListPaymentFailed
 } = authSlice.actions
 export default authSlice.reducer

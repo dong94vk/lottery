@@ -5,11 +5,14 @@ import { API_URL } from 'src/services/api/constant'
 import {
   getAccountInfoFailed,
   getAccountInfoSuccess,
+  getListPaymentFailed,
+  getListPaymentSuccess,
   loginFailed,
   signUpFailed,
 } from 'src/store/slice/authentication'
 import {
   GET_ACCOUNT_INFO,
+  GET_LIST_PAYMENT,
   LOGIN,
   SIGN_UP,
 } from 'src/store/slice/authentication/type'
@@ -95,13 +98,30 @@ function* doSignUp({ payload }) {
 }
 /* end sign up */
 
+/** start get list payment*/
+export const apiListPayment = (payload) => {
+  return api.get(API_URL.AUTH.LIST_PAYMENT, payload)
+}
+
+function* doGetListPayment({ payload }) {
+  try {
+    const response = yield call(apiListPayment, payload)
+    if (response.status !== 200) {
+      yield put(getListPaymentSuccess())
+    }
+    yield put(getListPaymentSuccess(response.data))
+    if (payload.onSuccess) {
+      yield payload.onSuccess()
+    }
+  } catch (error) {
+    yield put(getListPaymentFailed(error))
+  }
+}
+/** end get list payment */
+
 /* start api payment */
 export const apiGetConfig = () => {
   return api.get(API_URL.AUTH.API_CONFIG)
-}
-
-export const apiListPayment = (payload) => {
-  return api.get(API_URL.AUTH.LIST_PAYMENT, payload)
 }
 
 export const apiCreatePayment = (payload) => {
@@ -128,4 +148,8 @@ export function* watchDoGetAccountInfo() {
 
 export function* watchDoSignUp() {
   yield takeLatest(SIGN_UP, doSignUp)
+}
+
+export function* watchDoGetListPayment() {
+  yield takeLatest(GET_LIST_PAYMENT, doGetListPayment)
 }

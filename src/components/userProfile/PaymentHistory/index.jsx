@@ -1,7 +1,7 @@
 import { Col, Row, Typography } from 'antd'
 import { PaymentHistoryTable } from './elements/TablePaymentHistory'
 
-export const PaymentHistory = () => {
+export const PaymentHistory = (props) => {
   return (
     <Row
       gutter={24}
@@ -12,8 +12,8 @@ export const PaymentHistory = () => {
           Payment history
         </Typography.Text>
       </Col>
-      <Col span={24} className='mt-4'>
-        <PaymentHistoryTable />
+      <Col span={24} className="mt-4">
+        <PaymentHistoryTable {...props} />
       </Col>
     </Row>
   )

@@ -5,24 +5,23 @@ import { useEffect, useState } from 'react'
 import { Icon } from 'src/components/common/icons'
 import { PrizePot } from 'src/components/lottery/History/elements/PrizePot'
 import useAuth from 'src/store/hooks/authentication'
-import {
-  apiListPayment,
-  apiRefreshPayment,
-} from 'src/store/sagas/authentication'
+import { apiRefreshPayment } from 'src/store/sagas/authentication'
 
 export const PaymentHistoryTable = () => {
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
-  const [histories, setHistories] = useState([])
-  const { actions: authAction } = useAuth()
+
+  const {
+    actions: authAction,
+    data: { paymentHistories },
+  } = useAuth()
 
   useEffect(() => {
-    fetchData()
+    fetchData(limit, page)
   }, [limit, page])
 
-  const fetchData = async () => {
-    const res = await apiListPayment({ limit, page })
-    setHistories(res?.data || [])
+  const fetchData = (limit, page) => {
+    authAction.getListPayment({ limit, page })
   }
 
   const onCheckStatus = async (history) => {
@@ -61,7 +60,7 @@ export const PaymentHistoryTable = () => {
           </tr>
         </thead>
         <tbody>
-          {histories?.map((data, index) => {
+          {paymentHistories?.map((data, index) => {
             const history = data.attributes
             return (
               <tr className="text-center" key={`payment-history-${index}`}>
@@ -78,7 +77,7 @@ export const PaymentHistoryTable = () => {
                   onClick={() => onCheckStatus({ ...history, id: data?.id })}
                 >
                   <CheckCircleOutlined />
-                  <span className='uppercase'>check status</span>
+                  <span className="uppercase">check status</span>
                 </td>
               </tr>
             )

@@ -16,6 +16,7 @@ import {
   watchDoGetAccountInfo,
   watchDoLogin,
   watchDoSignUp,
+  watchDoGetListPayment,
 } from './authentication'
 
 const rootSaga = function* () {
@@ -32,6 +33,7 @@ const rootSaga = function* () {
     fork(watchDoSubmitBetBatchLottery),
     fork(watchDoLogin),
     fork(watchDoSignUp),
+    fork(watchDoGetListPayment),
   ])
 }
 

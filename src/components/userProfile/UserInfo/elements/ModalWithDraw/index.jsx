@@ -38,6 +38,7 @@ export const ModalWithdraw = (props) => {
 
     await apiCreatePayout(createPayoutData)
     authAction.getAccountInfo()
+    authAction.getListPayment({ limit: 10, page: 1 })
     setOpen(false)
   }
   return (

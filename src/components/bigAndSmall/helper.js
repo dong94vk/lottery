@@ -39,10 +39,10 @@ export const formatHistory = (histories) => {
 const formatYourPick = (history) => {
   let betValue = 'NON-PICK'
   if (+history?.attributes?.bet_value === +BET_VALUE.SMALL) {
-    betValue = `SMALL_${history?.attributes?.current_pot}`
+    betValue = `SMALL_${history?.attributes?.bet_amount}`
   }
   if (+history?.attributes?.bet_value === +BET_VALUE.BIG) {
-    betValue = `BIG_${history?.attributes?.current_pot}`
+    betValue = `BIG_${history?.attributes?.bet_amount}`
   }
   return betValue
 }

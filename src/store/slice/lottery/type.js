@@ -36,13 +36,13 @@ export const formatDataHistory = (payload) => {
   payload.forEach((data) => {
     const { attributes = {} } = data
     // trạng thái active => game đang chạy => ko phải lịch sử
-    if (attributes.status !== 'active') {
+    // if (attributes.status !== 'active') {
       const { prize = [] } = attributes
       histories.push({
         id: data.id,
         created_at: attributes.created_at,
         end_at: attributes.end_at,
-        prize: attributes.win_prize?.split(','),
+        prize: attributes?.win_prize?.split(','),
         current_pot: attributes.current_pot,
         ticket_count: attributes?.ticket_count || 0,
         status: attributes.status,
@@ -52,7 +52,7 @@ export const formatDataHistory = (payload) => {
         fourthPrize: prize.find(priz => priz.data.attributes.ordering === 4)?.quantity,
         bet_value: [],
       })
-    }
+    // }
   })
   return histories
 }

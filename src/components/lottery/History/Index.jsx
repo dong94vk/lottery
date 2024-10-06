@@ -47,7 +47,7 @@ export const History = () => {
                       return (
                         <TicketNumber
                           number={
-                            history?.status === 'done' ? numberElement : '??'
+                            history?.status === 'done' ? numberElement : '?'
                           }
                           key={index}
                           className="!text-white"
@@ -60,7 +60,7 @@ export const History = () => {
                   </td>
                   <td>
                     <NumberTicket
-                      numberTicket={history?.ticket_count ?? '??'}
+                      numberTicket={history?.ticket_count ?? '?'}
                       ticketId={history.id}
                       history={history}
                     />

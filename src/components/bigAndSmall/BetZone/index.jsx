@@ -12,6 +12,7 @@ import { ConfirmBetModal } from './elements/ConfirmBetModal'
 import { createArrayHasQuantityArrayElement } from 'src/components/lottery/ChooseNumber/helper'
 import { isNil } from 'lodash'
 import { apiGetBetJoined } from 'src/store/sagas/bigAndSmall'
+import { BET_VALUE } from './constant'
 
 export const GameZone = () => {
   const { actions, data } = useBigAndSmall()
@@ -46,16 +47,18 @@ export const GameZone = () => {
           account_id: +account.id,
           game_id: +currentBet?.id,
           amount: +selectedBetValue,
-          bet_value: +(bet === 'small'),
+          bet_value: bet === 'small' ? BET_VALUE.SMALL : BET_VALUE.BIG,
         },
         onSuccess: () => {
           setSelectBet(null)
           setOpenConfirmModal(false)
           authAction.getAccountInfo()
+          actions.getHistory({ code: 'TX1', page: 1, limit: 11 })
         },
         onFailed: () => {
           setSelectBet(null)
           setOpenConfirmModal(false)
+          actions.getHistory({ code: 'TX1', page: 1, limit: 11 })
         },
       })
     }

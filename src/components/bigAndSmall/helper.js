@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { bigNumber } from './History/constant'
+import { BET_VALUE } from './BetZone/constant'
 
 export const winningContent = (winning) => {
   const numbers = winning?.split(',')
@@ -37,10 +38,10 @@ export const formatHistory = (histories) => {
 
 const formatYourPick = (history) => {
   let betValue = 'NON-PICK'
-  if (+history?.attributes?.bet_value === 0) {
+  if (+history?.attributes?.bet_value === +BET_VALUE.SMALL) {
     betValue = `SMALL_${history?.attributes?.current_pot}`
   }
-  if (+history?.attributes?.bet_value === 1) {
+  if (+history?.attributes?.bet_value === +BET_VALUE.BIG) {
     betValue = `BIG_${history?.attributes?.current_pot}`
   }
   return betValue

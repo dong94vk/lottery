@@ -4,7 +4,7 @@ import useAuth from './authentication'
 export const useCountDown = ({ currentBet, onCountDownEnd }) => {
   const { actions: authAction } = useAuth()
 
-  const [remainTime, setRemainTime] = useState({})
+  const [remainTime, setRemainTime] = useState(null)
 
   useEffect(() => {
     const intervalId = setInterval(
@@ -27,7 +27,7 @@ export const useCountDown = ({ currentBet, onCountDownEnd }) => {
       onCountDownEnd && onCountDownEnd()
       authAction.getAccountInfo()
       clearInterval(intervalId)
-      setRemainTime({ hours: '??', minutes: '??', seconds: '??' })
+      setRemainTime(null)
     }
   }
   return remainTime

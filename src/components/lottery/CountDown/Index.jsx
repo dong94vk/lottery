@@ -20,9 +20,9 @@ export const CountDown = () => {
         </Typography.Title>
       </div>
       <div className="count-down__number flex justify-center w-full gap-10">
-        <CountDownNumber text="H" number={remainTime.hours ?? '??'} />
-        <CountDownNumber text="M" number={remainTime.minutes ?? '??'} />
-        <CountDownNumber text="S" number={remainTime.seconds ?? '??'} />
+        <CountDownNumber text="H" number={remainTime?.hours ?? '??'} />
+        <CountDownNumber text="M" number={remainTime?.minutes ?? '??'} />
+        <CountDownNumber text="S" number={remainTime?.seconds ?? '??'} />
       </div>
     </div>
   )

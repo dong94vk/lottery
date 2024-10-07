@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from 'antd'
+import { Col, Row } from 'antd'
 import { Number } from './elements/Number'
 import { CountDown } from './elements/CountDown'
 import { BetValue } from './elements/BetValue'
@@ -48,19 +48,11 @@ export const BigAndSmall = () => {
         span={16}
         className="p-5 flex flex-col justify-center items-center w-full !pl-[50px] gap-5"
       >
-        <div className="flex justify-between w-3/5">
+        <div className="flex justify-around w-2/4">
           <div className="flex justify-center gap-6">
             <Number number={'?'} />
             <Number number={'?'} />
             <Number number={'?'} />
-          </div>
-          <div className="flex flex-col justify-center items-center">
-            <Typography.Text className="text-white font-medium text-base">
-              Session
-            </Typography.Text>
-            <Typography.Text className="text-white font-medium text-base">
-              #{currentBet?.id}
-            </Typography.Text>
           </div>
           <CountDown currentBet={currentBet} />
         </div>

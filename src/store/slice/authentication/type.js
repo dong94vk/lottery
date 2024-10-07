@@ -17,3 +17,7 @@ export const SIGN_UP_FAILED = `${SLICE_AUTH}/signUpFailed`
 export const GET_LIST_PAYMENT = `${SLICE_AUTH}/getListPayment`
 export const GET_LIST_PAYMENT_SUCCESS = `${SLICE_AUTH}/getListPaymentSuccess`
 export const GET_LIST_PAYMENT_FAILED = `${SLICE_AUTH}/getListPaymentFailed`
+
+export const GET_CONFIG = `${SLICE_AUTH}/getConfig`
+export const GET_CONFIG_SUCCESS = `${SLICE_AUTH}/getConfigSuccess`
+export const GET_CONFIG_FAILED = `${SLICE_AUTH}/getConfigFailed`

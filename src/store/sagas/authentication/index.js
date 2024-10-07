@@ -5,6 +5,8 @@ import { API_URL } from 'src/services/api/constant'
 import {
   getAccountInfoFailed,
   getAccountInfoSuccess,
+  getConfigFailed,
+  getConfigSuccess,
   getListPaymentFailed,
   getListPaymentSuccess,
   loginFailed,
@@ -12,13 +14,14 @@ import {
 } from 'src/store/slice/authentication'
 import {
   GET_ACCOUNT_INFO,
+  GET_CONFIG,
   GET_LIST_PAYMENT,
   LOGIN,
   SIGN_UP,
 } from 'src/store/slice/authentication/type'
 import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 
-/* start login */
+/** start login */
 const apiLogin = (params) => {
   return api.post(API_URL.AUTH.LOGIN, params)
 }
@@ -39,9 +42,9 @@ function* doLogin({ payload }) {
   }
 }
 
-/* end login */
+/** end login */
 
-/* start get account info */
+/** start get account info */
 const apiGetAccountInfo = () => {
   return api.get(API_URL.AUTH.ACCOUNT_INFO)
 }
@@ -60,9 +63,9 @@ function* doGetAccountInfo({ payload }) {
     yield put(getAccountInfoFailed(error))
   }
 }
-/* end get account info */
+/** end get account info */
 
-/* start sign up */
+/** start sign up */
 const apiSignUp = (params) => {
   return api.post(API_URL.AUTH.SIGN_UP, params)
 }
@@ -96,7 +99,7 @@ function* doSignUp({ payload }) {
     yield put(signUpFailed(error))
   }
 }
-/* end sign up */
+/** end sign up */
 
 /** start get list payment*/
 export const apiListPayment = (payload) => {
@@ -119,11 +122,27 @@ function* doGetListPayment({ payload }) {
 }
 /** end get list payment */
 
-/* start api payment */
+/** start get config */
 export const apiGetConfig = () => {
   return api.get(API_URL.AUTH.API_CONFIG)
 }
+function* doGetConfig({ payload }) {
+  try {
+    const response = yield call(apiGetConfig, payload)
+    if (response.status !== 200) {
+      yield put(getConfigFailed())
+    }
+    yield put(getConfigSuccess(response))
+    if (payload.onSuccess) {
+      yield payload.onSuccess()
+    }
+  } catch (error) {
+    yield put(getConfigFailed(error))
+  }
+}
+/** end get config */
 
+/** start api payment */
 export const apiCreatePayment = (payload) => {
   return api.post(API_URL.AUTH.CREATE_PAYMENT, payload)
 }
@@ -136,7 +155,7 @@ export const apiRefreshPayment = (payload) => {
   return api.get(API_URL.AUTH.REFRESH_PAYMENT, payload)
 }
 
-/* end api payment */
+/** end api payment */
 
 export function* watchDoLogin() {
   yield takeLatest(LOGIN, doLogin)
@@ -152,4 +171,8 @@ export function* watchDoSignUp() {
 
 export function* watchDoGetListPayment() {
   yield takeLatest(GET_LIST_PAYMENT, doGetListPayment)
+}
+
+export function* watchDoGetConfig() {
+  yield takeLatest(GET_CONFIG, doGetConfig)
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { UserProfileInput } from '../Input'
 import { Icon } from 'src/components/common/icons'
 import { useState } from 'react'
-import { apiCreatePayment, apiGetConfig } from 'src/store/sagas/authentication'
+import { apiCreatePayment } from 'src/store/sagas/authentication'
 import { ethers } from 'ethers'
 import useAuth from 'src/store/hooks/authentication'
 
@@ -28,17 +28,13 @@ export const ModalStyled = styled(Modal)`
 
 export const ModalDeposit = (props) => {
   const { open, setOpen } = props
-  const { actions: authAction } = useAuth()
+  const { actions: authAction, data } = useAuth()
 
   // const [addValue, setAddValue] = useState(null)
   const [byValue, setByValue] = useState(null)
 
   const onSubmitDeposit = async () => {
-    let toAddress = null
-    const res = await apiGetConfig()
-    if (res.status === 200) {
-      toAddress = res.ETH_DEPOSIT_ADDRESS
-    }
+    let toAddress = data?.config?.ETH_DEPOSIT_ADDRESS
     if (toAddress) {
       try {
         const ethereum = await window.ethereum

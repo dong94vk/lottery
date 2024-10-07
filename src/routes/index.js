@@ -43,6 +43,6 @@ export const routes = [
     showInSidebar: true,
     isPublic: false,
     icon: 'setting',
-    className: 'absolute bottom-[-65%]'
+    className: 'absolute bottom-[-68%]'
   },
 ]

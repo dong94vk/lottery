@@ -1,5 +1,4 @@
 import { Col, Row, Typography } from 'antd'
-import { Icon } from 'src/components/common/icons'
 import { Number } from './elements/Number'
 import { CountDown } from './elements/CountDown'
 import { BetValue } from './elements/BetValue'
@@ -8,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { apiGetBetJoined, apiGetHistory } from 'src/store/sagas/bigAndSmall'
 import { formatCurrentBetData } from 'src/store/slice/bigAndSmall/type'
+import BigOrSmallFlag from 'src/assets/images/big_or_small_flag.svg'
 
 export const BigAndSmall = () => {
   const [currentBet, setCurrentBet] = useState(null)
@@ -42,7 +42,7 @@ export const BigAndSmall = () => {
       className="w-full bg-[#1f2129] rounded-[20px] overflow-hidden"
     >
       <Col span={8} className="gamezone__flag !pl-0 !pr-0">
-        <Icon name="bigAndSmallFlag" />
+        <img src={BigOrSmallFlag} alt="big-or-small-flag" className="w-full" />
       </Col>
       <Col
         span={16}
@@ -69,14 +69,14 @@ export const BigAndSmall = () => {
         </div>
         <div className="w-full flex justify-center items-center mt-6 gap-10">
           <BetButton
-            title="small"
+            title="small 3 - 10"
             joinNumber="3515"
             prize={betJoined.small || 0}
             textColor="#00FBFB"
             onClick={() => handleChangeBet('small')}
           />
           <BetButton
-            title="big"
+            title="big 11 - 18"
             joinNumber="3890"
             prize={betJoined.big || 0}
             textColor="#51EE37"

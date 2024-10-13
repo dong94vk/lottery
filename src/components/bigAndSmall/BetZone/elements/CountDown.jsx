@@ -11,7 +11,7 @@ export const CountDown = () => {
 
   const onCountDownEnd = () => {
     actions.getCurrentBetResult({ code: 'TX1', page: 1, limit: 2 })
-    delay(() => actions.getHistory({ code: 'TX1', page: 1, limit: 11 }), 5000)
+    delay(() => actions.getHistory({ code: 'TX1', page: 1, limit: 11 }), 10000)
   }
 
   const remainTime = useCountDown({ currentBet, onCountDownEnd })

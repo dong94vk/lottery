@@ -26,7 +26,6 @@ export const History = () => {
           <thead className="border-b-2 border-[#66686C60] text-center table-header text-[16px] font-medium">
             <tr>
               <td className="pb-5">Time</td>
-              <td className="pb-5">Draw</td>
               <td className="pb-5">Winning</td>
               <td className="pb-5">Prize pot</td>
               <td className="pb-5">Your tickets</td>
@@ -41,7 +40,6 @@ export const History = () => {
               return (
                 <tr key={index} className="text-center text-base font-semibold">
                   <td>{dayjs(history.time).format('DD/MM/YYYY')}</td>
-                  <td>#{history.id}</td>
                   <td className="flex gap-3 justify-center py-2">
                     {historyPrize.map((numberElement, index) => {
                       return (

@@ -63,7 +63,7 @@ function PrivateLayout({ children }) {
           setOpenSignUp={setOpenRegister}
           setOpenSignIn={setOpenSignIn}
         />
-        <Sider width={221} className="overflow-hidden">
+        <Sider width={221} className="overflow-hidden !bg-transperent">
           <img
             src={LotteryBanner}
             className="w-full h-[430px]"

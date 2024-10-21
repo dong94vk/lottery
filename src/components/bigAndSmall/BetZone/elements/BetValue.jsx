@@ -4,9 +4,7 @@ import { Icon } from 'src/components/common/icons'
 import styled from 'styled-components'
 
 export const BetValueStyled = styled.div`
-  .ant-input {
-    padding: unset !important;
-  }
+  
 `
 
 export const BetValue = (props) => {
@@ -33,14 +31,14 @@ export const BetValue = (props) => {
 
   const flagClass = 'border-[1px] border-white shadow-[0_1px_4px_0_#FFFFFF40]'
 
-  const selectedClass = 'border-solid border-[1px] bg-[#8e9094]'
+  const selectedClass = 'border-solid border-[1px] bg-[#a5a6a9]'
 
   return (
     <BetValueStyled className="flex w-full justify-center gap-4">
       {betValue.map((value) => (
         <span
           key={value}
-          className={`flex items-center gap-1 pb-2 pt-2 pl-2 pr-2 shadow-[inset_0_1px_4px_0px_#FFFFFF40] rounded-lg select-none cursor-pointer ${
+          className={`flex items-center gap-1 pb-2 pt-2 pl-2 pr-2 shadow-[inset_0_1px_4px_0px_#FFFFFF40] rounded-lg select-none cursor-pointer bg-[#58595f] ${
             selected === value ? selectedClass : ''
           } ${flagSelected ? flagClass : ''}`}
           onClick={() => onChangeBetValue(value)}

@@ -9,19 +9,11 @@ import { chunk } from 'lodash'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { apiBetHistory } from 'src/store/sagas/bigAndSmall'
-import useBigAndSmall from 'src/store/hooks/bigAndSmall'
+import useLottery from 'src/store/hooks/lottery'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
   color: #ffffff;
-
-  .ant-modal-header {
-    background: transparent;
-  }
-
-  .ant-modal-content {
-    background: #13151d;
-  }
 
   ::placeholder {
     color: #757575;
@@ -31,7 +23,7 @@ export const ModalStyled = styled(Modal)`
 `
 export const HistoryTicketModal = (props) => {
   const { history } = props
-  const { data } = useBigAndSmall()
+  const { data } = useLottery()
   const { setting } = data
   const [betHistory, setBetHistory] = useState(null)
 

@@ -1,6 +1,5 @@
 body {
-  font-family: 'Inter';
-  font-size: 22px;
+  font-family: 'Inter', serif;
   padding: 0 0 30px 0;
   background-color: #12151d;
   letter-spacing: -0.3px;
@@ -13,6 +12,10 @@ body {
 .ant-input {
   color: #ffffff !important;
   background: transparent;
+}
+
+.ant-layout-sider-children {
+  background: #13151d;
 }
 
 .ant-pagination .ant-pagination-item-active {

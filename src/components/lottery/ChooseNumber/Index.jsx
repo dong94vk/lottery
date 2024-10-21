@@ -40,7 +40,7 @@ export const ChooseNumber = (props) => {
     if (remainElement > 0) {
       newElements = createArrayHasQuantityArrayElement(
         remainElement,
-        setting.numberQuantity,
+        setting.numberQuantity || 6,
       )
     }
     const newArr = concat(numbersArr, newElements)
@@ -48,7 +48,7 @@ export const ChooseNumber = (props) => {
   }
 
   const onClickAddTicket = () => {
-    if (numberAdd.length !== setting?.numberQuantity) {
+    if (numberAdd.length !== (setting?.numberQuantity || 6)) {
       return
     }
     const newNumberSelected = cloneDeep(numberSelected)

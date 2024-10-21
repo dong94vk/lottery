@@ -1,5 +1,4 @@
 export const HistoryBigAndSmallHeader = [
-  { title: 'Time', data: 'time' },
   { title: 'Session', data: 'session' },
   { title: 'Winning', data: 'winning' },
   { title: 'Your pick', data: 'yourPick' },

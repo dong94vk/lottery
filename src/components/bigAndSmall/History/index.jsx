@@ -86,7 +86,6 @@ export const History = () => {
                   key={`historyBigAndSmall-${index}`}
                   className="text-center text-base font-semibold"
                 >
-                  <td>{history.time}</td>
                   <td>#{history.session}</td>
                   <td>{winningContent(history.winning)}</td>
                   <td>{renderYourPick(history.yourPick)}</td>

@@ -15,6 +15,14 @@ export const ModalStyled = styled(Modal)`
   border-radius: 20px;
   color: #ffffff;
 
+  .ant-modal-header {
+    background: transparent;
+  }
+
+  .ant-modal-content {
+    background: #13151d;
+  }
+
   ::placeholder {
     color: #757575;
     font-size: 14px;

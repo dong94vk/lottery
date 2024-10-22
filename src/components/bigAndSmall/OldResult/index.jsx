@@ -9,10 +9,17 @@ import useBigAndSmall from 'src/store/hooks/bigAndSmall'
 
 export const OldResult = () => {
   const [oldResult, setOldResult] = useState([])
+  const [focus, setFocus] = useState(null)
   const { data } = useBigAndSmall()
   const [page, setPage] = useState(1)
   useEffect(() => {
     fetchData(page)
+    if(page === 1) {
+      setFocus(1)
+    } else {
+      setFocus(null)
+    }
+
   }, [page, data])
 
   const fetchData = async (page) => {
@@ -26,8 +33,7 @@ export const OldResult = () => {
     if (arrow === 'prev') setPage(page + 1)
   }
 
-  return (
-    <>
+  return (<>
       <Typography.Title level={3} className="!text-white w-full !mb-[-20px]">
         Old results
       </Typography.Title>
@@ -38,39 +44,47 @@ export const OldResult = () => {
         <Icon name="previous" onClick={() => handleChangePage('prev')} />
         <table className="bg-transparent table-auto w-3/4 mt-3">
           <thead className="border-b-2 border-[#66686C60] text-center table-header text-[16px] font-medium">
-            <tr>
-              <td className="pb-3">Session</td>
-              {formatHistory(oldResult)?.map((history) => (
-                <td className="pb-3" key={`old-result-${history.session}`}>
-                  #{history.session}
-                </td>
-              ))}
-            </tr>
+          <tr>
+            <td className="pb-3">Session</td>
+            {formatHistory(oldResult)?.map((history, index) => (<td
+                className={`pb-3`}
+                onClick={() => setFocus(index)}
+                key={`old-result-${history.session}`}
+              >
+                <span className={`${focus === index ? 'bg-[#56595f] p-3 rounded-2xl' : ''}`}>#{history.session}</span>
+              </td>))}
+          </tr>
           </thead>
           <tbody className="pt-4 pb-4">
-            <tr className="text-center text-base font-semibold">
-              <td>Result</td>
-              {formatHistory(oldResult)?.map((history) => {
-                if (isEmpty(history.winning)) {
-                  return (
-                    <td>
-                      <span> ? </span>
-                    </td>
-                  )
-                }
+          <tr className="text-center text-base font-semibold">
+            <td>Result</td>
+            {formatHistory(oldResult)?.map((history, index) => {
+              if (isEmpty(history.winning)) {
                 return (
-                  <td>
+                  <td
+                    // onClick={() => setFocus(index)}
+                    key={`oldResult-${index}`}
+                    className={`${focus === index ? 'bg-[#56595f] rounded-2xl' : ''}`}
+                  >
+                    <span> ? </span>
+                  </td>)
+              }
+              return (<td
+                  // onClick={() => setFocus(index)}
+                  key={`oldResult-${index}`}
+                  className={`${focus === index ? 'bg-[#56595f] rounded-2xl' : ''}`}
+                >
+                  <span >
                     <span>{getBigAndSmallResult(history.winning)}</span>
                     <br />
                     <span>({history.winning?.replaceAll(',', '-')})</span>
-                  </td>
-                )
-              })}
-            </tr>
+                  </span>
+                </td>)
+            })}
+          </tr>
           </tbody>
         </table>
         <Icon name="next" onClick={() => handleChangePage('next')} />
       </Row>
-    </>
-  )
+    </>)
 }

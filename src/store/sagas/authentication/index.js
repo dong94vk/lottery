@@ -116,6 +116,12 @@ function* doGetListPayment({ payload }) {
     if (payload.onSuccess) {
       yield payload.onSuccess()
     }
+    if (response.error) {
+      addNotification(
+        first(response.error_description),
+        NOTIFICATION_TYPE.ERROR,
+      )
+    }
   } catch (error) {
     yield put(getListPaymentFailed(error))
   }
@@ -135,6 +141,12 @@ function* doGetConfig({ payload }) {
     yield put(getConfigSuccess(response))
     if (payload.onSuccess) {
       yield payload.onSuccess()
+    }
+    if (response.error) {
+      addNotification(
+        first(response.error_description),
+        NOTIFICATION_TYPE.ERROR,
+      )
     }
   } catch (error) {
     yield put(getConfigFailed(error))

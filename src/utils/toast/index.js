@@ -1,6 +1,6 @@
 import { Store } from 'react-notifications-component'
 
-const NOTIFICATION_DURATION = 5000
+const NOTIFICATION_DURATION = 3000
 
 export const NOTIFICATION_TYPE = {
   SUCCESS: 'success',
@@ -20,7 +20,7 @@ export const NOTIFICATION_TYPE = {
 const addNotification = (
   message,
   type = NOTIFICATION_TYPE.INFO,
-  title = 'Thông báo',
+  title = 'Notification',
   duration = NOTIFICATION_DURATION,
 ) => {
   Store.addNotification({

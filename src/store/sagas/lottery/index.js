@@ -17,6 +17,8 @@ import {
 } from 'src/store/slice/lottery/type'
 import { api } from 'src/services/api'
 import { API_URL } from 'src/services/api/constant'
+import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
+import { first } from 'lodash'
 
 /* start get setting */
 export const apiGetSetting = (params) => {
@@ -26,6 +28,12 @@ export const apiGetSetting = (params) => {
 function* doGetSetting({ payload }) {
   try {
     const response = yield call(apiGetSetting, payload)
+    if (response.error) {
+      addNotification(
+        first(response.error_description),
+        NOTIFICATION_TYPE.ERROR,
+      )
+    }
     if (response?.status !== 200) {
       yield put(getSettingFailed())
     }
@@ -52,6 +60,12 @@ export const apiBetHistory = (payload) => {
 function* doGetHistory({ payload }) {
   try {
     const response = yield call(apiGetHistory, payload)
+    if (response.error) {
+      addNotification(
+        first(response.error_description),
+        NOTIFICATION_TYPE.ERROR,
+      )
+    }
     if (response?.status !== 200) {
       yield put(getHistoryFailed())
     }
@@ -74,10 +88,13 @@ export const apiSubmitBet = (payload) => {
 function* doSubmitBet({ payload }) {
   try {
     const response = yield call(apiSubmitBet, payload.body)
+    if (response.error) {
+      addNotification(
+        first(response.error_description),
+        NOTIFICATION_TYPE.ERROR,
+      )
+    }
     if (!response?.data) {
-      if (payload.onFailed) {
-        yield payload.onFailed()
-      }
       yield put(submitBetFailed())
     }
     yield put(submitBetSuccess(response.data))
@@ -102,6 +119,12 @@ export const apiSubmitBetBatch = (payload) => {
 function* doSubmitBetBatch({ payload }) {
   try {
     const response = yield call(apiSubmitBetBatch, payload.body)
+    if (response.error) {
+      addNotification(
+        first(response.error_description),
+        NOTIFICATION_TYPE.ERROR,
+      )
+    }
     if (!response?.data) {
       yield put(submitBetBatchFailed())
     }

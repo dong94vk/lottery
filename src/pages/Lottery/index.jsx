@@ -53,6 +53,12 @@ export const LotteryPage = () => {
       onSuccess: () => {
         setOpenBuyTicketModal(true)
         authAction.getAccountInfo()
+        actions.getHistory({
+          code: 'LT6452',
+          page: 1,
+          limit: 6,
+          user_id: account?.id,
+        })
       }, // show popup thông báo mua ticket thành công
       onFailed: () =>
         addNotification('Something went wrong!', NOTIFICATION_TYPE.ERROR),

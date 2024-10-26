@@ -10,6 +10,7 @@ import { Icon } from 'src/components/common/icons'
 import { cloneDeep, compact, concat, isEmpty, pullAt } from 'lodash'
 import { MaxNumberTicket } from './constant'
 import useLottery from 'src/store/hooks/lottery'
+import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 
 export const ChooseNumber = (props) => {
   const { onSubmitBuyTicket } = props
@@ -49,6 +50,7 @@ export const ChooseNumber = (props) => {
 
   const onClickAddTicket = () => {
     if (numberAdd.length !== (setting?.numberQuantity || 6)) {
+      addNotification(`choose ${setting?.numberQuantity || 6} number`, NOTIFICATION_TYPE.WARNING)
       return
     }
     const newNumberSelected = cloneDeep(numberSelected)

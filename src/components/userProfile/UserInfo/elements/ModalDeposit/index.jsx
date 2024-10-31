@@ -1,11 +1,11 @@
-import { Button, Modal, Typography } from 'antd'
+import { Button, Modal, Select, Typography } from 'antd'
 import styled from 'styled-components'
 import { UserProfileInput } from '../Input'
-import { Icon } from 'src/components/common/icons'
 import { useState } from 'react'
 import { apiCreatePayment } from 'src/store/sagas/authentication'
 import { ethers } from 'ethers'
 import useAuth from 'src/store/hooks/authentication'
+import { DEPOSIT_UNIT_OPTIONS } from 'src/components/userProfile/UserInfo/elements/ModalDeposit/constant'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -32,9 +32,23 @@ export const ModalDeposit = (props) => {
 
   // const [addValue, setAddValue] = useState(null)
   const [byValue, setByValue] = useState(null)
+  const [depositUnit, setDepositUnit] = useState('ETH')
+
+  const getAddress = (depositUnit) => {
+    if(depositUnit === 'ETH') {
+      return data?.config?.ETH_DEPOSIT_ADDRESS
+    }
+    if(depositUnit === 'BNB') {
+      return data?.config?.BNB_DEPOSIT_ADDRESS
+    }
+
+    if(depositUnit === 'USDT_BEP20') {
+      return data?.config?.USDT_BEP20_DEPOSIT_ADDRESS
+    }
+  }
 
   const onSubmitDeposit = async () => {
-    let toAddress = data?.config?.ETH_DEPOSIT_ADDRESS
+    let toAddress = getAddress(depositUnit)
     if (toAddress) {
       try {
         const ethereum = await window.ethereum
@@ -55,7 +69,7 @@ export const ModalDeposit = (props) => {
         })
         const createPaymentData = {
           amount: byValue,
-          currency: 'ETH',
+          currency: depositUnit,
           ext_id: transactionHash,
         }
         await apiCreatePayment(createPaymentData)
@@ -66,6 +80,10 @@ export const ModalDeposit = (props) => {
         console.log('err :>> ', err)
       }
     }
+  }
+
+  const onChangeDepositUnit = (e) => {
+    setDepositUnit(e)
   }
 
   return (
@@ -87,12 +105,20 @@ export const ModalDeposit = (props) => {
         suffix={<Icon name="dollar" />}
         onChange={setAddValue}
       /> */}
+      <div className="flex justify-start items-center">
       <UserProfileInput
         text="Deposit"
-        suffix={<Icon name="eth" />}
+        // suffix={<Icon name="eth" />}
         onChange={setByValue}
-        inputClassName="mt-3"
+        inputClassName="mt-3 w-2/3"
       />
+      <Select
+        defaultValue={['ETH']}
+        onChange={onChangeDepositUnit}
+        className="!bg-[#181C28] w-1/3 h-[30px]"
+        options={DEPOSIT_UNIT_OPTIONS}
+      />
+      </div>
       <div className="flex justify-center">
         <Button
           className="bg-custom-gradient rounded-xl p-[12px_46px_12px_46px] w-2/4 h-[50px] text-lg font-semibold !text-white inline-flex justify-center mt-3"

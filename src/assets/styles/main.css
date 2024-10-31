@@ -60,3 +60,23 @@ input::placeholder {
   text-align: center !important;
   padding: 0 !important;
 }
+
+.ant-select-selector {
+  background: #181C28 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 0 12px 0 #FFFFFF40;
+  height: 46px !important;
+  padding: 8px 11px !important;
+}
+
+.ant-select-focused {
+  background: #181C28 !important;
+  color: #ffffff !important;
+}
+
+.ant-select-single.ant-select-open.ant-select-selection-item {
+  background: #181C28 !important;
+  color: #ffffff !important;
+}
+

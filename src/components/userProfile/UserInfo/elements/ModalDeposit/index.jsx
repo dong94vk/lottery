@@ -1,11 +1,11 @@
 import { Button, Modal, Select, Typography } from 'antd'
 import styled from 'styled-components'
 import { UserProfileInput } from '../Input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { apiCreatePayment } from 'src/store/sagas/authentication'
-import { ethers } from 'ethers'
 import useAuth from 'src/store/hooks/authentication'
 import { DEPOSIT_UNIT_OPTIONS } from 'src/components/userProfile/UserInfo/elements/ModalDeposit/constant'
+import { Currency } from 'src/store/hooks/useConnectWallet'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -27,49 +27,46 @@ export const ModalStyled = styled(Modal)`
 `
 
 export const ModalDeposit = (props) => {
-  const { open, setOpen } = props
+  const { open, setOpen, currency, setCurrency, provider, walletAddress } =
+    props
   const { actions: authAction, data } = useAuth()
-
-  // const [addValue, setAddValue] = useState(null)
   const [byValue, setByValue] = useState(null)
-  const [depositUnit, setDepositUnit] = useState('ETH')
+  const [toAddress, setToAddress] = useState(null)
+  useEffect(() => {
+    setToAddress(getAddress(currency))
+  }, [currency])
 
-  const getAddress = (depositUnit) => {
-    if(depositUnit === 'ETH') {
-      return data?.config?.ETH_DEPOSIT_ADDRESS
-    }
-    if(depositUnit === 'BNB') {
-      return data?.config?.BNB_DEPOSIT_ADDRESS
-    }
-
-    if(depositUnit === 'USDT_BEP20') {
-      return data?.config?.USDT_BEP20_DEPOSIT_ADDRESS
+  const getAddress = (currency) => {
+    switch (currency) {
+      case Currency.ETH:
+        return data?.config?.ETH_DEPOSIT_ADDRESS
+      case Currency.BNB:
+        return data?.config?.BNB_DEPOSIT_ADDRESS
+      case Currency.USDT_BEP20:
+        return data?.config?.USDT_BEP20_DEPOSIT_ADDRESS
+      default:
+        return data?.config?.ETH_DEPOSIT_ADDRESS
     }
   }
 
   const onSubmitDeposit = async () => {
-    let toAddress = getAddress(depositUnit)
     if (toAddress) {
       try {
-        const ethereum = await window.ethereum
-        const provider = new ethers.BrowserProvider(ethereum)
-        const signer = await provider.getSigner()
-        const params = [
-          {
-            to: toAddress,
-            from: signer.address,
-            value: byValue,
-            data: '0x',
-            gasPrice: null,
-          },
-        ]
-        const transactionHash = await ethereum.request({
+        const transactionHash = await provider.request({
           method: 'eth_sendTransaction',
-          params,
+          params: [
+            {
+              to: toAddress,
+              from: walletAddress,
+              value: byValue,
+              data: '0x',
+              gasPrice: null,
+            },
+          ],
         })
         const createPaymentData = {
           amount: byValue,
-          currency: depositUnit,
+          currency: currency,
           ext_id: transactionHash,
         }
         await apiCreatePayment(createPaymentData)
@@ -83,7 +80,7 @@ export const ModalDeposit = (props) => {
   }
 
   const onChangeDepositUnit = (e) => {
-    setDepositUnit(e)
+    setCurrency(e)
   }
 
   return (
@@ -100,24 +97,18 @@ export const ModalDeposit = (props) => {
         </Typography.Text>
       }
     >
-      {/* <UserProfileInput
-        text="Add"
-        suffix={<Icon name="dollar" />}
-        onChange={setAddValue}
-      /> */}
       <div className="flex justify-start items-center">
-      <UserProfileInput
-        text="Deposit"
-        // suffix={<Icon name="eth" />}
-        onChange={setByValue}
-        inputClassName="mt-3 w-2/3"
-      />
-      <Select
-        defaultValue={['ETH']}
-        onChange={onChangeDepositUnit}
-        className="!bg-[#181C28] w-1/3 h-[30px]"
-        options={DEPOSIT_UNIT_OPTIONS}
-      />
+        <UserProfileInput
+          text="Deposit"
+          onChange={setByValue}
+          inputClassName="mt-3 !w-2/3"
+        />
+        <Select
+          defaultValue={['ETH']}
+          onChange={onChangeDepositUnit}
+          className="!bg-[#181C28] w-1/3 h-[30px]"
+          options={DEPOSIT_UNIT_OPTIONS}
+        />
       </div>
       <div className="flex justify-center">
         <Button

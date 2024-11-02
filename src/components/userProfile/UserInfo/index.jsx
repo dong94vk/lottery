@@ -6,11 +6,15 @@ import { UserProfileInput } from 'src/components/userProfile/UserInfo/elements/I
 import { ModalDeposit } from 'src/components/userProfile/UserInfo/elements/ModalDeposit'
 import { ModalWithdraw } from 'src/components/userProfile/UserInfo/elements/ModalWithDraw'
 import useAuth from 'src/store/hooks/authentication'
+import { ModalSelectWallet } from './elements/ModalSelectWallet'
 
 export const UserInfo = () => {
   const username = localStorage.getItem('username')
   const email = localStorage.getItem('email')
   const [walletAddress, setWalletAddress] = useState(null)
+  const [provider, setProvider] = useState(null)
+  const [currency, setCurrency] = useState('ETH')
+  const [openModalSelectWallet, setOpenModalSelectWallet] = useState(false)
 
   const [openDeposit, setOpenDeposit] = useState(false)
   const [openWithdraw, setOpenWithdraw] = useState(false)
@@ -18,47 +22,18 @@ export const UserInfo = () => {
   const { data } = useAuth()
 
   const onClickConnectWallet = async () => {
-    try {
-      const ethereum = window.ethereum
-      // Check if MetaMask is installed
-      if (typeof ethereum !== 'undefined') {
-        // Request access to the user's MetaMask accounts
-        const accounts = await ethereum.request({
-          method: 'eth_requestAccounts',
-        })
-        const address = accounts[0]
-        setWalletAddress(address)
-      }
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log('err :>> ', err)
-    }
+    setOpenModalSelectWallet(true)
   }
 
   const handleClickDeposit = async () => {
-    if (!walletAddress) {
-      try {
-        const ethereum = window.ethereum
-        // Check if MetaMask is installed
-        if (typeof ethereum !== 'undefined') {
-          // Request access to the user's MetaMask accounts
-          const accounts = await ethereum.request({
-            method: 'eth_requestAccounts',
-          })
-          const address = accounts[0]
-          setWalletAddress(address)
-        }
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log('err :>> ', err)
-      }
-    }
+    if (!walletAddress) setOpenModalSelectWallet(true)
     setOpenDeposit(true)
   }
 
   const onClickWithdraw = () => {
     setOpenWithdraw(true)
   }
+
   return (
     <Row
       gutter={24}
@@ -126,11 +101,25 @@ export const UserInfo = () => {
           {!walletAddress ? '' : 'Payment history'}
         </Typography.Text>
       </Col>
-      <ModalDeposit open={openDeposit} setOpen={setOpenDeposit} />
+      <ModalDeposit
+        open={openDeposit}
+        setOpen={setOpenDeposit}
+        walletAddress={walletAddress}
+        currency={currency}
+        setCurrency={setCurrency}
+        provider={provider}
+      />
       <ModalWithdraw
         open={openWithdraw}
         setOpen={setOpenWithdraw}
         walletAddress={walletAddress}
+      />
+      <ModalSelectWallet
+        open={openModalSelectWallet}
+        setOpen={setOpenModalSelectWallet}
+        setConnectedAccount={setWalletAddress}
+        setCurrency={setCurrency}
+        setProvider={setProvider}
       />
     </Row>
   )

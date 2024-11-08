@@ -6,6 +6,8 @@ import { apiCreatePayment } from 'src/store/sagas/authentication'
 import useAuth from 'src/store/hooks/authentication'
 import { DEPOSIT_UNIT_OPTIONS } from 'src/components/userProfile/UserInfo/elements/ModalDeposit/constant'
 import { Currency } from 'src/store/hooks/useConnectWallet'
+import { web3 } from 'src/services/web3'
+import addNotification, { NOTIFICATION_TYPE } from 'src/utils/toast'
 
 export const ModalStyled = styled(Modal)`
   border-radius: 20px;
@@ -50,7 +52,56 @@ export const ModalDeposit = (props) => {
   }
 
   const onSubmitDeposit = async () => {
-    if (toAddress) {
+    if(!byValue) {
+      addNotification('Input deposit', NOTIFICATION_TYPE.ERROR)
+      return
+    }
+    if (toAddress && currency === Currency.USDT_BEP20) {
+      const chainIdConfig = 97
+      let paramsConfig = [
+        {
+          chainId: `0x${Number(chainIdConfig).toString(16)}`,
+          rpcUrls: ['https://bsc.blockpi.network/v1/rpc/public'],
+          blockExplorerUrls: ['https://bscscan.com/'],
+          chainName: 'BNB',
+          nativeCurrency: {
+            name: 'tBNB',
+            symbol: 'tBNB',
+            decimals: 18,
+          },
+        },
+      ]
+      try {
+        await provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: `0x${Number(chainIdConfig).toString(16)}` }],
+        })
+      } catch (e) {
+        await provider.request({
+          method: 'wallet_addEthereumChain',
+          params: paramsConfig,
+        })
+      }
+      const w3 =  await web3();
+      const contractAddressUsdt = '0x7ef95a0FEE0Dd31b22626fA2e10Ee6A223F8a684';
+      const addressTransferTo = toAddress;
+      const UsdtAbi = require('src/services/abi/usdt.json');
+      const contractUsdt = new w3.eth.Contract(UsdtAbi,contractAddressUsdt )
+      const priceWei =    w3.utils.toWei(byValue, 'ether')
+      await contractUsdt.methods.transfer(addressTransferTo, priceWei).send({
+        from: addressTransferTo,
+      })
+      const createPaymentData = {
+        amount: byValue,
+        currency: currency,
+        ext_id: contractAddressUsdt,
+      }
+      await apiCreatePayment(createPaymentData)
+      setOpen(false)
+      authAction.getListPayment({ limit: 10, page: 1 })
+    }
+
+    if (toAddress && currency !== Currency.USDT_BEP20) {
       try {
         const transactionHash = await provider.request({
           method: 'eth_sendTransaction',

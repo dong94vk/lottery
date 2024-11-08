@@ -44,7 +44,7 @@ export const ModalSelectWallet = (props) => {
       const currency = ChangeIdToCurrency[Number(chainId)]
       setCurrency(currency)
     } catch (error) {
-      throw new Error('Failed to connect to provider')
+      // throw new Error('Failed to connect to provider')
     }
   }
 
